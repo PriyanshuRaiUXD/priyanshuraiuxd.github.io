@@ -8,8 +8,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script:wght@400&display=swap" rel="stylesheet">
 
-  <!-- Favicon: External crown PNG -->
-  <!-- Using Icons8 crown in accent orange -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/ios-filled/64/FFA500/crown.png">
   <link rel="shortcut icon" href="https://img.icons8.com/ios-filled/64/FFA500/crown.png">
 
@@ -124,11 +123,17 @@
       text-align: center;
       padding: 6rem 2rem 2rem;
     }
-    .content p {
-      max-width: 600px;
+    .justified-text {
+      max-width: 800px;       /* even wider for more horizontal spread */
       font-size: 2rem;
-      line-height: 1.3;
+      line-height: 1.7;
       font-weight: 300;
+      margin: 0 auto;
+      text-align: justify;      /* full justification */
+      text-align-last: center;  /* center the final line */
+    }
+    .justified-text p {
+      margin: 0;                /* remove any paragraph gap */
     }
 
     footer {
@@ -191,7 +196,11 @@
   </nav>
 
   <div class="content">
-    <p><br>Hi, I’m Priyanshu Rai, a UX designer based in Germany with over 3 years of experience creating delightful digital experiences, passionately diving into user research, wireframing, prototyping, and usability testing—turning complex problems into elegant solutions and occasionally transforming coffee into pixel-perfect wireframes. Let’s make something users love!</p>
+    <div class="justified-text">
+      <p>
+        Hi, I’m Priyanshu Rai, a UX designer based in Germany with over 3 years of experience creating delightful digital experiences, passionately diving into user research, wireframing, prototyping, and usability testing—turning complex problems into elegant solutions and occasionally transforming coffee into pixel-perfect wireframes. Let’s make something users love!
+      </p>
+    </div>
   </div>
 
   <footer>
