@@ -124,16 +124,16 @@
       padding: 6rem 2rem 2rem;
     }
     .justified-text {
-      max-width: 800px;       /* even wider for more horizontal spread */
+      max-width: 800px;
       font-size: 2rem;
       line-height: 1.7;
       font-weight: 300;
       margin: 0 auto;
-      text-align: justify;      /* full justification */
-      text-align-last: center;  /* center the final line */
+      text-align: justify;
+      text-align-last: center;
     }
     .justified-text p {
-      margin: 0;                /* remove any paragraph gap */
+      margin: 0;
     }
 
     footer {
@@ -167,6 +167,7 @@
       justify-content: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: transform .2s ease, opacity .3s ease;
+      z-index: 100;
     }
     #scrollToFooter svg {
       width: 1.5rem;
@@ -177,10 +178,6 @@
       display: flex;
       opacity: 1;
       transform: translateY(0);
-    }
-    #scrollToFooter.hide {
-      opacity: 0;
-      transform: translateY(20px);
     }
   </style>
 </head>
@@ -229,16 +226,23 @@
 
     // Scroll-to-footer behavior
     const scrollBtn = document.getElementById('scrollToFooter');
-    const footer = document.querySelector('footer');
-    scrollBtn.addEventListener('click', () => footer.scrollIntoView({ behavior: 'smooth' }));
+    scrollBtn.addEventListener('click', () => document.querySelector('footer').scrollIntoView({ behavior: 'smooth' }));
 
-    // Observe footer visibility
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        scrollBtn.classList.toggle('show', !entry.isIntersecting);
-      });
-    }, { threshold: 0 });
-    observer.observe(footer);
+    // Show button when page is scrollable but not at bottom
+    function toggleScrollBtn() {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight > doc.clientHeight;
+      const atBottom = window.scrollY + doc.clientHeight >= doc.scrollHeight;
+      if (scrollable && !atBottom) {
+        scrollBtn.classList.add('show');
+      } else {
+        scrollBtn.classList.remove('show');
+      }
+    }
+
+    window.addEventListener('load',   toggleScrollBtn);
+    window.addEventListener('scroll', toggleScrollBtn);
+    window.addEventListener('resize', toggleScrollBtn);
   </script>
 </body>
 </html>
