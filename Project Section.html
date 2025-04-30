@@ -1,14 +1,48 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects – Priyanshu Rai</title>
+
+  <!-- SEO Meta Description -->
+  <meta name="description" content="Explore Priyanshu Rai’s featured UX projects including WellNexus Healthcare App and Shoppio E-Commerce App. Discover my process and designs." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Priyanshu Rai – UX Designer | Projects" />
+  <meta property="og:description" content="Discover my UX projects: WellNexus Healthcare, Shoppio E-Commerce, and more coming soon." />
+  <meta property="og:image" content="https://www.priyanshuux.com/og-image-projects.png" />
+  <meta property="og:url" content="https://www.priyanshuux.com/Project Section.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Priyanshu Rai – UX Designer | Projects" />
+  <meta name="twitter:description" content="Check out my UX case studies: WellNexus, Shoppio, and upcoming projects." />
+  <meta name="twitter:image" content="https://www.priyanshuux.com/og-image-projects.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Projects – Priyanshu Rai",
+    "url": "https://www.priyanshuux.com/Project Section.html",
+    "description": "Explore featured UX projects by Priyanshu Rai, including WellNexus and Shoppio.",
+    "author": {
+      "@type": "Person",
+      "name": "Priyanshu Rai"
+    }
+  }
+  </script>
+
   <!-- Favicon: External crown PNG -->
   <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/ios-filled/64/FFA500/crown.png" />
   <link rel="shortcut icon" href="https://img.icons8.com/ios-filled/64/FFA500/crown.png" />
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@400&display=swap" rel="stylesheet" />
+
   <style>
     /* Touch-triggered expansion */
     .deck-container.expanded .deck a:nth-child(1) { transform: translateX(-50%) translateX(calc(-2 * (var(--card-width) + var(--card-gap)))); }
@@ -51,20 +85,11 @@
     /* Main & Deck */
     main { flex: 1; padding: 6rem 2rem 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
     .projects-title { font-size: 2.2rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 1px; }
-    .deck-container {
-      position: relative;
-      /* overflow rules removed to always show cards */
-    }
-    /* .deck-container.expanded rules no longer needed */.deck-container.expanded {
-      overflow: visible; /* reveal cards when expanded */
-    }
+    .deck-container { position: relative; }
+    .deck-container.expanded { overflow: visible; }
     .deck { position: relative; width: 100%; height: var(--card-height); margin: 0 auto 2rem; cursor: pointer; }
     .deck a { position: absolute; top: 0; left: 50%; width: var(--card-width); height: var(--card-height); background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease; }
-    .deck img {
-      max-width: 90%; max-height: 60%; /* enlarged logos */
-      margin-bottom: 1rem;
-      transition: filter var(--transition-speed) ease, width var(--transition-speed) ease;
-    }
+    .deck img { max-width: 90%; max-height: 60%; margin-bottom: 1rem; transition: filter var(--transition-speed) ease, width var(--transition-speed) ease; }
     .deck .caption { font-weight: 400; font-size: 1rem; letter-spacing: 0.5px; transition: color var(--transition-speed) ease; text-align: center; margin-top: auto; }
     .deck a:nth-child(3) .caption, .deck a:nth-child(4) .caption, .deck a:nth-child(5) .caption { color: var(--coming-soon); }
     .deck a:nth-child(1) img, .deck a:nth-child(2) img { filter: grayscale(100%) brightness(0.4); }
@@ -84,7 +109,6 @@
     .deck a:nth-child(1):hover img { filter: brightness(0) invert(1); }
     .deck a:nth-child(1):hover .caption { color: #fff; }
     .deck a:nth-child(2):hover { background-color: #f5f5dc; }
-    /* Removed hover invert for Shoppio logo to keep it unchanged */
     .deck a:nth-child(2):hover .caption { color: #000; }
 
     /* Mobile toggle buttons */
@@ -93,25 +117,8 @@
       .deck-toggle { display: block; position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 0.5rem; font-size: 1.5rem; cursor: pointer; z-index: 10; }
       .deck-toggle.left { left: 0.5rem; }
       .deck-toggle.right { right: 0.5rem; }
-      /* Show one card at a time in mobile view */
-      .deck {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        height: auto; /* allow height to adjust */
-      }
-      .deck a {
-        position: relative;
-        flex: 0 0 100%;
-        margin: 0 var(--card-gap);
-        transform: none !important;
-        scroll-snap-align: center;
-      }
-    }@media (max-width: 768px) {
-      .deck-toggle { display: block; position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 0.5rem; font-size: 1.5rem; cursor: pointer; z-index: 10; }
-      .deck-toggle.left { left: 0.5rem; }
-      .deck-toggle.right { right: 0.5rem; }
+      .deck { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; height: auto; }
+      .deck a { position: relative; flex: 0 0 100%; margin: 0 var(--card-gap); transform: none !important; scroll-snap-align: center; }
     }
 
     /* Footer */
@@ -131,7 +138,9 @@
   </nav>
 
   <main>
-    <div class="projects-title">Hi again, I’ve crafted some projects that I’m excited to share—hover over the deck to fan them out!</div>
+    <div class="projects-title">
+      Hi again, I’ve crafted some projects that I’m excited to share—hover over the deck to fan them out!
+    </div>
     <div class="deck-container">
       <button class="deck-toggle left" aria-label="Previous">&#10094;</button>
       <div class="deck">
@@ -163,32 +172,30 @@
   </footer>
 
   <script>
-    document.querySelectorAll('.menu a').forEach(link => { if(link.getAttribute('href') === window.location.pathname.split('/').pop()) link.classList.add('active'); });
+    document.querySelectorAll('.menu a').forEach(link => {
+      if (link.getAttribute('href') === window.location.pathname.split('/').pop()) {
+        link.classList.add('active');
+      }
+    });
+
     // Mobile deck scroll
     const deck = document.querySelector('.deck');
-    const container = document.querySelector('.deck-container');
     const prevBtn = document.querySelector('.deck-toggle.left');
     const nextBtn = document.querySelector('.deck-toggle.right');
     if (deck && prevBtn && nextBtn) {
-      // compute scroll amount as card width + gap
       const card = deck.querySelector('a');
       const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-gap'));
       const scrollAmount = card.offsetWidth + gap * 2;
-      prevBtn.addEventListener('click', () => {
-        deck.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-      nextBtn.addEventListener('click', () => {
-        deck.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
+      prevBtn.addEventListener('click', () => deck.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+      nextBtn.addEventListener('click', () => deck.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
     }
+
     // Touch-triggered expansion on first card
     const firstCard = deck.querySelector('a');
+    const container = document.querySelector('.deck-container');
     if (firstCard && container) {
-      firstCard.addEventListener('touchstart', () => {
-        container.classList.toggle('expanded');
-      });
+      firstCard.addEventListener('touchstart', () => container.classList.toggle('expanded'));
     }
   </script>
-
 </body>
 </html>
