@@ -1,54 +1,666 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Shoppio Case Study</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoppio Case Study - Priyanshu Rai</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><style>text{font-family: 'Satoshi', sans-serif; font-weight: 900;}.main-text{fill:black;}</style><text x='50' y='80' font-size='70' text-anchor='middle' class='main-text'>PR</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Satoshi', sans-serif;
+            background-color: #F9F9F9;
+            color: #27272A;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .primary-button { background-color: #8A3FFC; color: #FFFFFF; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .primary-button:hover { background-color: #792EEA; box-shadow: 0 0 20px rgba(138, 63, 252, 0.3); }
+        .resume-button { border: 1px solid #8A3FFC; color: #8A3FFC; transition: all 0.3s ease; white-space: nowrap; }
+        .resume-button:hover { background-color: #8A3FFC; color: #FFFFFF; }
+        .nav-button { background-color: rgba(0, 0, 0, 0.03); border: 1px solid rgba(0, 0, 0, 0.05); transition: all 0.2s ease; color: #52525B; }
+        .nav-button:hover, .nav-active { background-color: #18181B; color: #FFFFFF !important; border-color: #18181B; }
 
-  <!-- SEO Meta Description -->
-  <meta name="description"
-        content="Explore the Shoppio e-commerce UX case study by Priyanshu Rai, showcasing research, wireframes, prototypes, and final designs." />
+        .logo-container { position: relative; display: flex; align-items: center; min-width: 110px; height: 24px; }
+        .logo-text { position: absolute; white-space: nowrap; }
+        @keyframes name-animation { 0%, 45% { opacity: 1; transform: translateY(0); } 50%, 100% { opacity: 0; transform: translateY(-5px); } }
+        .logo-name { animation: name-animation 8s ease-in-out infinite; }
+        @keyframes title-animation { 0%, 50% { opacity: 0; transform: translateY(5px); } 55%, 95% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
+        .logo-title { opacity: 0; animation: title-animation 8s ease-in-out infinite; }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Shoppio Case Study – UX Design by Priyanshu Rai" />
-  <meta property="og:description"
-        content="Dive deep into the Shoppio e-commerce UX case study by Priyanshu Rai, featuring research insights and design outcomes." />
-  <meta property="og:image"
-        content="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/Shoppio%20Image.svg" />
-  <meta property="og:url" content="https://www.priyanshuux.com/shoppio-case-study.html" />
-  <meta property="og:type" content="article" />
+        .animated-hero-bg {
+            background: linear-gradient(110deg, rgba(249, 249, 249, 1) 25%, rgba(138, 63, 252, 0.05) 50%, rgba(249, 249, 249, 1) 75%);
+            background-size: 200% 200%;
+            animation: animate-bg 15s ease-in-out infinite;
+        }
+        @keyframes animate-bg { 0% { background-position: 10% 0%; } 50% { background-position: 90% 100%; } 100% { background-position: 10% 0%; } } 
+        
+        .secondary-cta { position: relative; overflow: hidden; background-color: transparent; border: 1px solid #d4d4d8; color: #18181B; transition: all 0.3s ease; }
+        .secondary-cta:hover { border-color: #8A3FFC; color: #8A3FFC; box-shadow: 0 0 20px rgba(138, 63, 252, 0.2); }
+        .secondary-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%); transform: skewX(-25deg); transition: left 0.7s ease-in-out; }
+        .secondary-cta:hover::before { left: 150%; }
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Shoppio Case Study – UX Design by Priyanshu Rai" />
-  <meta name="twitter:description"
-        content="Explore the Shoppio e-commerce UX case study by Priyanshu Rai, showcasing research, prototypes, and final designs." />
-  <meta name="twitter:image"
-        content="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/Shoppio%20Image.svg" />
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        .card { background-color: #FFFFFF; border: 1px solid #E4E4E7; border-radius: 1.5rem; padding: 1.5rem; }
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F4F4F5; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #d4d4d8 #F4F4F5; }
 
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "Shoppio Case Study",
-    "author": {
-      "@type": "Person",
-      "name": "Priyanshu Rai"
-    },
-    "url": "https://www.priyanshuux.com/shoppio-case-study.html"
-  }
-  </script>
+        .swipe-affordance {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #18181B;
+            font-weight: 600;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+   
+        .tab-button { background-color: #FFFFFF; border: 1px solid #E4E4E7; color: #52525B; }
+        .tab-button.active { background-color: #8A3FFC; color: #FFFFFF; border-color: #8A3FFC; }
+        .figma-embed-container { position: relative; overflow: hidden; width: 100%; padding-top: 56.25%; border-radius: 1rem; }
+        .figma-embed-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        .ia-tree-container { position: relative; }
+        .ia-tree { display: flex; justify-content: center; }
+        .ia-tree > ul { display: inline-block; vertical-align: top; }
+        .ia-tree ul { padding-top: 20px; position: relative; transition: all 0.5s; }
+        .ia-tree li { text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; transition: all 0.5s; }
+        .ia-tree li::before, .ia-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid #a1a1aa; width: 50%; height: 20px; }
+        .ia-tree li::after { right: auto; left: 50%; border-left: 2px solid #a1a1aa; }
+        .ia-tree li:only-child::after, .ia-tree li:only-child::before { display: none; }
+        .ia-tree li:only-child { padding-top: 0; }
+        .ia-tree li:first-child::before, .ia-tree li:last-child::after { border: 0 none; }
+        .ia-tree li:last-child::before { border-right: 2px solid #a1a1aa; border-radius: 0 5px 0 0; }
+        .ia-tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .ia-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid #a1a1aa; width: 0; height: 20px; }
+        .ia-tree li ul { padding-top: 20px; display: flex; justify-content: center; gap: 1rem; }
+        
+        .ia-sitemap { position: relative; }
+        .ia-sitemap ul { padding: 0; list-style-type: none; }
+        .ia-sitemap li { margin-top: 1rem; padding: 0; }
+        .ia-sitemap li:first-child { margin-top: 0; }
+        .ia-sitemap .ia-node { margin: 0 auto; position: relative; z-index: 2; }
+        .ia-sitemap li::before, .ia-sitemap li::after { display: none; }
+        .ia-line-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-  <style>
-    html, body { margin:0; height:100%; }
-    iframe { display:block; width:100%; height:100%; border:none; }
-  </style>
+        .ia-node {
+            padding: 10px 16px; text-decoration: none; color: #18181B; background-color: #FFFFFF;
+            border: 1px solid #E4E4E7; font-family: 'Satoshi', sans-serif; font-size: 14px;
+            font-weight: 600; display: inline-flex; align-items: center; justify-content: center;
+            gap: 0.5rem; border-radius: 8px; transition: all 0.5s;
+            white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.05); min-width: 230px;
+        }
+        .ia-node-decision { background-color: #F3E8FF; border-color: #D8B4FE; color: #6B21A8; }
+        .ia-node-start-end { background-color: #FEF9C3; border-color: #FDE047; color: #713F12; }
+        .ia-node-parent { background-color: #FEF3C7; border-color: #FBBF24; color: #92400E; font-weight: 700;}
+        .ia-node-success { background-color: #F0FDF4; border-color: #BBF7D0; color: #166534; }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 300px;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 90;
+        }
+        #mobile-menu.active { transform: translateX(0); }
+        #menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 80;
+        }
+        #menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #mobile-menu-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: #27272A;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        #mobile-menu-button.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #mobile-menu-button.active .hamburger-line:nth-child(2) { opacity: 0; }
+        #mobile-menu-button.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    </style>
 </head>
-<body>
-  <iframe
-    src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/Shoppio%20Case%20study%20%20(1).pdf"
-    allowfullscreen
-  ></iframe>
+<body class="antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center p-2 rounded-full bg-white/30 backdrop-blur-lg border border-black/10">
+            <div class="flex-shrink-0 pl-4">
+                <a href="index.html" class="flex items-center">
+                    <div class="logo-container">
+                        <span class="logo-text logo-name text-zinc-800 font-bold">Priyanshu Rai</span>
+                        <span class="logo-text logo-title font-bold text-purple-600">UXD</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="index.html#work" class="nav-button px-4 py-2 rounded-full text-sm font-medium">Projects</a>
+                <a href="index.html#process" class="nav-button px-4 py-2 rounded-full text-sm font-medium">My Flow</a>
+                <a href="about.html" class="nav-button px-4 py-2 rounded-full text-sm font-medium">About</a>
+            </div>
+
+            <div class="flex items-center gap-2 pr-2">
+                <a href="#" class="resume-button px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium">View Resume</a>
+                
+                <div class="hidden md:flex">
+                    <a href="index.html#contact" class="primary-button px-4 py-2 rounded-full text-sm font-bold">Get In Touch</a>
+                </div>
+
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" class="relative z-[101] rounded-full hover:bg-zinc-200/50">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu-backdrop"></div>
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-7 right-6 p-2 z-[102]">
+            <i data-lucide="x" class="w-8 h-8 text-zinc-800"></i>
+        </button>
+        <div class="p-8 pt-24">
+            <nav class="flex flex-col gap-6 text-xl font-medium text-zinc-800">
+                <a href="index.html#work" class="mobile-menu-link hover:text-purple-600">Projects</a>
+                <a href="index.html#process" class="mobile-menu-link hover:text-purple-600">My Flow</a>
+                <a href="about.html" class="mobile-menu-link hover:text-purple-600">About</a>
+                <div class="pt-6 mt-6 border-t border-zinc-200">
+                     <a href="index.html#contact" class="primary-button justify-center py-3 w-full rounded-full font-bold">Get In Touch</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <main class="container mx-auto p-4 md:p-8 pt-24 md:pt-32">
+        
+        <section class="text-center pt-12 pb-12 reveal">
+            <a href="index.html#work" class="text-purple-600 hover:text-purple-500 transition-colors mb-4 inline-flex items-center gap-2"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to All Projects</a>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mt-2 text-zinc-900">
+                Shoppio
+            </h1>
+            <p class="text-2xl text-purple-600 font-medium mt-4">A furniture e-commerce app</p>
+            <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl text-zinc-600">
+                Shoppio is not just another furniture e-commerce app; it's a curated experience designed to eliminate the overwhelming choices and uncertainties of online furniture shopping. By focusing on stylish, affordable, and high-quality pieces, Shoppio provides a streamlined and enjoyable journey for users to discover the perfect furniture that fits their space, style, and budget.
+            </p>
+        </section>
+        
+        <section class="mb-16 md:mb-24 reveal">
+            <div class="animated-hero-bg rounded-2xl border border-zinc-200 overflow-hidden h-full max-h-[550px] flex items-center justify-center p-4">
+                <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/exported-frames_page-0001-removebg-preview.png" alt="Shoppio app high-fidelity mockups" class="w-auto h-full object-contain">
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-left">
+                    <h2 class="text-4xl font-bold text-zinc-900 mb-4">The Problem</h2>
+                    <p class="text-lg text-zinc-600">Finding the right furniture is often a frustrating experience. Users are paralyzed by endless options, doubt the quality of products they can't see, and struggle to find items that match both their style and budget.</p>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4"><i data-lucide="layers-3" class="w-10 h-10 text-purple-500 flex-shrink-0"></i><div><h3 class="font-bold text-zinc-900 text-lg">Overwhelming Choice</h3><p class="text-zinc-600">Endless scrolling through thousands of items leads to decision fatigue and abandoned carts.</p></div></div>
+                    <div class="flex items-start gap-4"><i data-lucide="badge-percent" class="w-10 h-10 text-purple-500 flex-shrink-0"></i><div><h3 class="font-bold text-zinc-900 text-lg">Unclear Value</h3><p class="text-zinc-600">It's difficult for users to judge the quality and long-term value from photos alone.</p></div></div>
+                    <div class="flex items-start gap-4"><i data-lucide="eye-off" class="w-10 h-10 text-purple-500 flex-shrink-0"></i><div><h3 class="font-bold text-zinc-900 text-lg">Lack of Curation</h3><p class="text-zinc-600">Most platforms fail to provide personalized recommendations or curated collections for specific tastes.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal grid md:grid-cols-5 gap-16 items-center">
+            <div class="md:col-span-3">
+                 <h2 class="text-3xl font-bold text-zinc-900 mb-6">The Solution</h2>
+                 <p class="text-lg text-zinc-600 mb-8">Our goal was to design a mobile-first e-commerce platform that simplifies furniture shopping by offering a curated, easy-to-navigate selection that inspires confidence and excitement.</p>
+                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                     <div class="flex items-start gap-4"><i data-lucide="sparkles" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Curated Collections</h4><p class="text-zinc-600">Replace endless catalogs with themed, high-quality collections.</p></div></div>
+                     <div class="flex items-start gap-4"><i data-lucide="search-check" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Simplified Browse</h4><p class="text-zinc-600">Intuitive filters and search make finding items effortless.</p></div></div>
+                     <div class="flex items-start gap-4"><i data-lucide="file-check-2" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Transparent Details</h4><p class="text-zinc-600">Provide clear information on materials, dimensions, and reviews.</p></div></div>
+                     <div class="flex items-start gap-4"><i data-lucide="dollar-sign" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Affordable Options</h4><p class="text-zinc-600">Focus on stylish furniture that doesn't break the bank.</p></div></div>
+                 </div>
+            </div>
+            <div class="md:col-span-2 bg-zinc-100 border border-zinc-200 p-8 rounded-2xl space-y-6">
+                <div>
+                    <h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider mb-4">My Contributions</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3"><i data-lucide="search" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">User Research</h5><p class="text-zinc-600 text-sm">Conducted surveys and competitive analysis.</p></div></div>
+                        <div class="flex items-start gap-3"><i data-lucide="pen-tool" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">UI/UX Design</h5><p class="text-zinc-600 text-sm">Created wireframes, mockups, and prototypes.</p></div></div>
+                        <div class="flex items-start gap-3"><i data-lucide="test-tube-2" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">Usability Testing</h5><p class="text-zinc-600 text-sm">Moderated testing sessions to validate the design.</p></div></div>
+                    </div>
+                </div>
+                <div><h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider">Timeline</h4><p class="text-lg font-medium text-zinc-900">4 Week Project</p></div>
+                <div><h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider">Tools</h4><p class="text-lg font-medium text-zinc-900">Figma, Miro, Maze</p></div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal bg-zinc-100 py-20 rounded-2xl">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 1: Research & Discovery</h2>
+                    <p class="text-lg text-zinc-600 mb-16">To build a product people need, we started with quantitative research and a competitive analysis to understand the market and identify key user frustrations.</p>
+                </div>
+                
+                <div class="mb-20">
+                    <h3 class="text-2xl font-bold text-zinc-900 mb-8 text-center">Competitive Analysis</h3>
+                    <div class="relative">
+                         <div id="ca-scroll-container" class="overflow-x-auto custom-scrollbar">
+                            <table class="w-full min-w-[900px] text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-zinc-200">
+                                        <th class="p-4 text-sm font-bold uppercase text-zinc-500">Feature</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-zinc-500 text-center">pepperfry</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-zinc-500 text-center">Urban Ladder</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-zinc-500 text-center">IKEA</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-purple-600 text-center bg-purple-100/50 rounded-t-lg">Shoppio</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-zinc-200 bg-white">
+                                    <tr class="hover:bg-zinc-50"><td class="p-4 font-semibold">User Experience</td><td class="p-4 text-center">Good</td><td class="p-4 text-center">Good</td><td class="p-4 text-center">Good</td><td class="p-4 text-center text-purple-600 font-bold bg-purple-100/50">Excellent</td></tr>
+                                    <tr class="hover:bg-zinc-50"><td class="p-4 font-semibold">AR "View in Room"</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                    <tr class="hover:bg-zinc-50"><td class="p-4 font-semibold">Curation & Inspiration</td><td class="p-4 text-center">Good</td><td class="p-4 text-center">Good</td><td class="p-4 text-center">Excellent</td><td class="p-4 text-center text-purple-600 font-bold bg-purple-100/50">Excellent</td></tr>
+                                    <tr class="hover:bg-zinc-50"><td class="p-4 font-semibold">Fast Pace Login</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                    <tr class="hover:bg-zinc-50"><td class="p-4 font-semibold">Customer Reviews</td><td class="p-4 text-center">Good</td><td class="p-4 text-center">Good</td><td class="p-4 text-center">Average</td><td class="p-4 text-center text-purple-600 font-bold bg-purple-100/50">Excellent</td></tr>
+                                    <tr class="hover:bg-zinc-50"><td class="p-4 font-semibold">Sustainable Product</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                </tbody>
+                            </table>
+                         </div>
+                         <div id="ca-swipe-affordance" class="swipe-affordance">
+                            <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full table</span><i data-lucide="chevrons-right"></i></div>
+                            <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                        </div>
+                    </div>
+                     <div class="mt-8 p-6 bg-zinc-200/50 rounded-2xl border border-zinc-300">
+                        <h4 class="font-bold text-zinc-900 text-lg mb-2">Key Takeaways</h4>
+                        <p class="text-zinc-600">The market leaders offer strong features, but none excel in every category. IKEA provides excellent inspiration but has a weaker customer review system. Urban Ladder lacks a fast login, creating friction. Shoppio's strategy is to win by delivering an 'Excellent' rating across the board—combining top-tier curation and user experience with essential features like AR and robust reviews, an area where competitors show weakness.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal">
+             <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 2: Strategy & Definition</h2>
+                <p class="text-lg text-zinc-600 mb-16">The research phase allowed us to define our target users through personas and empathize with their needs, which forms the strategic foundation of our design.</p>
+            </div>
+            
+            <div class="bg-zinc-100 py-20 rounded-2xl">
+                <div class="container mx-auto px-6">
+                    <div class="mb-20">
+                        <h3 class="text-2xl font-bold text-zinc-900 mb-8 text-center">User Personas</h3>
+                        <div class="grid md:grid-cols-2 gap-8 items-stretch mx-auto">
+                            <div class="bg-white/80 p-6 rounded-2xl border border-zinc-200 flex flex-col backdrop-blur-sm"><div class="flex-grow"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=500&auto=format&fit=crop" alt="Persona Photo of Maya" class="w-20 h-20 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-zinc-900">Maya, The Renter</h4><p class="text-purple-600 text-sm mb-4">26, Graphic Designer</p><p class="text-zinc-700 text-sm mb-6">Wants her apartment to look stylish like her favorite blogs, but is on a tight budget and can't make permanent changes.</p><div class="space-y-4"><div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><div><h5 class="font-semibold text-zinc-800">Goals</h5><p class="text-zinc-700 text-sm">Find affordable, trendy pieces and visualize them in her space.</p></div></div><hr class="border-zinc-200 my-3"><div class="flex items-start gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i><div><h5 class="font-semibold text-zinc-800">Frustrations</h5><p class="text-zinc-700 text-sm">Is overwhelmed by too many options and is worried about the quality of online-only items.</p></div></div></div></div><p class="italic text-zinc-500 text-center text-sm mt-6 pt-4 border-t border-zinc-200">"I want my place to look good, but I don't have thousands to spend."</p></div>
+                            <div class="bg-white/80 p-6 rounded-2xl border border-zinc-200 flex flex-col backdrop-blur-sm"><div class="flex-grow"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop" alt="Persona Photo of David" class="w-20 h-20 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-zinc-900">David, The Upgrader</h4><p class="text-purple-600 text-sm mb-4">35, Project Manager</p><p class="text-zinc-700 text-sm mb-6">Just bought his first house with his partner. They need to furnish it and want durable, stylish pieces that will last.</p><div class="space-y-4"><div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><div><h5 class="font-semibold text-zinc-800">Goals</h5><p class="text-zinc-700 text-sm">Find cohesive furniture sets and read trustworthy, detailed reviews.</p></div></div><hr class="border-zinc-200 my-3"><div class="flex items-start gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i><div><h5 class="font-semibold text-zinc-800">Frustrations</h5><p class="text-zinc-700 text-sm">Doesn't have time to shop in stores and dislikes complicated assembly.</p></div></div></div></div><p class="italic text-zinc-500 text-center text-sm mt-6 pt-4 border-t border-zinc-200">"We need good quality furniture but have no idea where to start."</p></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 3: Structure & Flow</h2>
+                <p class="text-lg text-zinc-600 mb-16">To ensure a logical and intuitive user experience, we first mapped out the application's structure. This Information Architecture (IA) forms the blueprint for the more detailed App Flow Map that follows.</p>
+            </div>
+            
+            <div class="mb-20">
+                <h3 class="text-2xl font-bold text-zinc-900 mb-12 text-center">Information Architecture</h3>
+                <div id="ia-container" class="relative p-8 bg-white/50 border border-zinc-200 rounded-2xl">
+                    <div id="ia-scroll-container" class="overflow-x-auto custom-scrollbar">
+                        <div class="grid grid-cols-3 gap-24" style="min-width: 1200px;">
+                            <div class="ia-sitemap">
+                                <ul>
+                                    <li>
+                                        <div id="ia-home-parent" class="ia-node ia-node-parent">Home</div>
+                                        <ul>
+                                            <li><div id="ia-home-child-1" class="ia-node">Search Bar</div></li>
+                                            <li><div id="ia-home-child-2" class="ia-node">Cart</div></li>
+                                            <li><div id="ia-home-child-3" class="ia-node">Notification</div></li>
+                                            <li><div id="ia-home-child-4" class="ia-node">Profile</div></li>
+                                            <li><div id="ia-home-child-5" class="ia-node">Category</div></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <svg id="ia-home-svg" class="ia-line-svg"></svg>
+                            </div>
+                            <div class="ia-sitemap">
+                                <ul>
+                                    <li>
+                                        <div id="ia-cart-parent" class="ia-node ia-node-parent">Cart</div>
+                                        <ul>
+                                            <li><div id="ia-cart-child-1" class="ia-node">Add Product</div></li>
+                                            <li><div id="ia-cart-child-2" class="ia-node">Delete Product</div></li>
+                                            <li><div id="ia-cart-child-3" class="ia-node">Payment</div></li>
+                                            <li><div id="ia-cart-child-4" class="ia-node">Promo code</div></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <svg id="ia-cart-svg" class="ia-line-svg"></svg>
+                            </div>
+                            <div class="ia-sitemap">
+                                 <ul>
+                                    <li>
+                                        <div id="ia-profile-parent" class="ia-node ia-node-parent">Profile</div>
+                                        <ul>
+                                            <li><div id="ia-profile-child-1" class="ia-node">My order</div></li>
+                                            <li><div id="ia-profile-child-2" class="ia-node">Shipping address</div></li>
+                                            <li><div id="ia-profile-child-3" class="ia-node">Payment method</div></li>
+                                            <li><div id="ia-profile-child-4" class="ia-node">My reviews</div></li>
+                                            <li><div id="ia-profile-child-5" class="ia-node">Setting</div></li>
+                                            <li><div id="ia-profile-child-6" class="ia-node">Setting</div></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <svg id="ia-profile-svg" class="ia-line-svg"></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ia-swipe-affordance" class="swipe-affordance">
+                        <div class="flex items-center gap-3 animate-pulse">
+                            <i data-lucide="chevrons-left"></i>
+                            <span>Swipe to see full diagram</span>
+                            <i data-lucide="chevrons-right"></i>
+                        </div>
+                        <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-zinc-900 mb-12 text-center">App Flow Map</h3>
+                <div class="relative p-8 bg-zinc-100 rounded-2xl border border-zinc-200">
+                    <div id="flow-scroll-container" class="overflow-x-auto custom-scrollbar">
+                        <div class="ia-tree-container" style="min-width: 1200px; padding-bottom: 1rem;">
+                            <div class="ia-tree">
+                               <ul>
+                                    <li>
+                                        <div class="ia-node ia-node-decision"><i data-lucide="git-branch-plus"></i><span>Sign up / Login</span></div>
+                                        <ul>
+                                            <li>
+                                                <div class="ia-node"><i data-lucide="home"></i><span>Home</span></div>
+                                                <ul>
+                                                    <li>
+                                                        <div class="ia-node ia-node-decision"><i data-lucide="search"></i><span>Product Discovery</span></div>
+                                                        <ul>
+                                                            <li><div class="ia-node"><span>Random Search</span></div></li>
+                                                            <li><div class="ia-node"><span>Search with Filter and sort option</span></div></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <div class="ia-node"><i data-lucide="box-select"></i><span>Selects the product</span></div>
+                                                        <ul>
+                                                            <li>
+                                                                <div class="ia-node"><i data-lucide="map-pin"></i><span>Enters the Shipping Address</span></div>
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="ia-node ia-node-success"><i data-lucide="shopping-cart"></i><span>Order Placed Successfully</span></div>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <div class="ia-node"><i data-lucide="party-popper"></i><span>Thank you for your purchase</span></div>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <div class="ia-node"><i data-lucide="truck"></i><span>Track Order</span></div>
+                                                                                        <ul><li><div class="ia-node ia-node-start-end"><i data-lucide="log-out"></i><span>Exit</span></div></li></ul>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <div class="ia-node"><i data-lucide="star"></i><span>Write Review</span></div>
+                                                                                        <ul><li><div class="ia-node ia-node-start-end"><i data-lucide="log-out"></i><span>Exit</span></div></li></ul>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="flow-swipe-affordance" class="swipe-affordance">
+                        <div class="flex items-center gap-3 animate-pulse">
+                            <i data-lucide="chevrons-left"></i>
+                            <span>Swipe to see full diagram</span>
+                            <i data-lucide="chevrons-right"></i>
+                        </div>
+                        <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 5: Final Product</h2>
+            <p class="text-lg text-zinc-600 max-w-3xl mx-auto mb-12">The culmination of our research and design process is a high-fidelity Figma deliverable, available as both an interactive prototype and a view of all screens.</p>
+            
+            <div x-data="{ finalTab: 'prototype' }">
+                <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+                    <button @click="finalTab = 'prototype'" :class="{ 'active': finalTab === 'prototype' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">Interactive Prototype</button>
+                    <button @click="finalTab = 'screens'" :class="{ 'active': finalTab === 'screens' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">All Screens</button>
+                </div>
+                <div class="bg-zinc-100 rounded-2xl border border-zinc-200">
+                    <div x-show="finalTab === 'prototype'" x-transition class="figma-embed-container">
+                        <iframe style="border: 1px solid #e4e4e7; border-radius: 1rem;" src="https://embed.figma.com/proto/UEgDrohOuqm186EKypHyiH/Shoppio?page-id=0%3A1&node-id=2-3492&p=f&viewport=82%2C42%2C0.21&scaling=scale-down&content-scaling=fixed&starting-point-node-id=27%3A80&embed-host=share" allowfullscreen></iframe>
+                    </div>
+                     <div x-show="finalTab === 'screens'" x-transition style="display: none;" class="figma-embed-container">
+                        <iframe style="border: 1px solid #e4e4e7; border-radius: 1rem;" src="https://embed.figma.com/design/UEgDrohOuqm186EKypHyiH/Shoppio?node-id=0-1&embed-host=share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-center my-16 md:my-24 py-16 border-t border-zinc-200 reveal">
+            <div class="mb-6 text-purple-500"><i data-lucide="party-popper" class="h-12 w-12 mx-auto animate-pulse"></i></div>
+            <h2 class="text-3xl font-bold text-zinc-900 mb-4">And that's a wrap!</h2>
+            <p class="text-lg text-zinc-600 max-w-xl mx-auto mb-8">Thank you for exploring this case study. Think we could create the next big thing together? My inbox is always open for conspiracies and collaborations.</p>
+            <div class="flex justify-center gap-4">
+                 <a href="index.html#work" class="primary-button px-6 py-3 rounded-full font-bold"><i data-lucide="arrow-left" class="w-5 h-5"></i><span>All Projects</span></a>
+                 <a href="about.html" class="secondary-cta group relative inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold">
+                     <span>About Me</span>
+                     <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                 </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 border-t border-zinc-200">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-zinc-500 text-sm">&copy; 2025 Priyanshu Rai. All Rights Reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/in/priyanshu-rai-4531001a0/" class="text-zinc-500 hover:text-zinc-900 transition-colors">LinkedIn</a>
+                <a href="https://www.behance.net/priyanshu_rai" class="text-zinc-500 hover:text-zinc-900 transition-colors">Behance</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // -- MOBILE MENU SCRIPT --
+            const menuButton = document.getElementById('mobile-menu-button');
+            const closeButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+            const body = document.body;
+
+            const toggleMenu = () => {
+                const isActive = mobileMenu.classList.toggle('active');
+                menuButton.classList.toggle('active');
+                backdrop.classList.toggle('active');
+                body.style.overflow = isActive ? 'hidden' : '';
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+            closeButton.addEventListener('click', toggleMenu);
+            backdrop.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Other scripts for Shoppio page
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            const initSwipeAffordance = (containerId, affordanceId, storageKey) => {
+                const affordance = document.getElementById(affordanceId);
+                const scrollContainer = document.getElementById(containerId);
+
+                if (affordance && scrollContainer) {
+                    const isDismissed = sessionStorage.getItem(storageKey) === 'true';
+                    
+                    if (isDismissed) {
+                        affordance.style.display = 'none';
+                        return;
+                    }
+
+                    const checkScroll = () => {
+                        if (scrollContainer.scrollWidth > scrollContainer.clientWidth) {
+                            affordance.style.display = 'flex';
+                        } else {
+                            affordance.style.display = 'none';
+                        }
+                    };
+                    
+                    setTimeout(checkScroll, 300);
+
+                    affordance.addEventListener('click', () => {
+                        affordance.style.opacity = '0';
+                        setTimeout(() => {
+                            affordance.style.display = 'none';
+                        }, 300);
+                        sessionStorage.setItem(storageKey, 'true');
+                    });
+                }
+            };
+
+            initSwipeAffordance('ca-scroll-container', 'ca-swipe-affordance', 'caOverlayDismissed');
+            initSwipeAffordance('flow-scroll-container', 'flow-swipe-affordance', 'shoppioFlowOverlayDismissed');
+            initSwipeAffordance('ia-scroll-container', 'ia-swipe-affordance', 'shoppioIaOverlayDismissed');
+            
+            const debounce = (func, delay) => {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), delay);
+                };
+            };
+
+            function drawIaLines(config) {
+                const sitemap = config.sitemap;
+                const parentNode = document.getElementById(config.parentId);
+                const childNodes = config.childIds.map(id => document.getElementById(id));
+                const svg = document.getElementById(config.svgId);
+
+                if (!sitemap || !parentNode || childNodes.some(n => !n) || !svg) return;
+
+                const sitemapRect = sitemap.getBoundingClientRect();
+                const parentRect = parentNode.getBoundingClientRect();
+                
+                const trunkStartX = parentRect.left + parentRect.width / 2 - sitemapRect.left;
+                const trunkStartY = parentRect.bottom - sitemapRect.top;
+
+                if (childNodes.length === 0) return;
+
+                const lastChild = childNodes[childNodes.length - 1];
+                const lastChildRect = lastChild.getBoundingClientRect();
+                const trunkEndY = lastChildRect.top + lastChildRect.height / 2 - sitemapRect.top;
+
+                let paths = '';
+                paths += `M ${trunkStartX} ${trunkStartY} V ${trunkEndY}`;
+
+                childNodes.forEach(child => {
+                    const childRect = child.getBoundingClientRect();
+                    const childY = childRect.top + childRect.height / 2 - sitemapRect.top;
+                    const childMidX = childRect.left + childRect.width / 2 - sitemapRect.left;
+                    paths += ` M ${trunkStartX} ${childY} H ${childMidX}`;
+                });
+
+                svg.innerHTML = `<path d="${paths}" stroke="#a1a1aa" stroke-width="2" fill="none" />`;
+            }
+
+            const sitemapConfigs = [
+                { sitemap: document.querySelector('#ia-container .ia-sitemap:nth-child(1)'), parentId: 'ia-home-parent', svgId: 'ia-home-svg', childIds: ['ia-home-child-1', 'ia-home-child-2', 'ia-home-child-3', 'ia-home-child-4', 'ia-home-child-5'] },
+                { sitemap: document.querySelector('#ia-container .ia-sitemap:nth-child(2)'), parentId: 'ia-cart-parent', svgId: 'ia-cart-svg', childIds: ['ia-cart-child-1', 'ia-cart-child-2', 'ia-cart-child-3', 'ia-cart-child-4'] },
+                { sitemap: document.querySelector('#ia-container .ia-sitemap:nth-child(3)'), parentId: 'ia-profile-parent', svgId: 'ia-profile-svg', childIds: ['ia-profile-child-1', 'ia-profile-child-2', 'ia-profile-child-3', 'ia-profile-child-4', 'ia-profile-child-5', 'ia-profile-child-6'] }
+            ];
+            
+            function drawAllIaLines() {
+                sitemapConfigs.forEach(drawIaLines);
+            }
+
+            const debouncedDrawIaLines = debounce(drawAllIaLines, 100);
+            
+            setTimeout(() => {
+                drawAllIaLines();
+                window.addEventListener('resize', debouncedDrawIaLines);
+            }, 150);
+        });
+    </script>
 </body>
 </html>
