@@ -1,279 +1,760 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Priyanshu – UX Designer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyanshu Rai - UX Designer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><style>text{font-family: \'Satoshi\', sans-serif; font-weight: 900;}.main-text{fill:black;}</style><text x='50' y='80' font-size='70' text-anchor='middle' class='main-text'>PR</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Satoshi', sans-serif;
+            background-color: #FFFFFF;
+            color: #27272A;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-  <!-- SEO Meta Description -->
-  <meta name="description" content="Priyanshu Rai is a Berlin-based UX Designer crafting user-centered apps via research, wireframes & testing. View my portfolio & case studies." />
+        #hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 2rem;
+        }
+        
+        #hero-headline {
+            color: #3f3f46; /* Lighter headline text */
+        }
+        
+        .shine-word {
+            background: linear-gradient(to right, #3f3f46 20%, #9ca3af 50%, #3f3f46 80%); /* Lighter shine text */
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: text-shine 5s linear infinite;
+        }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Priyanshu Rai – UX Designer in Berlin" />
-  <meta property="og:description" content="Explore my UX design process: research, prototyping & case studies." />
-  <meta property="og:image" content="https://www.priyanshuux.com/og-image.png" />
-  <meta property="og:url" content="https://www.priyanshuux.com/" />
-  <meta property="og:type" content="website" />
+        @keyframes text-shine {
+            to {
+                background-position: -200% center;
+            }
+        }
+        
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 300px;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 90;
+        }
+        #mobile-menu.active { transform: translateX(0); }
+        #menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 80;
+        }
+        #menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #mobile-menu-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: #27272A;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        #mobile-menu-button.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #mobile-menu-button.active .hamburger-line:nth-child(2) { opacity: 0; }
+        #mobile-menu-button.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        
+        .glow-card {
+            position: relative;
+            transition: all 0.4s ease-out;
+            background-color: #FFFFFF; /* Brighter card background */
+            border: 1px solid #E4E4E7;
+            overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .glow-card:hover {
+            transform: translateY(-8px);
+            border-color: #d4d4d8; 
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.07), 0 0 25px -5px rgba(138, 63, 252, 0.10); /* Lighter shadow */
+        }
+        
+        .card-image-container { overflow: hidden; }
+        .card-image-container img { transition: transform 0.4s ease-out; }
+        .glow-card:hover .card-image-container img { transform: scale(1.05); }
+        
+        .primary-button {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .primary-button:hover {
+            background-color: #792EEA;
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.3);
+        }
+        
+        .nav-button {
+             background-color: rgba(0, 0, 0, 0.03);
+             border: 1px solid rgba(0, 0, 0, 0.05);
+             transition: all 0.2s ease;
+             color: #52525B;
+        }
+        .nav-button:hover {
+            background-color: #18181B;
+            border-color: #18181B;
+            color: #FFFFFF;
+        }
+        
+        .nav-active {
+            background-color: #18181B !important; 
+            color: #FFFFFF !important; 
+            border-color: #18181B !important;
+        }
+        
+        .resume-button {
+            border: 1px solid #8A3FFC;
+            color: #8A3FFC;
+            transition: all 0.3s ease;
+            white-space: nowrap; 
+        }
+        .resume-button:hover { background-color: #8A3FFC; color: #FFFFFF; }
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Priyanshu Rai – UX Designer in Berlin" />
-  <meta name="twitter:description" content="I craft intuitive digital experiences through user research & prototyping. View my portfolio." />
-  <meta name="twitter:image" content="https://www.priyanshuux.com/og-image.png" />
+        .filter-button {
+            background-color: transparent;
+            color: #52525B;
+            border: 1px solid #E4E4E7; 
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .filter-button:hover { color: #18181B; border-color: #d4d4d8; }
+        .filter-active {
+            background-color: #8A3FFC !important; 
+            color: #FFFFFF !important;
+            border-color: #8A3FFC !important;
+        }
 
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Priyanshu Rai",
-    "url": "https://www.priyanshuux.com",
-    "jobTitle": "UX Designer",
-    "sameAs": [
-      "https://www.linkedin.com/in/priyanshurai",
-      "https://github.com/PriyanshuRaiUXD"
-    ]
-  }
-  </script>
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .process-visual { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
+        .process-svg-icon {
+            width: 300px;
+            height: 300px;
+        }
+        .process-step-card { min-height: 100vh; }
+        .form-input {
+            background-color: transparent;
+            border: 0;
+            border-bottom: 2px solid #d4d4d8; 
+            color: #18181B; 
+            transition: border-color 0.3s ease;
+            border-radius: 0;
+            padding: 0.75rem 0;
+        }
+        .form-input:focus { outline: none; border-color: #8A3FFC; }
+        .form-input::placeholder { color: #71717A; }
+        
+        .logo-container { position: relative; display: flex; align-items: center; min-width: 110px; height: 24px; }
+        .logo-text { position: absolute; white-space: nowrap; }
+        
+        @keyframes name-animation {
+            0%, 45% { opacity: 1; transform: translateY(0); }
+            50%, 100% { opacity: 0; transform: translateY(-5px); }
+        }
+        .logo-name {
+            animation: name-animation 8s ease-in-out infinite;
+        }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script:wght@400&display=swap" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/ios-filled/64/FFA500/crown.png">
-  <link rel="shortcut icon" href="https://img.icons8.com/ios-filled/64/FFA500/crown.png">
-
-  <style>
-    :root {
-      --font-heading: 'Poppins', sans-serif;
-      --font-logo: 'Dancing Script', cursive;
-      --color-bg: #fff;
-      --color-text: #000;
-      --color-accent: #FFA500;
-    }
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: var(--font-heading);
-      background: var(--color-bg);
-      color: var(--color-text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Logo & nav */
-    nav {
-      position: sticky;
-      top: 0;
-      background: var(--color-bg);
-      z-index: 10;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .logo {
-      position: absolute;
-      left: 2rem;
-    }
-    .logo::before {
-      content: 'UXD';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: bold;
-      font-size: 4rem;
-      color: rgba(0,0,0,0.05);
-      z-index: 0;
-    }
-    .logo a {
-      position: relative;
-      z-index: 1;
-      text-decoration: none;
-      font-family: var(--font-logo);
-      font-size: 2rem;
-      color: var(--color-text);
-    }
-    .menu {
-      position: absolute;
-      right: 2rem;
-      display: flex;
-      gap: 2rem;
-      font-weight: 300;
-      font-size: 0.9rem;
-    }
-    .menu a {
-      text-decoration: none;
-      color: var(--color-text);
-      position: relative;
-      padding-bottom: 4px;
-      transition: color .2s ease;
-    }
-    .menu a::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background: var(--color-accent);
-      transition: width .3s ease, left .3s ease;
-    }
-    .menu a:hover::after,
-    .menu a:focus::after {
-      width: 100%;
-      left: 0;
-    }
-    .menu a.active,
-    .menu a.active:hover {
-      color: var(--color-accent);
-    }
-    .menu a.active::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--color-accent);
-      transition: none;
-    }
-
-    /* Page content */
-    .content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 2rem;
-    }
-    .justified-text {
-      max-width: 800px;
-      font-size: 2rem;
-      line-height: 1.7;
-      font-weight: 300;
-      margin: 0 auto;
-      text-align: justify;
-      text-align-last: center;
-    }
-    .justified-text p {
-      margin: 0;
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-    }
-    .social a,
-    .resume a {
-      text-decoration: none;
-      color: var(--color-text);
-      font-weight: 300;
-      margin-right: 1.5rem;
-    }
-
-    /* Scroll-to-footer button */
-    #scrollToFooter {
-      position: fixed;
-      right: 1.5rem;
-      bottom: 1.5rem;
-      background: rgba(255,165,0,0.9);
-      backdrop-filter: blur(4px);
-      border: none;
-      border-radius: 50%;
-      width: 3.5rem;
-      height: 3.5rem;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform .2s ease, opacity .3s ease;
-      z-index: 100;
-    }
-    #scrollToFooter svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      fill: #fff;
-    }
-    #scrollToFooter.show {
-      display: flex;
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+        @keyframes title-animation {
+            0%, 50% { opacity: 0; transform: translateY(5px); }
+            55%, 95% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-5px); }
+        }
+        .logo-title {
+            opacity: 0;
+            animation: title-animation 8s ease-in-out infinite;
+        }
+        
+        .aspect-video { position: relative; padding-bottom: 56.25%; }
+        .aspect-video > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
 </head>
-<body>
-  <nav>
-    <div class="logo"><a href="index.html">Priyanshu</a></div>
-    <div class="menu">
-      <a href="Project Section.html">Projects</a>
-      <a href="AboutME.html">About Me</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html">Contact</a>
+<body class="antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center p-2 rounded-full bg-white/30 backdrop-blur-lg border border-black/10">
+            <div class="flex-shrink-0 pl-4">
+                <a href="#" class="flex items-center">
+                    <div class="logo-container">
+                        <span class="logo-text logo-name text-zinc-800 font-bold">Priyanshu Rai</span>
+                        <span class="logo-text logo-title font-bold text-purple-600">UXD</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="#work" class="nav-button px-4 py-2 rounded-full text-sm font-medium">Projects</a>
+                <a href="#process" class="nav-button px-4 py-2 rounded-full text-sm font-medium">My Flow</a>
+                <a href="about.html" class="nav-button px-4 py-2 rounded-full text-sm font-medium">About</a>
+            </div>
+
+            <div class="flex items-center gap-2 pr-2">
+                <a href="#" class="resume-button px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium">View Resume</a>
+                
+                <div class="hidden md:flex">
+                    <a href="#contact" class="primary-button px-4 py-2 rounded-full text-sm font-bold">Get In Touch</a>
+                </div>
+
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" class="relative z-[101] rounded-full hover:bg-zinc-200/50">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu-backdrop"></div>
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-7 right-6 p-2 z-[102]">
+            <i data-lucide="x" class="w-8 h-8 text-zinc-800"></i>
+        </button>
+        <div class="p-8 pt-24">
+            <nav class="flex flex-col gap-6 text-xl font-medium text-zinc-800">
+                <a href="#work" class="mobile-menu-link hover:text-purple-600">Projects</a>
+                <a href="#process" class="mobile-menu-link hover:text-purple-600">My Flow</a>
+                <a href="about.html" class="mobile-menu-link hover:text-purple-600">About</a>
+                <div class="pt-6 mt-6 border-t border-zinc-200">
+                     <a href="#contact" class="primary-button justify-center py-3 w-full rounded-full font-bold">Get In Touch</a>
+                </div>
+            </nav>
+        </div>
     </div>
-  </nav>
 
-  <div class="content">
-    <div class="justified-text">
-      <p>
-        Hi, I’m Priyanshu Rai, a UX designer based in Germany with over 3 years of experience creating delightful digital experiences, passionately diving into user research, wireframing, prototyping, and usability testing—turning complex problems into elegant solutions and occasionally transforming coffee into pixel-perfect wireframes. Let’s make something users love!
-      </p>
-    </div>
-  </div>
+    <main class="container mx-auto p-4 md:p-8 pt-24 md:pt-32">
+        <section id="hero" class="text-center reveal">
+            <h1 id="hero-headline" class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight">
+                Crafting user-centric <span class="shine-word">products</span> from <span class="shine-word">concept</span> to <span class="shine-word">launch.</span>
+            </h1>
+            <p class="max-w-3xl mx-auto mt-8 text-lg md:text-xl text-zinc-500">
+             Hi, I'm Priyanshu Rai, a UX Designer focused on creating work that is both functional and beautiful. I solve complex problems to create elegant, human-centered digital experiences.
+            </p>
+        </section>
 
-  <footer>
-    <div class="social">
-      <a href="mailto:priyanshurai5432@gmail.com">priyanshurai5432@gmail.com</a>
-      <a href="https://www.linkedin.com/in/priyanshu-rai-4531001a0/" target="_blank">LinkedIn</a>
-      <a href="https://www.behance.net/priyanshu_rai/projects">Behance</a>
-    </div>
-    <div class="resume">
-      <a href="https://drive.google.com/file/d/1lrx5RU-GefX0RiRiRhkf1H0qt3trruUa/view?usp=sharing" target="_blank">View Resume</a>
-    </div>
-  </footer>
+        <section id="work" class="my-20 md:my-28 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-zinc-900 relative inline-block">
+                Case Studies in Digital Craftsmanship
+            </h2>
+            <div id="filter-bar" class="flex justify-center flex-wrap gap-3 mb-12">
+                <button class="filter-button filter-active px-4 py-2 rounded-full text-sm" data-filter="all">All</button>
+                <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="web-ui">Web UI</button>
+                <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="mobile-app">Mobile App</button>
+                <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="research">Research</button>
+                <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="ar-vr">AR/VR</button>
+            </div>
+            
+            <div id="case-study-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <a href="#" class="case-study glow-card rounded-2xl md:col-span-2 flex flex-col" data-category="web-ui">
+                    <div class="card-image-container aspect-video bg-zinc-100">
+                        <img src="https://placehold.co/800x450/FAFAFA/8A3FFC?text=Project+Alpha" alt="Project Alpha Thumbnail" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Web UI</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Alpha</h3>
+                        <p class="text-zinc-600 flex-grow">Reimagining a leading SaaS platform to create a seamless and intuitive onboarding experience.</p>
+                    </div>
+                </a>
 
-  <!-- Scroll-to-footer button -->
-  <button id="scrollToFooter" aria-label="Scroll to footer">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16.5l-7-7 1.4-1.4L12 13.7l5.6-5.6L19 9.5z"/></svg>
-  </button>
+                <a href="wellnexus.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="mobile-app">
+                    <div class="card-image-container aspect-video bg-zinc-900">
+                         <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/image.svg" alt="WellNexus Case Study Thumbnail" class="w-full h-full object-cover p-4">
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Healthcare</span>
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Mobile App</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">WellNexus</h3>
+                        <p class="text-zinc-600 flex-grow mb-4">A human-centered healthcare platform designed to deliver clarity and confidence to patients.</p>
+                        <div class="pt-4 mt-auto border-t border-zinc-200">
+                             <p class="text-xs text-zinc-500 font-bold uppercase mb-2">Tech & Methods</p>
+                             <div class="flex flex-wrap gap-2">
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">UX Design</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">UI Design</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Figma</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Miro</span>
+                             </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="shoppio.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="mobile-app">
+                    <div class="card-image-container aspect-video" style="background-color: #FAF9F6;">
+                        <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/exported-frames_page-0001-removebg-preview.png" alt="Shoppio app mockups thumbnail" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">E-commerce</span>
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Mobile App</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Shoppio</h3>
+                        <p class="text-zinc-600 flex-grow mb-4">A curated selection of affordable furniture options in an easy-to-use platform.</p>
+                        <div class="pt-4 mt-auto border-t border-zinc-200">
+                             <p class="text-xs text-zinc-500 font-bold uppercase mb-2">Tech & Methods</p>
+                             <div class="flex flex-wrap gap-2">
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Research</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">UX/UI Design</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Figma</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Miro</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Maze</span>
+                             </div>
+                        </div>
+                    </div>
+                </a>
 
-  <script>
-    // Highlight current nav link
-    const currentPage = window.location.pathname.split('/').pop();
-    document.querySelectorAll('.menu a').forEach(link => {
-      const linkPage = link.getAttribute('href').split('/').pop();
-      if (linkPage === currentPage) link.classList.add('active');
-    });
+                <a href="#" class="case-study glow-card rounded-2xl md:col-span-2 flex flex-col" data-category="web-ui">
+                    <div class="card-image-container aspect-video bg-zinc-100">
+                        <img src="https://placehold.co/800x450/FAFAFA/8A3FFC?text=Project+Beta" alt="Project Beta Thumbnail" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Web UI</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Beta</h3>
+                        <p class="text-zinc-600 flex-grow">A new web experience for a leading tech company.</p>
+                    </div>
+                </a>
 
-    // Scroll-to-footer behavior
-    const scrollBtn = document.getElementById('scrollToFooter');
-    scrollBtn.addEventListener('click', () => document.querySelector('footer').scrollIntoView({ behavior: 'smooth' }));
+                 <a href="#" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="research">
+                    <div class="card-image-container aspect-video bg-zinc-100">
+                        <img src="https://placehold.co/600x338/FAFAFA/8A3FFC?text=Project+Charlie" alt="Project Charlie Thumbnail" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Research</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Charlie</h3>
+                        <p class="text-zinc-600 flex-grow">Conducting foundational research to define the future of a new telehealth service.</p>
+                    </div>
+                </a>
 
-    // Show button when page is scrollable but not at bottom
-    function toggleScrollBtn() {
-      const doc = document.documentElement;
-      const scrollable = doc.scrollHeight > doc.clientHeight;
-      const atBottom = window.scrollY + doc.clientHeight >= doc.scrollHeight;
-      if (scrollable && !atBottom) {
-        scrollBtn.classList.add('show');
-      } else {
-        scrollBtn.classList.remove('show');
-      }
-    }
+                <a href="#" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="ar-vr">
+                    <div class="card-image-container aspect-video bg-zinc-100">
+                        <img src="https://placehold.co/600x338/FAFAFA/8A3FFC?text=Project+Echo" alt="Project Echo Thumbnail" class="w-full h-full object-cover">
+                    </div>
+                     <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">AR/VR</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Echo</h3>
+                        <p class="text-zinc-600 flex-grow">Designing an immersive AR experience to bring museum exhibits to life.</p>
+                    </div>
+                </a>
 
-    window.addEventListener('load',   toggleScrollBtn);
-    window.addEventListener('scroll', toggleScrollBtn);
-    window.addEventListener('resize', toggleScrollBtn);
-  </script>
+                 <a href="#" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="research">
+                    <div class="card-image-container aspect-video bg-zinc-100">
+                        <img src="https://placehold.co/600x338/FAFAFA/8A3FFC?text=Project+Delta" alt="Project Delta Thumbnail" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Research</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Delta</h3>
+                        <p class="text-zinc-600 flex-grow">A deep dive into user behavior for a new mobile application.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section id="process" class="my-20 md:my-28 py-16 reveal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">My Design Philosophy</h2>
+                <p class="text-zinc-600 text-lg mb-16 max-w-3xl mx-auto">
+                    A purposeful and adaptive framework for translating complex challenges into clear, human-centered solutions.
+                </p>
+            </div>
+            
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="md:flex md:gap-16">
+                    <div class="md:w-1/2 md:sticky md:top-24 h-64 md:h-screen flex items-center justify-center mb-12 md:mb-0">
+                        <div id="process-visuals-container" class="relative w-full max-w-md h-full">
+                            <div id="visual-step-1" class="process-visual absolute inset-0 flex items-center justify-center opacity-0 scale-90"><svg class="process-svg-icon" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter_glow_1)"><circle cx="125" cy="125" r="75" fill="#8A3FFC" fill-opacity="0.1"/></g><circle cx="125" cy="125" r="50" stroke="#8A3FFC" stroke-width="2.5"/><path d="M125 105C136.046 105 145 113.954 145 125C145 136.046 136.046 145 125 145" stroke="#18181B" stroke-width="2.5" stroke-linecap="round"/><defs><filter id="filter_glow_1" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_2"/></filter></defs></svg></div>
+                            <div id="visual-step-2" class="process-visual absolute inset-0 flex items-center justify-center opacity-0 scale-90"><svg class="process-svg-icon" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter_glow_2)"><circle cx="125" cy="125" r="75" fill="#8A3FFC" fill-opacity="0.1"/></g><path d="M125 100C138.807 100 150 111.193 150 125C150 138.807 138.807 150 125 150C111.193 150 100 138.807 100 125C100 111.193 111.193 100 125 100Z" stroke="#18181B" stroke-width="2.5"/><path d="M125 80V90" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M125 160V170" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M170 125H160" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M90 125H80" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M155.566 94.4336L148.495 101.505" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M101.505 148.495L94.4336 155.566" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M155.566 155.566L148.495 148.495" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><path d="M101.505 101.505L94.4336 94.4336" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round"/><defs><filter id="filter_glow_2" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_4"/></filter></defs></svg></div>
+                            <div id="visual-step-3" class="process-visual absolute inset-0 flex items-center justify-center opacity-0 scale-90"><svg class="process-svg-icon" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter_glow_3)"><circle cx="125" cy="125" r="75" fill="#8A3FFC" fill-opacity="0.1"/></g><rect x="85" y="85" width="80" height="80" rx="8" stroke="#18181B" stroke-width="2.5"/><rect x="100" y="100" width="50" height="8" rx="4" fill="#8A3FFC"/><rect x="100" y="120" width="50" height="8" rx="4" fill="#8A3FFC"/><rect x="100" y="140" width="30" height="8" rx="4" fill="#8A3FFC"/><defs><filter id="filter_glow_3" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_5"/></filter></defs></svg></div>
+                            <div id="visual-step-4" class="process-visual absolute inset-0 flex items-center justify-center opacity-0 scale-90"><svg class="process-svg-icon" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter_glow_4)"><circle cx="125" cy="125" r="75" fill="#8A3FFC" fill-opacity="0.1"/></g><path d="M165 125C165 147.091 147.091 165 125 165C102.909 165 85 147.091 85 125C85 102.909 102.909 85 125 85C138.837 85 150.99 91.9566 158 102" stroke="#18181B" stroke-width="2.5" stroke-linecap="round"/><path d="M105 125L120 140L150 110" stroke="#8A3FFC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><filter id="filter_glow_4" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_6"/></filter></defs></svg></div>
+                            <div id="visual-step-5" class="process-visual absolute inset-0 flex items-center justify-center opacity-0 scale-90">
+                            <svg class="process-svg-icon" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g filter="url(#filter_glow_5)">
+                                    <circle cx="125" cy="125" r="75" fill="#8A3FFC" fill-opacity="0.1"/>
+                                </g>
+                                <path d="M160 145C154.66 156.211 140.988 165 125 165C102.909 165 85 147.091 85 125C85 102.909 102.909 85 125 85C140.988 85 154.66 93.7893 160 105" stroke="#18181B" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M150 105H160V95" stroke="#18181B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <filter id="filter_glow_5" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                                        <feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_2"/>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div data-step="1" class="process-step-card flex items-center">
+                            <div class="w-full bg-white/60 border border-zinc-200/80 rounded-2xl p-8 backdrop-blur-md">
+                                <h3 class="text-3xl font-bold mb-4 text-zinc-500">01. <span class="text-zinc-900">Empathize & Define</span></h3>
+                                <p class="text-lg text-zinc-600 mb-6">My process begins with deep empathy. I conduct user interviews and market research in <strong>Miro</strong>, then use AI helpers like <strong>Gemini</strong> to rapidly synthesize notes, identify key pain points, and define clear problem statements.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 pt-6 border-t border-zinc-200">
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>User Interviews</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Miro for Affinity Mapping</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Gemini for Synthesis</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-step="2" class="process-step-card flex items-center">
+                            <div class="w-full bg-white/60 border border-zinc-200/80 rounded-2xl p-8 backdrop-blur-md">
+                                <h3 class="text-3xl font-bold mb-4 text-zinc-500">02. <span class="text-zinc-900">Ideate</span></h3>
+                                <p class="text-lg text-zinc-600 mb-6">This is where creativity flourishes. I facilitate brainstorming workshops and sketch concepts in <strong>Figma</strong>, using AI collaborators like <strong>Claude</strong> to challenge assumptions and expand on creative ideas.</p>
+                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 pt-6 border-t border-zinc-200">
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Brainstorming Workshops</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Figma for Wireframing</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Claude for Idea Expansion</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-step="3" class="process-step-card flex items-center">
+                           <div class="w-full bg-white/60 border border-zinc-200/80 rounded-2xl p-8 backdrop-blur-md">
+                                <h3 class="text-3xl font-bold mb-4 text-zinc-500">03. <span class="text-zinc-900">Prototype</span></h3>
+                                <p class="text-lg text-zinc-600 mb-6">Ideas are transformed into tangible experiences. I build high-fidelity, interactive prototypes in <strong>Figma</strong>, and use AI assistants like <strong>ChatGPT</strong> to accelerate development by generating code snippets.</p>
+                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 pt-6 border-t border-zinc-200">
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>High-Fidelity Prototyping</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Microinteractions</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>ChatGPT for Code Snippets</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-step="4" class="process-step-card flex items-center">
+                            <div class="w-full bg-white/60 border border-zinc-200/80 rounded-2xl p-8 backdrop-blur-md">
+                                <h3 class="text-3xl font-bold mb-4 text-zinc-500">04. <span class="text-zinc-900">Test</span></h3>
+                                <p class="text-lg text-zinc-600 mb-6">The prototype is put in front of real users for usability testing. I gather critical feedback with tools like <strong>Maze</strong> and use AI to help analyze session transcripts for faster insights.</p>
+                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 pt-6 border-t border-zinc-200">
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Maze for Usability Testing</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Loom for Session Recording</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>AI for Transcript Analysis</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-step="5" class="process-step-card flex items-center">
+                            <div class="w-full bg-white/60 border border-zinc-200/80 rounded-2xl p-8 backdrop-blur-md">
+                                <h3 class="text-3xl font-bold mb-4 text-zinc-500">05. <span class="text-zinc-900">Iterate</span></h3>
+                                <p class="text-lg text-zinc-600 mb-6">The final step is a loop, not a line. Based on testing insights documented in <strong>Notion</strong>, I refine the solution in <strong>Figma</strong>, ensuring the product constantly evolves to meet user needs.</p>
+                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 pt-6 border-t border-zinc-200">
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Figma for Revisions</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Notion for Documentation</p>
+                                    <p class="flex items-center gap-3 text-zinc-700 sm:whitespace-nowrap"><svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#8A3FFC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>AI for Brainstorming</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="my-16 md:my-24 py-16 reveal">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-4 text-zinc-900">Got a complex idea? Let's build it, beautifully.</h2>
+                        <p class="text-lg text-zinc-600 mb-8 max-w-md mx-auto md:mx-0">
+                           My passion is untangling complex problems and turning them into beautiful, intuitive experiences. If you're looking for a designer who is excited by a good challenge and driven to create meaningful work, then we should connect.
+                        </p>
+                         <div id="roles-status" class="inline-flex items-center space-x-3 cursor-pointer p-3 bg-zinc-100 hover:bg-zinc-200 transition-colors rounded-full">
+                            <span class="relative flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <span class="text-zinc-800 font-medium text-base">Looking for new roles</span>
+                        </div>
+                        <div id="roles-details" class="hidden mt-4 p-6 bg-zinc-100 rounded-2xl text-zinc-700 text-left space-y-3">
+                            <p class="font-bold text-zinc-900">I'm currently seeking an entry-level role as a:</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>UX Designer</li>
+                                <li>UX Researcher</li>
+                                <li>Interaction Designer</li>
+                            </ul>
+                            <p><span class="font-semibold">Locations:</span> Open to opportunities in Germany (where I'm sharpening my skills) and India (where my heart is).</p>
+                            <p class="italic text-sm pt-2 border-t border-zinc-200 mt-3">Let's craft applications that users actually love, not one that tests their patience (or their aim at the nearest window). Up for it? I'd love to hear from you!</p>
+                        </div>
+                    </div>
+                    <div>
+                         <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="w-full max-w-lg mx-auto space-y-8">
+                            <input type="hidden" name="access_key" value="29992de7-89e2-473c-be83-6be9d046eea0">
+                            <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                            <div>
+                                <input type="text" id="name" name="name" required placeholder="Your Name" class="form-input block w-full text-lg">
+                            </div>
+                            <div>
+                                <input type="email" id="email" name="email" required placeholder="Your Email" class="form-input block w-full text-lg">
+                            </div>
+                            <div>
+                                <textarea id="message" name="message" rows="3" required placeholder="Your Message" class="form-input block w-full text-lg resize-none"></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="primary-button text-lg px-8 py-3 rounded-full font-bold">
+                                    <span>Send Message</span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
+                            </div>
+                        </form>
+                        <div id="form-success-message" class="hidden mt-6 text-lg text-green-600 text-center">
+                            <p class="font-bold">Thank you!</p>
+                            <p>Your message has been sent successfully.</p>
+                             <p class="text-sm text-zinc-500 mt-2">
+                                Reinstating the form in <span id="countdown-timer" class="font-bold">5</span> seconds...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center p-8 border-t border-zinc-200">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-zinc-500 text-sm">&copy; 2025 Priyanshu Rai. All Rights Reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/in/priyanshu-rai-4531001a0/" class="text-zinc-500 hover:text-zinc-900 transition-colors">LinkedIn</a>
+                <a href="https://www.behance.net/priyanshu_rai" class="text-zinc-500 hover:text-zinc-900 transition-colors">Behance</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // -- MOBILE MENU SCRIPT --
+            const menuButton = document.getElementById('mobile-menu-button');
+            const closeButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+            const body = document.body;
+
+            const toggleMenu = () => {
+                const isActive = mobileMenu.classList.toggle('active');
+                menuButton.classList.toggle('active');
+                backdrop.classList.toggle('active');
+                body.style.overflow = isActive ? 'hidden' : '';
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+            closeButton.addEventListener('click', toggleMenu);
+            backdrop.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            lucide.createIcons();
+        
+            // -- OTHER SCRIPTS --
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            const filterButtons = document.querySelectorAll('#filter-bar .filter-button');
+            const caseStudies = document.querySelectorAll('.case-study');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+                    filterButtons.forEach(btn => btn.classList.remove('filter-active'));
+                    button.classList.add('filter-active');
+                    caseStudies.forEach(card => {
+                        const category = card.dataset.category;
+                        if (filter === 'all' || category.includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            const processStepCards = document.querySelectorAll('.process-step-card');
+            const processVisuals = document.querySelectorAll('.process-visual');
+            const processObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const step = entry.target.dataset.step;
+                        processVisuals.forEach(visual => {
+                            const visualStep = visual.id.split('-')[2];
+                            if (visualStep === step) {
+                                visual.style.opacity = '1';
+                                visual.style.transform = 'scale(1)';
+                            } else {
+                                visual.style.opacity = '0';
+                                visual.style.transform = 'scale(0.9)';
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.6 });
+            processStepCards.forEach(card => processObserver.observe(card));
+            const firstVisual = document.getElementById('visual-step-1');
+            if (firstVisual) {
+                firstVisual.style.opacity = '1';
+                firstVisual.style.transform = 'scale(1)';
+            }
+
+            // -- CONTACT FORM SCRIPT --
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('form-success-message');
+            const contactContainer = document.querySelector('#contact .grid');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(this);
+                    const object = {};
+                    formData.forEach((value, key) => {
+                        object[key] = value;
+                    });
+                    const json = JSON.stringify(object);
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+
+                    submitButton.innerHTML = '<span>Sending...</span>';
+
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: json
+                    })
+                    .then(async (response) => {
+                        let jsonResponse = await response.json();
+                        if (response.status == 200) {
+                            if (contactContainer) contactContainer.style.display = 'none';
+                            
+                            const successParent = contactContainer.parentNode;
+                            successParent.appendChild(successMessage);
+                            successMessage.style.display = 'block';
+
+                            let countdown = 5;
+                            const countdownElement = document.getElementById('countdown-timer');
+                            countdownElement.textContent = countdown;
+
+                            const intervalId = setInterval(() => {
+                                countdown--;
+                                countdownElement.textContent = countdown;
+                                if (countdown <= 0) {
+                                    clearInterval(intervalId);
+                                    successMessage.style.display = 'none';
+                                    if (contactContainer) contactContainer.style.display = 'grid';
+                                    submitButton.innerHTML = '<span>Send Message</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+                                }
+                            }, 1000);
+
+                        } else {
+                            console.log(response);
+                            alert('Sorry, there was an error sending your message. Please try again.');
+                            submitButton.innerHTML = '<span>Send Message</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert('Sorry, there was an error sending your message. Please try again.');
+                        submitButton.innerHTML = '<span>Send Message</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+                    })
+                    .finally(() => {
+                        contactForm.reset();
+                    });
+                });
+            }
+
+            // -- ROLES BUTTON SCRIPT --
+            const rolesStatus = document.getElementById('roles-status');
+            const rolesDetails = document.getElementById('roles-details');
+
+            if (rolesStatus && rolesDetails) {
+                rolesStatus.addEventListener('click', () => {
+                    rolesDetails.classList.toggle('hidden');
+                });
+            }
+            
+            const navLinks = document.querySelectorAll('.nav-button[href^="#"]');
+            const sections = document.querySelectorAll('main section[id]');
+            function updateActiveLink() {
+                let currentSectionId = '';
+                const offset = 150; 
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - offset;
+                    if (window.scrollY >= sectionTop) {
+                        currentSectionId = section.id;
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('nav-active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink(); // Run on load
+        });
+    </script>
 </body>
 </html>
