@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudiGo Research Project - Priyanshu Rai</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><style>text{font-family: 'Satoshi', sans-serif; font-weight: 900;}.main-text{fill:black;}</style><text x='50' y='80' font-size='70' text-anchor='middle' class='main-text'>PR</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Satoshi', sans-serif;
+            background-color: #F9F9F9;
+            color: #18181B;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(90deg, #18181B, #52525B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .primary-button {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .primary-button:hover {
+            background-color: #792EEA;
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.3);
+        }
+        .nav-button {
+             background-color: rgba(0, 0, 0, 0.03);
+             border: 1px solid rgba(0, 0, 0, 0.05);
+             transition: all 0.2s ease;
+             color: #52525B;
+        }
+        .nav-button:hover, .nav-active {
+            background-color: #18181B;
+            color: #FFFFFF !important;
+            border-color: #18181B;
+        }
+        .resume-button {
+            border: 1px solid #8A3FFC;
+            color: #8A3FFC;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .resume-button:hover {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animated-hero-bg {
+            background: linear-gradient(110deg, 
+                rgba(249, 249, 249, 1) 25%, 
+                rgba(138, 63, 252, 0.05) 50%, 
+                rgba(249, 249, 249, 1) 75%
+            );
+            background-size: 200% 200%;
+            animation: animate-bg 15s ease-in-out infinite;
+        }
+        @keyframes animate-bg {
+          0% { background-position: 10% 0%; }
+          50% { background-position: 90% 100%; }
+          100% { background-position: 10% 0%; }
+        }
+        
+        .secondary-cta {
+            position: relative;
+            overflow: hidden;
+            background-color: transparent;
+            border: 1px solid #d4d4d8;
+            color: #18181B;
+            transition: all 0.3s ease;
+        }
+        .secondary-cta:hover {
+            border-color: #8A3FFC;
+            color: #8A3FFC;
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.2);
+        }
+        .secondary-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease-in-out;
+        }
+        .secondary-cta:hover::before {
+            left: 150%;
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 300px;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 90;
+        }
+        #mobile-menu.active { transform: translateX(0); }
+        #menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 80;
+        }
+        #menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #mobile-menu-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: #27272A;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        #mobile-menu-button.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #mobile-menu-button.active .hamburger-line:nth-child(2) { opacity: 0; }
+        #mobile-menu-button.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        
+        .logo-container { position: relative; display: flex; align-items: center; min-width: 110px; height: 24px; }
+        .logo-text { position: absolute; white-space: nowrap; }
+        @keyframes name-animation {
+            0%, 45% { opacity: 1; transform: translateY(0); }
+            50%, 100% { opacity: 0; transform: translateY(-5px); }
+        }
+        .logo-name {
+            animation: name-animation 8s ease-in-out infinite;
+        }
+        @keyframes title-animation {
+            0%, 50% { opacity: 0; transform: translateY(5px); }
+            55%, 95% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-5px); }
+        }
+        .logo-title {
+            opacity: 0;
+            animation: title-animation 8s ease-in-out infinite;
+        }
+        .journey-map-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr; /* 1 column for headers, 5 for phases */
+            border-top: 2px solid #e4e4e7;
+            border-left: 2px solid #e4e4e7;
+        }
+        .journey-map-cell {
+            border-right: 2px solid #e4e4e7;
+            border-bottom: 2px solid #e4e4e7;
+            padding: 1rem;
+        }
+        .journey-map-header {
+            font-weight: bold;
+            color: #52525B;
+            background-color: #fafafa;
+        }
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F4F4F5; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #d4d4d8 #F4F4F5; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center p-2 rounded-full bg-white/30 backdrop-blur-lg border border-black/10">
+            <div class="flex-shrink-0 pl-4">
+                <a href="index.html" class="flex items-center">
+                    <div class="logo-container">
+                        <span class="logo-text logo-name text-zinc-800 font-bold">Priyanshu Rai</span>
+                        <span class="logo-text logo-title font-bold text-purple-600">UXD</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="index.html#work" class="nav-button nav-active px-4 py-2 rounded-full text-sm font-medium">Projects</a>
+                <a href="index.html#process" class="nav-button px-4 py-2 rounded-full text-sm font-medium">My Flow</a>
+                <a href="about.html" class="nav-button px-4 py-2 rounded-full text-sm font-medium">About</a>
+            </div>
+
+            <div class="flex items-center gap-2 pr-2">
+                <a href="https://drive.google.com/file/d/1lrx5RU-GefX0RiRiRhkf1H0qt3trruUa/view?usp=sharing" class="resume-button px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium">View Resume</a>
+                
+                <div class="hidden md:flex">
+                    <a href="index.html#contact" class="primary-button px-4 py-2 rounded-full text-sm font-bold">Get In Touch</a>
+                </div>
+
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" class="relative z-[101] rounded-full hover:bg-zinc-200/50">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu-backdrop"></div>
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-7 right-6 p-2 z-[102]">
+            <i data-lucide="x" class="w-8 h-8 text-zinc-800"></i>
+        </button>
+        <div class="p-8 pt-24">
+            <nav class="flex flex-col gap-6 text-xl font-medium text-zinc-800">
+                <a href="index.html#work" class="mobile-menu-link hover:text-purple-600">Projects</a>
+                <a href="index.html#process" class="mobile-menu-link hover:text-purple-600">My Flow</a>
+                <a href="about.html" class="mobile-menu-link hover:text-purple-600">About</a>
+                <div class="pt-6 mt-6 border-t border-zinc-200">
+                     <a href="index.html#contact" class="primary-button justify-center py-3 w-full rounded-full font-bold">Get In Touch</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <main class="container mx-auto p-4 md:p-8 pt-24 md:pt-32">
+
+        <section class="text-center pt-12 pb-12 reveal">
+            <a href="index.html#work" class="text-purple-600 hover:text-purple-500 transition-colors mb-4 inline-flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to All Projects</a>
+            <h1 class="text-5xl md:text-7xl font-black leading-tight gradient-text mt-2">StudiGo Research</h1>
+            <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl text-zinc-600">An HCI research sprint investigating the friction points for international students navigating German digital bureaucracy.</p>
+        </section>
+        
+        <section class="mb-16 md:mb-24 reveal">
+             <div class="animated-hero-bg rounded-2xl border border-zinc-200 overflow-hidden h-full max-h-[550px] flex items-center justify-center p-8">
+                <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-purple-200"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal grid md:grid-cols-5 gap-16 items-center">
+            <div class="md:col-span-3">
+                 <h2 class="text-3xl font-bold text-zinc-900 mb-6">The Problem Statement</h2>
+                 <p class="text-lg text-zinc-600 mb-8">For international students, arriving in Germany means facing a "bureaucratic wall." Critical tasks like city registration, visa extensions, and opening a bank account must be done through digital portals often not designed for non-native speakers. This leads to <span class="font-bold text-zinc-800">immense stress, confusion, and a risk of costly errors</span> during a vulnerable transition period.</p>
+                 <h3 class="font-bold text-zinc-900 mb-4 flex items-center gap-2"><i data-lucide="target" class="text-purple-500 w-5 h-5"></i>Research Objectives</h3>
+                 <ul class="list-none text-zinc-700 space-y-2">
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-purple-500 flex-shrink-0 mt-1.5 w-5 h-5"></i><span>To identify and categorize the primary <span class="font-semibold">usability and accessibility issues</span> in digital bureaucratic processes for non-German speaking students.</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-purple-500 flex-shrink-0 mt-1.5 w-5 h-5"></i><span>To understand the <span class="font-semibold">emotional journey, including pain points and coping mechanisms</span>, that students experience during this administrative onboarding.</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-purple-500 flex-shrink-0 mt-1.5 w-5 h-5"></i><span>To translate qualitative and quantitative data into a set of <span class="font-semibold">evidence-based, actionable design principles</span> for creating more inclusive public service applications.</span></li>
+                 </ul>
+            </div>
+            <div class="md:col-span-2 bg-zinc-100 border border-zinc-200 p-8 rounded-2xl space-y-6">
+                <div>
+                    <h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider mb-2">Project Type</h4>
+                    <p class="text-lg font-medium text-zinc-900">Personal Research Project</p>
+                </div>
+                <div>
+                    <h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider mb-4">My Role: End-to-End UX Researcher</h4>
+                    <ul class="space-y-3 text-zinc-700">
+                        <li class="flex items-start gap-3"><i data-lucide="compass" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">Research Strategist:</span> Planned the end-to-end research sprint.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="mic" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">Interviewer:</span> Conducted semi-structured user interviews.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="pie-chart" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">Analyst:</span> Designed surveys and analyzed quantitative data.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="ungroup" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">Synthesizer:</span> Led thematic analysis and affinity mapping.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="map" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">UX Storyteller:</span> Created personas and journey maps to visualize findings.</span></li>
+                    </ul>
+                </div>
+                <div><h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider">Timeline</h4><p class="text-lg font-medium text-zinc-900">4 Week Sprint</p></div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal bg-zinc-100 py-20 rounded-2xl">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 1: Research Plan & Methodology</h2>
+                    <p class="text-lg text-zinc-600 mb-16">I chose a <span class="font-bold text-zinc-800">mixed-methods approach</span> to triangulate findings, combining statistical data with deep narrative context. The research was conducted at the <span class="font-bold text-zinc-800">University of Siegen</span>, with a focus on participants from <span class="font-bold text-zinc-800">South East Asia</span>.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white/60 p-6 rounded-2xl border border-zinc-200">
+                        <i data-lucide="clipboard-list" class="w-10 h-10 text-purple-500 mb-4"></i>
+                        <h3 class="font-bold text-lg text-zinc-900">Quantitative Surveys (n=50)</h3>
+                        <p class="text-zinc-600">Distributed to quantify common problems. A 7-point Likert scale question revealed that <span class="font-bold text-zinc-800">78% of participants</span> rated their anxiety level as 5 or higher when submitting official forms online.</p>
+                    </div>
+                     <div class="bg-white/60 p-6 rounded-2xl border border-zinc-200">
+                        <i data-lucide="messages-square" class="w-10 h-10 text-purple-500 mb-4"></i>
+                        <h3 class="font-bold text-lg text-zinc-900">Semi-Structured Interviews (n=5)</h3>
+                        <p class="text-zinc-600">Conducted to gather rich stories. Sample questions included: <span class="font-semibold text-zinc-800">"Can you walk me through the last time you used a government portal?"</span> and "What was the most confusing part?"</p>
+                    </div>
+                     <div class="bg-white/60 p-6 rounded-2xl border border-zinc-200">
+                        <i data-lucide="clipboard-check" class="w-10 h-10 text-purple-500 mb-4"></i>
+                        <h3 class="font-bold text-lg text-zinc-900">Heuristic Evaluation</h3>
+                        <p class="text-zinc-600">Evaluated a city registration portal against Nielsen's Heuristics. <span class="font-semibold text-zinc-800">"Visibility of system status"</span> and <span class="font-semibold text-zinc-800">"Error prevention"</span> were the most commonly violated principles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 2: Quantitative Insights (Survey Statistics)</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">The survey provided a clear statistical baseline for the severity and nature of the problems students face. The results painted a picture of widespread anxiety and confusion.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200">
+                    <i data-lucide="frown" class="w-10 h-10 text-purple-500 mb-4"></i>
+                    <p class="text-4xl font-bold text-purple-600">78%</p>
+                    <p class="text-zinc-600 mt-2">of students reported feeling <span class="font-bold text-zinc-800">anxious or very anxious</span> when submitting official digital forms.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200">
+                    <i data-lucide="book-lock" class="w-10 h-10 text-purple-500 mb-4"></i>
+                    <p class="text-4xl font-bold text-purple-600">85%</p>
+                    <p class="text-zinc-600 mt-2">identified <span class="font-bold text-zinc-800">unclear German terminology</span> as their single biggest challenge, even on translated pages.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200">
+                     <i data-lucide="users" class="w-10 h-10 text-purple-500 mb-4"></i>
+                    <p class="text-4xl font-bold text-purple-600">70%</p>
+                    <p class="text-zinc-600 mt-2">relied primarily on <span class="font-bold text-zinc-800">friends or seniors</span> for help, indicating a failure of official support channels.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 3: Qualitative Insights (The Student Voice)</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">The semi-structured interviews provided the human stories behind the statistics. Below are some of the key questions from the interview protocol and a selection of representative answers.</p>
+            <div class="max-w-4xl mx-auto p-8 bg-white border border-zinc-200 rounded-2xl text-left space-y-8">
+                <div>
+                    <h4 class="font-bold text-zinc-900 text-lg flex items-center gap-2"><i data-lucide="help-circle" class="w-5 h-5 text-purple-500"></i>"Can you walk me through the last time you completed an official task online?"</h4>
+                    <blockquote class="mt-2 italic text-zinc-600 border-l-2 border-zinc-300 pl-4">"Oh, the Anmeldung. I started on the city's website, but the links were all in German... I had to ask a friend in a WhatsApp group which one was correct. I spent maybe two hours just trying to find the right PDF to download."</blockquote>
+                </div>
+                <div>
+                    <h4 class="font-bold text-zinc-900 text-lg flex items-center gap-2"><i data-lucide="alert-triangle" class="w-5 h-5 text-purple-500"></i>"What was the most frustrating moment in that process?"</h4>
+                    <blockquote class="mt-2 italic text-zinc-600 border-l-2 border-zinc-300 pl-4">"Translating the PDF form. Every single field. You use Google Translate but you have no idea if it's legally correct. What does 'Familienstand' really mean in a legal sense? You're terrified of making a mistake that could cause problems later."</blockquote>
+                </div>
+                <div>
+                    <h4 class="font-bold text-zinc-900 text-lg flex items-center gap-2"><i data-lucide="hourglass" class="w-5 h-5 text-purple-500"></i>"What was the waiting period for your visa extension like?"</h4>
+                    <blockquote class="mt-2 italic text-zinc-600 border-l-2 border-zinc-300 pl-4">"Horrible. It's a complete black box. You send your life's documents into an email and hear nothing for weeks, maybe months. You don't know if they received it, if it's being processed, or if you made a mistake. You just have to wait and hope your visa doesn't expire."</blockquote>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 4: Thematic Analysis & Key Insights</h2>
+                <div class="max-w-4xl mx-auto bg-white border border-zinc-200 rounded-2xl p-8 mb-12">
+                    <h3 class="text-xl font-bold text-zinc-900 mb-4 text-center">The Process: From Raw Data to Actionable Themes</h3>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-zinc-100 p-4 rounded-lg border border-zinc-200 h-64 grid grid-cols-3 gap-2 content-start">
+                            <div class="bg-yellow-200 text-yellow-800 text-xs p-2 rounded-md shadow-sm">"I was so lost"</div>
+                            <div class="bg-blue-200 text-blue-800 text-xs p-2 rounded-md shadow-sm">Pain Point: No feedback</div>
+                            <div class="bg-green-200 text-green-800 text-xs p-2 rounded-md shadow-sm">Observation: Used WhatsApp</div>
+                            <div class="bg-blue-200 text-blue-800 text-xs p-2 rounded-md shadow-sm">Frustration: Confusing terms</div>
+                            <div class="bg-yellow-200 text-yellow-800 text-xs p-2 rounded-md shadow-sm">"So anxious about my visa"</div>
+                            <div class="bg-pink-200 text-pink-800 text-xs p-2 rounded-md shadow-sm">Idea: Status Tracker</div>
+                            <div class="bg-green-200 text-green-800 text-xs p-2 rounded-md shadow-sm">Downloaded 3 PDFs</div>
+                            <div class="bg-yellow-200 text-yellow-800 text-xs p-2 rounded-md shadow-sm">"Hope it's right"</div>
+                            <div class="bg-blue-200 text-blue-800 text-xs p-2 rounded-md shadow-sm">Unclear UI</div>
+                        </div>
+                        <div class="text-zinc-700 text-left">
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="scan-line" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i>
+                                    <span><b class="text-zinc-900">1. Coding:</b> Interview transcripts were meticulously coded to identify individual observations, pain points, and user quotes.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="sticky-note" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i>
+                                    <span><b class="text-zinc-900">2. Grouping:</b> These codes were transferred to digital sticky notes in Miro to externalize and visualize the data points.</span>
+                                </li>
+                                 <li class="flex items-start gap-3">
+                                    <i data-lucide="ungroup" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i>
+                                    <span><b class="text-zinc-900">3. Thematic Analysis:</b> Through multiple rounds of sorting, I organized the notes into clusters. This affinity mapping process allowed high-level themes to emerge organically from the data.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-lg text-zinc-600 mb-12">This rigorous synthesis process resulted in the following four key insights:</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="flex items-start gap-4 p-6 bg-white border border-zinc-200 rounded-lg">
+                    <i data-lucide="languages" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="font-bold text-zinc-900 text-lg">1. Ambiguity Extends Beyond Language</h3>
+                        <p class="text-zinc-600">Direct translations fail to explain the cultural and legal context of bureaucratic terms. Even with English text, users <span class="font-semibold text-zinc-800">don't trust its accuracy</span> for legal forms, forcing them to seek validation from friends.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-white border border-zinc-200 rounded-lg">
+                    <i data-lucide="eye-off" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="font-bold text-zinc-900 text-lg">2. The 'Black Box' Effect Magnifies Anxiety</h3>
+                        <p class="text-zinc-600">The lack of feedback loops and unresponsive communication from authorities creates immense stress. Students arrive with visas of varying lengths (3, 6, or 12 months), and there is <span class="font-bold text-zinc-800">no certainty on when an extension letter will arrive</span>, even for people with the same visa type.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-white border border-zinc-200 rounded-lg">
+                    <i data-lucide="route-off" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="font-bold text-zinc-900 text-lg">3. Users Operate Without a Mental Model</h3>
+                        <p class="text-zinc-600">With no clear roadmap, students cannot form a mental model of the end-to-end process. This leads to them completing steps in the wrong order or missing <span class="font-semibold text-zinc-800">critical deadlines</span>.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start gap-4 p-6 bg-white border border-zinc-200 rounded-lg">
+                    <i data-lucide="users" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="font-bold text-zinc-900 text-lg">4. Dependency on Unofficial Channels</h3>
+                        <p class="text-zinc-600">The failure of official systems forces students to rely on <span class="font-semibold text-zinc-800">unreliable sources</span> like blogs and WhatsApp groups, which often contain outdated or incorrect information.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-zinc-100 p-8 md:p-12 rounded-2xl grid md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-1">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=500&auto=format&fit=crop" alt="Persona Photo of Ananya, an Indian student" class="w-40 h-40 rounded-full mx-auto object-cover border-4 border-white shadow-lg" crossorigin="anonymous" referrerpolicy="no-referrer">
+                </div>
+                <div class="md:col-span-2 space-y-4">
+                    <h3 class="text-2xl font-bold text-zinc-900">Persona: Ananya, The Overwhelmed Planner</h3>
+                    <p class="text-purple-600 font-semibold">22, Master's Student from India, arriving in Germany for the first time.</p>
+                    <p class="text-zinc-700">Ananya is proactive and organized, but the ambiguity of the German system undermines her confidence. She wants to do everything correctly but is overwhelmed by the unfamiliar language and processes. Her <span class="font-bold">technical proficiency is high</span>, but her <span class="font-bold">bureaucratic proficiency is low</span>.</p>
+                    <p class="italic text-zinc-600">"I spent a week just trying to figure out which form was the right one. I was so scared of getting it wrong and having to go back."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center"> 
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 5: Visualizing the Struggle</h2> 
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">To fully empathize with the user, I created an extensive customer journey map for Ananya. This visualizes the steps, thoughts, feelings, and opportunities across the entire city registration process.</p> 
+            <div class="overflow-x-auto custom-scrollbar p-2 bg-white rounded-2xl border border-zinc-200">
+                <div class="journey-map-grid min-w-[1200px]">
+                    <div class="journey-map-cell journey-map-header"></div>
+                    <div class="journey-map-cell journey-map-header text-center"><i data-lucide="search" class="mx-auto w-5 h-5 mb-2"></i>1. Discovery</div>
+                    <div class="journey-map-cell journey-map-header text-center"><i data-lucide="edit-3" class="mx-auto w-5 h-5 mb-2"></i>2. Form Filling</div>
+                    <div class="journey-map-cell journey-map-header text-center"><i data-lucide="send" class="mx-auto w-5 h-5 mb-2"></i>3. Submission</div>
+                    <div class="journey-map-cell journey-map-header text-center"><i data-lucide="hourglass" class="mx-auto w-5 h-5 mb-2"></i>4. Waiting</div>
+                    <div class="journey-map-cell journey-map-header text-center"><i data-lucide="mail-check" class="mx-auto w-5 h-5 mb-2"></i>5. Confirmation</div>
+                    
+                    <div class="journey-map-cell journey-map-header self-center">Actions</div>
+                    <div class="journey-map-cell text-sm">Searches "Anmeldung in Siegen". Finds multiple official-looking websites. Asks friends in a WhatsApp group which link is correct.</div>
+                    <div class="journey-map-cell text-sm">Downloads a PDF. Uses Google Translate for every field. Cross-references with a 3-year-old blog post to understand confusing terms.</div>
+                    <div class="journey-map-cell text-sm">Finds an online portal to upload the form. Worries if the scan quality is good enough. Clicks submit and the page reloads.</div>
+                    <div class="journey-map-cell text-sm">Checks email and physical mailbox daily. Scans online forums for others' visa timelines, getting more confused.</div>
+                    <div class="journey-map-cell text-sm">Receives an automated email in German. Translates it. It's a confirmation, but she is unsure what the next step is.</div>
+                    
+                    <div class="journey-map-cell journey-map-header self-center">Thoughts</div>
+                    <div class="journey-map-cell text-sm italic">"Is this the right website? It looks so old. I can't trust it. What if it's a scam?"</div>
+                    <div class="journey-map-cell text-sm italic">"What does 'Familienstand' mean? Does 'ledig' mean single? I hope this translation is legally correct."</div>
+                    <div class="journey-map-cell text-sm italic">"Did it go through? I didn't get a success message. Do I need to send it by post too? This is so stressful."</div>
+                    <div class="journey-map-cell text-sm italic">"My friend got his letter in 3 weeks, but my initial visa is only for 3 months. Should I be worried? There is no one to email for an update."</div>
+                    <div class="journey-map-cell text-sm italic">"Okay, it's approved. But what do I do with this document? The email doesn't say. I have to start searching all over again."</div>
+                    
+                    <div class="journey-map-cell journey-map-header self-center">Feelings</div>
+                    <div class="journey-map-cell text-center"><span class="text-3xl">😕</span><p class="text-sm font-semibold">Overwhelmed</p></div>
+                    <div class="journey-map-cell text-center"><span class="text-3xl">😰</span><p class="text-sm font-semibold">Anxious</p></div>
+                    <div class="journey-map-cell text-center"><span class="text-3xl">😟</span><p class="text-sm font-semibold">Doubtful</p></div>
+                    <div class="journey-map-cell text-center"><span class="text-3xl">😬</span><p class="text-sm font-semibold">Uncertain</p></div>
+                    <div class="journey-map-cell text-center"><span class="text-3xl">😌</span><p class="text-sm font-semibold">Relieved, but...</p></div>
+
+                    <div class="journey-map-cell journey-map-header self-center bg-purple-50 text-purple-800">Opportunities</div>
+                    <div class="journey-map-cell text-sm text-purple-700 bg-purple-50">Centralized dashboard with a clear checklist.</div>
+                    <div class="journey-map-cell text-sm text-purple-700 bg-purple-50">In-line explanations for jargon and a document checklist.</div>
+                    <div class="journey-map-cell text-sm text-purple-700 bg-purple-50">Instant, clear confirmation with a reference number.</div>
+                    <div class="journey-map-cell text-sm text-purple-700 bg-purple-50">A status tracker for all submitted applications.</div>
+                    <div class="journey-map-cell text-sm text-purple-700 bg-purple-50">Clear instructions on next steps after confirmation.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 6: From Insights to Actionable Principles</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">The research findings were translated into four core design principles. These are not feature ideas, but foundational rules to guide the design of any potential solution.</p>
+            <div class="grid md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6">
+                    <div class="flex items-center gap-4 mb-4"><i data-lucide="layers" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">1. Principle of Contextual Scaffolding</h3></div>
+                    <p class="text-zinc-600">To address the insight that <span class="font-semibold">ambiguity extends beyond language</span>, the system should provide contextual help. This includes on-demand tooltips explaining jargon in simple terms and short descriptions of *why* a piece of information is needed, not just what is being asked.</p>
+                </div>
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6">
+                    <div class="flex items-center gap-4 mb-4"><i data-lucide="list-ordered" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">2. Principle of Guided Progression</h3></div>
+                    <p class="text-zinc-600">To address the <span class="font-semibold">lack of a clear mental model</span>, break down complex processes into a visual, step-by-step wizard. Show users a clear "You are here" indicator and what the next steps are, providing a sense of progress, control, and predictability.</p>
+                </div>
+                 <div class="bg-white border border-zinc-200 rounded-2xl p-6">
+                    <div class="flex items-center gap-4 mb-4"><i data-lucide="folder-check" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">3. Principle of Unified Information</h3></div>
+                    <p class="text-zinc-600">To combat the <span class="font-semibold">dependency on unofficial channels</span>, create a secure, centralized dashboard. This area should show students all required processes, which documents are needed for each, and their current status in one place.</p>
+                </div>
+                 <div class="bg-white border border-zinc-200 rounded-2xl p-6">
+                    <div class="flex items-center gap-4 mb-4"><i data-lucide="bell-ring" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">4. Principle of Transparent Feedback</h3></div>
+                    <p class="text-zinc-600">To counter the <span class="font-semibold">'Black Box' Effect</span>, the system must provide proactive and transparent feedback. This means immediate confirmation after submissions and a visible status tracker for long-lead applications like visa extensions.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 7: From Principles to Concepts (Ideation)</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">The next step was to translate the design principles into tangible concepts. I created a series of low-fidelity wireframes to explore how these principles could be applied to build a new app or service.</p>
+            <div class="grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
+                <div class="bg-white border-2 border-zinc-200 rounded-2xl p-6 space-y-4">
+                    <h3 class="font-bold text-zinc-900 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-purple-500"></i>Feature Concept 1: The "Anmeldung" Wizard</h3>
+                    <div class="w-full bg-zinc-100 rounded-lg p-4 border border-zinc-200 aspect-square flex flex-col justify-between">
+                        <div class="text-center text-sm font-bold text-zinc-500">City Registration</div>
+                        <div class="space-y-2">
+                            <div class="w-full h-3 bg-purple-500 rounded-full"></div>
+                            <div class="w-2/3 h-3 bg-zinc-300 rounded-full"></div>
+                        </div>
+                        <div class="p-4 bg-white rounded-md border border-zinc-200 text-sm">
+                            <p class="font-semibold">Step 1: Personal Details</p>
+                            <div class="w-full h-2 bg-zinc-200 rounded-full mt-2"></div>
+                             <div class="w-full h-2 bg-zinc-200 rounded-full mt-1"></div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-xs text-zinc-400">Back</div>
+                            <div class="px-4 py-1 bg-purple-600 rounded-full text-white text-xs">Next</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-600">This concept directly applies the <span class="font-semibold">Principle of Guided Progression</span> by turning the confusing multi-page PDF into a simple, step-by-step process.</p>
+                </div>
+                <div class="bg-white border-2 border-zinc-200 rounded-2xl p-6 space-y-4">
+                    <h3 class="font-bold text-zinc-900 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-purple-500"></i>Feature Concept 2: The Jargon-Buster</h3>
+                    <div class="w-full bg-zinc-100 rounded-lg p-4 border border-zinc-200 aspect-square flex flex-col justify-start gap-4">
+                         <div class="text-sm">
+                            <p class="text-zinc-500">Field:</p>
+                            <p class="font-semibold p-2 bg-white rounded-md border border-zinc-200">Familienstand <i data-lucide="info" class="inline w-3 h-3 text-purple-500"></i></p>
+                        </div>
+                         <div class="relative p-3 bg-purple-100 border border-purple-200 text-purple-800 rounded-lg text-xs">
+                            <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-purple-100 transform rotate-45"></div>
+                            <b>What this means:</b> This is your marital status (e.g., single, married). It is required for tax purposes.
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-600">Applying the <span class="font-semibold">Principle of Contextual Scaffolding</span>, this feature provides on-demand help for confusing terms, reducing the need for external translation tools.</p>
+                </div>
+                 <div class="bg-white border-2 border-zinc-200 rounded-2xl p-6 space-y-4">
+                    <h3 class="font-bold text-zinc-900 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-purple-500"></i>Feature Concept 3: Status Dashboard</h3>
+                    <div class="w-full bg-zinc-100 rounded-lg p-4 border border-zinc-200 aspect-square flex flex-col justify-start gap-3">
+                         <div class="text-center text-sm font-bold text-zinc-500">My Applications</div>
+                         <div class="p-3 bg-white rounded-md border border-zinc-200">
+                            <p class="font-semibold text-sm">Visa Extension</p>
+                            <p class="text-xs text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full inline-block">In Review</p>
+                         </div>
+                         <div class="p-3 bg-white rounded-md border border-zinc-200">
+                            <p class="font-semibold text-sm">City Registration</p>
+                            <p class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full inline-block">Completed</p>
+                         </div>
+                    </div>
+                    <p class="text-sm text-zinc-600">This addresses the <span class="font-semibold">'Black Box' Effect</span> by giving users a single, trustworthy place to see the status of all their applications, increasing transparency and reducing anxiety.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 8: Concept Validation (Usability Testing)</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">The low-fidelity wireframes were turned into a simple interactive prototype. I then conducted a round of moderated remote usability testing with 5 new student participants to validate the concepts.</p>
+            <div class="grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
+                <div class="bg-white/60 p-6 rounded-2xl border border-zinc-200 space-y-3">
+                    <div class="flex items-center gap-3"><i data-lucide="check-circle" class="w-8 h-8 text-green-500"></i><h3 class="text-lg font-bold">Positive Validation</h3></div>
+                    <p class="text-zinc-600">All participants found the step-by-step wizard <span class="font-bold text-zinc-800">significantly easier</span> to understand than the original PDF form. The progress bar was frequently mentioned as a "calming" feature.</p>
+                    <blockquote class="italic text-zinc-500 border-l-2 border-zinc-300 pl-3 text-sm">"This is amazing. I would know exactly where I am and what to do next. My anxiety would be so much lower."</blockquote>
+                </div>
+                 <div class="bg-white/60 p-6 rounded-2xl border border-zinc-200 space-y-3">
+                    <div class="flex items-center gap-3"><i data-lucide="edit" class="w-8 h-8 text-amber-500"></i><h3 class="text-lg font-bold">Iterative Feedback</h3></div>
+                    <p class="text-zinc-600">While the Jargon-Buster was helpful, 3 out of 5 users expected the explanation to appear <span class="font-bold text-zinc-800">automatically for the most complex terms</span>, without requiring a click.</p>
+                     <blockquote class="italic text-zinc-500 border-l-2 border-zinc-300 pl-3 text-sm">"The help is great, but for words like 'Steueridentifikationsnummer', you should just show me what it means right away."</blockquote>
+                </div>
+                 <div class="bg-white/60 p-6 rounded-2xl border border-zinc-200 space-y-3">
+                    <div class="flex items-center gap-3"><i data-lucide="gem" class="w-8 h-8 text-purple-500"></i><h3 class="text-lg font-bold">Value Proposition Confirmed</h3></div>
+                    <p class="text-zinc-600">The status dashboard was unanimously identified as the <span class="font-bold text-zinc-800">most valuable and desired feature</span>. All participants stated it would dramatically reduce the stress of waiting for confirmations.</p>
+                     <blockquote class="italic text-zinc-500 border-l-2 border-zinc-300 pl-3 text-sm">"Wow, if I had this, I would stop checking my email 10 times a day. This would be a game-changer."</blockquote>
+                </div>
+            </div>
+        </section>
+        
+        <section class="text-center my-16 md:my-24 py-16 border-t border-zinc-200 reveal">
+             <div class="mb-6 text-purple-500"><i data-lucide="lightbulb" class="h-12 w-12 mx-auto"></i></div>
+             <h2 class="text-3xl font-bold text-zinc-900 mb-4">Outcome & Reflection</h2>
+             <p class="text-lg text-zinc-600 max-w-3xl mx-auto mb-8">This foundational research provided invaluable, evidence-based insights into a significant real-world problem. The journey map and design principles directly informed the concept for my passion project, <span class="font-bold text-purple-600">DetuchPay</span>. The project reinforced my belief that the most impactful design comes from deeply understanding the emotional and practical context of the user. It's not just about making things usable; it's about making people feel <span class="font-bold text-zinc-800">seen and supported</span>.</p>
+             <p class="text-md text-zinc-500 max-w-3xl mx-auto italic"><b class="text-zinc-600">Limitations & Future Work:</b> This was a short sprint with a small, qualitative sample size. Future work would involve quantitative testing of high-fidelity prototypes based on these principles to measure improvements in task completion time and reduction in user-reported anxiety.</p>
+             <div class="flex justify-center gap-4 mt-8">
+                 <a href="index.html#work" class="primary-button px-6 py-3 rounded-full font-bold"><i data-lucide="arrow-left" class="w-5 h-5"></i><span>All Projects</span></a>
+                 <a href="about.html" class="secondary-cta group relative inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold">
+                    <span>About Me</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                </a>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 border-t border-zinc-200">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-zinc-500 text-sm">&copy; 2025 Priyanshu Rai. All Rights Reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-zinc-500 hover:text-zinc-900 transition-colors">LinkedIn</a>
+                <a href="#" class="text-zinc-500 hover:text-zinc-900 transition-colors">Behance</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // -- MOBILE MENU SCRIPT --
+            const menuButton = document.getElementById('mobile-menu-button');
+            const closeButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+            const body = document.body;
+
+            const toggleMenu = () => {
+                const isActive = mobileMenu.classList.toggle('active');
+                menuButton.classList.toggle('active');
+                backdrop.classList.toggle('active');
+                body.style.overflow = isActive ? 'hidden' : '';
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+            closeButton.addEventListener('click', toggleMenu);
+            backdrop.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // -- REVEAL ON SCROLL SCRIPT --
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
