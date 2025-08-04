@@ -1,54 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>WellNexus Case Study</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellNexus Case Study - Priyanshu Rai</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><style>text{font-family: 'Satoshi', sans-serif; font-weight: 900;}.main-text{fill:black;}</style><text x='50' y='80' font-size='70' text-anchor='middle' class='main-text'>PR</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Satoshi', sans-serif;
+            background-color: #F9F9F9;
+            color: #18181B;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(90deg, #18181B, #52525B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .primary-button {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .primary-button:hover {
+            background-color: #792EEA;
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.3);
+        }
+        .nav-button {
+             background-color: rgba(0, 0, 0, 0.03);
+             border: 1px solid rgba(0, 0, 0, 0.05);
+             transition: all 0.2s ease;
+             color: #52525B;
+        }
+        .nav-button:hover, .nav-active {
+            background-color: #18181B;
+            color: #FFFFFF !important;
+            border-color: #18181B;
+        }
+        .resume-button {
+            border: 1px solid #8A3FFC;
+            color: #8A3FFC;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .resume-button:hover {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .figma-embed-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; 
+            border-radius: 1rem;
+        }
+        .figma-embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F4F4F5; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #d4d4d8 #F4F4F5; }
+        
+        .logo-container { position: relative; display: flex; align-items: center; min-width: 110px; height: 24px; }
+        .logo-text { position: absolute; white-space: nowrap; }
+        @keyframes name-animation {
+            0%, 45% { opacity: 1; transform: translateY(0); }
+            50%, 100% { opacity: 0; transform: translateY(-5px); }
+        }
+        .logo-name {
+            animation: name-animation 8s ease-in-out infinite;
+        }
+        @keyframes title-animation {
+            0%, 50% { opacity: 0; transform: translateY(5px); }
+            55%, 95% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-5px); }
+        }
+        .logo-title {
+            opacity: 0;
+            animation: title-animation 8s ease-in-out infinite;
+        }
 
-  <!-- SEO Meta Description -->
-  <meta name="description"
-        content="Explore the WellNexus healthcare app UX case study by Priyanshu Rai, featuring user research, wireframes, prototypes, and key outcomes." />
+        .ia-tree { display: flex; justify-content: flex-start; gap: 40px; }
+        .ia-tree > ul { display: inline-block; vertical-align: top; }
+        .ia-tree ul { padding-top: 20px; position: relative; transition: all 0.5s; }
+        .ia-tree li { text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; transition: all 0.5s; }
+        .ia-tree li::before, .ia-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 1px solid #d4d4d8; width: 50%; height: 20px; }
+        .ia-tree li::after { right: auto; left: 50%; border-left: 1px solid #d4d4d8; }
+        .ia-tree li:only-child::after, .ia-tree li:only-child::before { display: none; }
+        .ia-tree li:only-child { padding-top: 0; }
+        .ia-tree li:first-child::before, .ia-tree li:last-child::after { border: 0 none; }
+        .ia-tree li:last-child::before { border-right: 1px solid #d4d4d8; border-radius: 0 5px 0 0; }
+        .ia-tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .ia-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #d4d4d8; width: 0; height: 20px; }
+        .ia-tree li ul { padding-top: 20px; display: flex; }
+        .ia-node { padding: 10px 16px; text-decoration: none; color: #18181B; background-color: #FFFFFF; border: 1px solid #E4E4E7; font-family: 'Satoshi', sans-serif; font-size: 14px; display: inline-block; border-radius: 8px; transition: all 0.5s; white-space: nowrap; }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="WellNexus Case Study – UX Design by Priyanshu Rai" />
-  <meta property="og:description"
-        content="Dive into the WellNexus healthcare app UX case study by Priyanshu Rai, showcasing design process and results." />
-  <meta property="og:image"
-        content="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/image.svg" />
-  <meta property="og:url" content="https://www.priyanshuux.com/wellnexus-case-study.html" />
-  <meta property="og:type" content="article" />
+        .tab-button {
+            background-color: #FFFFFF;
+            border: 1px solid #E4E4E7;
+            color: #52525B;
+        }
+        .tab-button.active {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+            border-color: #8A3FFC;
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+            width: 6rem;
+        }
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -2rem; 
+            top: 1.25rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-right'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .animated-hero-bg {
+            background: linear-gradient(110deg, 
+                rgba(249, 249, 249, 1) 25%, 
+                rgba(138, 63, 252, 0.05) 50%, 
+                rgba(249, 249, 249, 1) 75%
+            );
+            background-size: 200% 200%;
+            animation: animate-bg 15s ease-in-out infinite;
+        }
+        @keyframes animate-bg {
+          0% { background-position: 10% 0%; }
+          50% { background-position: 90% 100%; }
+          100% { background-position: 10% 0%; }
+        }
+        
+        .secondary-cta {
+            position: relative;
+            overflow: hidden;
+            background-color: transparent;
+            border: 1px solid #d4d4d8;
+            color: #18181B;
+            transition: all 0.3s ease;
+        }
+        .secondary-cta:hover {
+            border-color: #8A3FFC;
+            color: #8A3FFC;
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.2);
+        }
+        .secondary-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease-in-out;
+        }
+        .secondary-cta:hover::before {
+            left: 150%;
+        }
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="WellNexus Case Study – UX Design by Priyanshu Rai" />
-  <meta name="twitter:description"
-        content="Explore the WellNexus healthcare app UX case study by Priyanshu Rai, featuring research, prototypes, and outcomes." />
-  <meta name="twitter:image"
-        content="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/image.svg" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "WellNexus Case Study",
-    "author": {
-      "@type": "Person",
-      "name": "Priyanshu Rai"
-    },
-    "url": "https://www.priyanshuux.com/wellnexus-case-study.html"
-  }
-  </script>
-
-  <style>
-    html, body { margin:0; height:100%; }
-    iframe { display:block; width:100%; height:100%; border:none; }
-  </style>
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 300px;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 90;
+        }
+        #mobile-menu.active { transform: translateX(0); }
+        #menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 80;
+        }
+        #menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #mobile-menu-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: #27272A;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        #mobile-menu-button.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #mobile-menu-button.active .hamburger-line:nth-child(2) { opacity: 0; }
+        #mobile-menu-button.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    </style>
 </head>
-<body>
-  <iframe
-    src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/Wellnexus%20Case%20study%20%20(1).pdf"
-    allowfullscreen
-  ></iframe>
+<body class="antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center p-2 rounded-full bg-white/30 backdrop-blur-lg border border-black/10">
+            <div class="flex-shrink-0 pl-4">
+                <a href="index.html" class="flex items-center">
+                    <div class="logo-container">
+                        <span class="logo-text logo-name text-zinc-800 font-bold">Priyanshu Rai</span>
+                        <span class="logo-text logo-title font-bold text-purple-600">UXD</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="index.html#work" class="nav-button px-4 py-2 rounded-full text-sm font-medium">Projects</a>
+                <a href="index.html#process" class="nav-button px-4 py-2 rounded-full text-sm font-medium">My Flow</a>
+                <a href="about.html" class="nav-button px-4 py-2 rounded-full text-sm font-medium">About</a>
+            </div>
+
+            <div class="flex items-center gap-2 pr-2">
+                <a href="#" class="resume-button px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium">View Resume</a>
+                
+                <div class="hidden md:flex">
+                    <a href="index.html#contact" class="primary-button px-4 py-2 rounded-full text-sm font-bold">Get In Touch</a>
+                </div>
+
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" class="relative z-[101] rounded-full hover:bg-zinc-200/50">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu-backdrop"></div>
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-7 right-6 p-2 z-[102]">
+            <i data-lucide="x" class="w-8 h-8 text-zinc-800"></i>
+        </button>
+        <div class="p-8 pt-24">
+            <nav class="flex flex-col gap-6 text-xl font-medium text-zinc-800">
+                <a href="index.html#work" class="mobile-menu-link hover:text-purple-600">Projects</a>
+                <a href="index.html#process" class="mobile-menu-link hover:text-purple-600">My Flow</a>
+                <a href="about.html" class="mobile-menu-link hover:text-purple-600">About</a>
+                <div class="pt-6 mt-6 border-t border-zinc-200">
+                     <a href="index.html#contact" class="primary-button justify-center py-3 w-full rounded-full font-bold">Get In Touch</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <main class="container mx-auto p-4 md:p-8 pt-24 md:pt-32">
+
+        <section class="text-center pt-12 pb-12 reveal">
+            <a href="index.html#work" class="text-purple-600 hover:text-purple-500 transition-colors mb-4 inline-flex items-center gap-2"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to All Projects</a>
+            <h1 class="text-5xl md:text-7xl font-black leading-tight gradient-text mt-2">WellNexus</h1>
+            <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl text-zinc-600">A user-centered healthcare app designed for convenience and peace of mind.</p>
+        </section>
+        
+        <section class="mb-16 md:mb-24 reveal">
+             <div class="animated-hero-bg rounded-2xl border border-zinc-200 overflow-hidden h-full max-h-[550px] flex items-center justify-center p-4">
+                <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/Untitled%20design%20(1).png" alt="WellNexus App Mockups" class="w-auto h-auto object-contain max-h-[450px]">
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-left">
+                    <h2 class="text-4xl font-bold text-zinc-900 mb-4">The Problem</h2>
+                    <p class="text-lg text-zinc-600">Managing healthcare is a surprisingly fragmented and stressful experience. The current digital ecosystem forces patients and caregivers to navigate a maze of disconnected tools, creating inefficiency and the risk of dangerous medical errors.</p>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <i data-lucide="puzzle" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                        <div>
+                            <h3 class="font-bold text-zinc-900 text-lg">Fragmented System</h3>
+                            <p class="text-zinc-600">Juggling multiple apps, paper records, and clinic portals with no single source of truth.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i data-lucide="clock-3" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                        <div>
+                            <h3 class="font-bold text-zinc-900 text-lg">Chronic Inefficiency</h3>
+                            <p class="text-zinc-600">Endless phone calls, long waits, and administrative hurdles waste valuable time.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start gap-4">
+                        <i data-lucide="alert-triangle" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                        <div>
+                            <h3 class="font-bold text-zinc-900 text-lg">Risk of Errors</h3>
+                            <p class="text-zinc-600">Poorly tracked information increases the chance of missed appointments and gaps in care.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal grid md:grid-cols-5 gap-16 items-center">
+            <div class="md:col-span-3">
+                 <h2 class="text-3xl font-bold text-zinc-900 mb-6">The Solution</h2>
+                 <p class="text-lg text-zinc-600 mb-8">Our goal was to design a mobile-first, all-in-one platform that empowers users by centralizing every aspect of their healthcare journey into one intuitive, secure hub.</p>
+                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex items-start gap-4"><i data-lucide="combine" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Unified Dashboard</h4><p class="text-zinc-600">Bring appointments, messages, and records into one place.</p></div></div>
+                    <div class="flex items-start gap-4"><i data-lucide="calendar-check-2" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Effortless Booking</h4><p class="text-zinc-600">Find, book, and manage appointments in seconds.</p></div></div>
+                    <div class="flex items-start gap-4"><i data-lucide="pill" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Simplified Pharmacy</h4><p class="text-zinc-600">Order refills and manage prescriptions with a single tap.</p></div></div>
+                    <div class="flex items-start gap-4"><i data-lucide="shield-check" class="w-8 h-8 text-purple-500 flex-shrink-0 mt-1"></i><div><h4 class="font-bold text-zinc-900">Secure Access</h4><p class="text-zinc-600">Provide peace of mind with centralized, secure health data.</p></div></div>
+                 </div>
+            </div>
+            <div class="md:col-span-2 bg-zinc-100 border border-zinc-200 p-8 rounded-2xl space-y-6">
+                <div>
+                    <h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider mb-4">My Contributions</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3"><i data-lucide="search" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">User Research</h5><p class="text-zinc-600 text-sm">Conducted interviews and competitive analysis.</p></div></div>
+                        <div class="flex items-start gap-3"><i data-lucide="users" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">Persona Development</h5><p class="text-zinc-600 text-sm">Synthesized research into actionable user personas.</p></div></div>
+                        <div class="flex items-start gap-3"><i data-lucide="pen-tool" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">UI/UX Design</h5><p class="text-zinc-600 text-sm">Created wireframes, mockups, and prototypes.</p></div></div>
+                        <div class="flex items-start gap-3"><i data-lucide="palette" class="w-5 h-5 text-purple-500 mt-1"></i><div><h5 class="font-semibold text-zinc-900">Visual Identity</h5><p class="text-zinc-600 text-sm">Established the app's design system and branding.</p></div></div>
+                    </div>
+                </div>
+                <div><h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider">Timeline</h4><p class="text-lg font-medium text-zinc-900">2 Week Sprint</p></div>
+                <div><h4 class="text-sm text-zinc-500 font-bold uppercase tracking-wider">Tools</h4><p class="text-lg font-medium text-zinc-900">Figma, Miro, Notion</p></div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal bg-zinc-100 py-20 rounded-2xl">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 1: Understanding the User</h2>
+                    <p class="text-lg text-zinc-600 mb-16">To solve the right problem, we first needed to deeply understand the people we were designing for. This began with analyzing the competitive landscape to find our unique value proposition.</p>
+                </div>
+                
+                <div class="mb-20">
+                    <h3 class="text-2xl font-bold text-zinc-900 mb-8 text-center">Competitive Analysis</h3>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full min-w-[800px] text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-zinc-300">
+                                    <th class="p-4 text-sm font-bold uppercase text-zinc-500">Feature</th>
+                                    <th class="p-4 text-sm font-bold uppercase text-zinc-500 text-center">Zocdoc</th>
+                                    <th class="p-4 text-sm font-bold uppercase text-zinc-500 text-center">MyChart</th>
+                                    <th class="p-4 text-sm font-bold uppercase text-zinc-500 text-center">GoodRx</th>
+                                    <th class="p-4 text-sm font-bold uppercase text-purple-600 text-center bg-purple-100/50 rounded-t-lg">WellNexus</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-200">
+                                <tr class="hover:bg-zinc-200/50"><td class="p-4 font-semibold">Appointment Booking</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                <tr class="hover:bg-zinc-200/50"><td class="p-4 font-semibold">Medical Records Access</td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                <tr class="hover:bg-zinc-200/50"><td class="p-4 font-semibold">Prescription Management</td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                <tr class="hover:bg-zinc-200/50"><td class="p-4 font-semibold">Integrated Telehealth</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                <tr class="hover:bg-zinc-200/50"><td class="p-4 font-semibold">Symptom Tracker</td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <div class="mt-8 p-6 bg-zinc-200/50 rounded-2xl border border-zinc-300">
+                        <h4 class="font-bold text-zinc-900 text-lg mb-2">Key Takeaways</h4>
+                        <p class="text-zinc-600">The analysis reveals a significant market gap. Existing solutions are highly specialized, forcing users to switch between different apps for booking, viewing records, and managing prescriptions. This fragmentation is the primary pain point our users face. WellNexus's core opportunity is to become the **first truly integrated platform**, unifying these essential features into a single, seamless experience.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-zinc-900 mb-8 text-center">User Personas</h3>
+                    <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                        <div class="bg-white/80 p-6 rounded-2xl border border-zinc-200 flex flex-col backdrop-blur-sm bg-gradient-to-br from-white/50 to-zinc-100/50"><div class="flex-grow"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=500&auto=format&fit=crop" alt="Persona Photo of Priya, a professional Indian woman" class="w-20 h-20 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-zinc-900">Priya, The Caregiver</h4><p class="text-purple-600 text-sm mb-4">34, Software Developer</p><p class="text-zinc-700 text-sm mb-6">Balancing a demanding career while managing her aging mother's complex health needs.</p><div class="space-y-4"><div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0"></i><span class="text-zinc-800 text-sm">Track all mom's appointments</span></div><div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0"></i><span class="text-zinc-800 text-sm">Manage prescription schedules</span></div><hr class="border-zinc-200 my-3"><div class="flex items-center gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0"></i><span class="text-zinc-700 text-sm">Wasting hours on phone calls</span></div><div class="flex items-center gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0"></i><span class="text-zinc-700 text-sm">Fear of forgetting critical details</span></div></div></div><p class="italic text-zinc-500 text-center text-sm mt-6 pt-4 border-t border-zinc-200">"I'm terrified I'll mix up a detail in my mom's care."</p></div>
+                        <div class="bg-white/80 p-6 rounded-2xl border border-zinc-200 flex flex-col backdrop-blur-sm bg-gradient-to-br from-white/50 to-zinc-100/50"><div class="flex-grow"><img src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=500&auto=format&fit=crop" alt="Persona Photo of Alex" class="w-20 h-20 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-zinc-900">Alex, The Patient</h4><p class="text-purple-600 text-sm mb-4">28, Freelancer</p><p class="text-zinc-700 text-sm mb-6">Recently diagnosed with a chronic condition and feels overwhelmed by the disjointed health system.</p><div class="space-y-4"><div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0"></i><span class="text-zinc-800 text-sm">Track symptoms &amp; vitals</span></div><div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0"></i><span class="text-zinc-800 text-sm">Easily access lab results</span></div><hr class="border-zinc-200 my-3"><div class="flex items-center gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0"></i><span class="text-zinc-700 text-sm">Medical data is scattered</span></div><div class="flex items-center gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0"></i><span class="text-zinc-700 text-sm">Feeling out of control of his health</span></div></div></div><p class="italic text-zinc-500 text-center text-sm mt-6 pt-4 border-t border-zinc-200">"I want to be proactive, but my health data is everywhere."</p></div>
+                        <div class="bg-white/80 p-6 rounded-2xl border border-zinc-200 flex flex-col backdrop-blur-sm bg-gradient-to-br from-white/50 to-zinc-100/50"><div class="flex-grow"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop" alt="Persona Photo of Robert, an older man" class="w-20 h-20 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-zinc-900">Robert, The Parent</h4><p class="text-purple-600 text-sm mb-4">68, Retired</p><p class="text-zinc-700 text-sm mb-6">Values his independence but is intimidated by complex technology and relies on his daughter.</p><div class="space-y-4"><div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0"></i><span class="text-zinc-800 text-sm">Know appointment dates</span></div><div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0"></i><span class="text-zinc-800 text-sm">Get simple medication reminders</span></div><hr class="border-zinc-200 my-3"><div class="flex items-center gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0"></i><span class="text-zinc-700 text-sm">Confused by complex apps</span></div><div class="flex items-center gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0"></i><span class="text-zinc-700 text-sm">Hates feeling like a burden</span></div></div></div><p class="italic text-zinc-500 text-center text-sm mt-6 pt-4 border-t border-zinc-200">"I just want a simple way to see my next check-up."</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 2: Designing for Real-World Scenarios</h2>
+                <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">Our research allowed us to define key user stories. These guided the design of our core features to ensure we solved tangible, real-world problems.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 flex flex-col"><div class="flex items-center gap-4 mb-4"><i data-lucide="calendar-plus" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">Booking a Specialist</h3></div><p class="text-zinc-600 mb-4"><span class="font-semibold text-zinc-700">Persona:</span> Priya, The Caregiver</p><p class="text-zinc-600 flex-grow">Priya needs to book a follow-up appointment for her father during her lunch break. She uses the app to instantly filter specialists, view their availability, and book a time slot, receiving immediate confirmation.</p></div>
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 flex flex-col"><div class="flex items-center gap-4 mb-4"><i data-lucide="pill" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">Refilling a Prescription</h3></div><p class="text-zinc-600 mb-4"><span class="font-semibold text-zinc-700">Persona:</span> Alex, The Patient</p><p class="text-zinc-600 flex-grow">Alex receives an in-app reminder that his medication is running low. Instead of calling the pharmacy, he opens WellNexus, navigates to his prescriptions, and requests a refill for delivery with a single tap.</p></div>
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 flex flex-col"><div class="flex items-center gap-4 mb-4"><i data-lucide="file-text" class="w-8 h-8 text-purple-500 flex-shrink-0"></i><h3 class="text-xl font-bold text-zinc-900">Accessing Test Results</h3></div><p class="text-zinc-600 mb-4"><span class="font-semibold text-zinc-700">Persona:</span> Alex, The Patient</p><p class="text-zinc-600 flex-grow">Two days after a blood test, Alex gets a notification that his results are available. He opens the app to see the numbers and read a simplified, jargon-free explanation of what his results mean for his condition.</p></div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center"> 
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 3: Building the Blueprint</h2> 
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">To create an intuitive foundation, we mapped out the entire application's structure. This Information Architecture (IA) was essential for a scalable navigation system.</p> 
+            <div class="p-8 bg-zinc-100 rounded-2xl border border-zinc-200 w-full relative"> 
+                <div id="ia-scroll-container" class="overflow-x-auto custom-scrollbar"> 
+                    <div class="ia-tree min-w-[1200px]"> 
+                        <ul> 
+                            <li> <div class="ia-node">Splash Screen</div> <ul> <li><div class="ia-node">Login</div></li> <li><div class="ia-node">Sign Up</div></li> <li><div class="ia-node">Forget Password</div></li> </ul> </li> 
+                        </ul> 
+                        <ul> 
+                            <li> <div class="ia-node" style="background-color: #8A3FFC; border-color: #A78BFA; color: white;">Home</div> <ul> <li> <div class="ia-node">Search</div> <ul> <li><div class="ia-node">Specialist</div></li> <li><div class="ia-node">Doctor Category</div></li> <li><div class="ia-node">Available Doctor</div></li> </ul> </li> <li> <div class="ia-node">Doctors</div> <ul> <li><div class="ia-node">All Doctors</div></li> <li><div class="ia-node">Profile</div></li> <li><div class="ia-node">Book Appointment</div> <ul><li><div class="ia-node">Select Time & Date</div> <ul><li><div class="ia-node">Payment</div></li></ul> </li></ul> </li> </ul> </li> <li> <div class="ia-node">Messages</div> <ul><li><div class="ia-node">In-app messages</div></li></ul> </li> <li> <div class="ia-node">Pharmacy</div> <ul> <li><div class="ia-node">Buy now</div></li> <li><div class="ia-node">Add to cart</div></li> <li><div class="ia-node">Checkout</div> <ul><li><div class="ia-node">Payment</div> <ul><li><div class="ia-node">Track order</div></li></ul> </li></ul> </li> </ul> </li> <li> <div class="ia-node">Calendar</div> <ul><li><div class="ia-node"><span>Appointment Dates</span></div> <ul><li><div class="ia-node">Cancel</div></li><li><div class="ia-node">Reschedule</div></li></ul> </li></ul> </li> <li> <div class="ia-node">Profile</div> <ul> <li><div class="ia-node">My Saved</div></li> <li><div class="ia-node">Appointment</div></li> <li><div class="ia-node">Payment Methods</div></li> <li><div class="ia-node">FAQ</div></li> <li><div class="ia-node">Log Out</div></li> </ul> </li> </ul> </li> 
+                        </ul> 
+                    </div> 
+                </div> 
+                <div id="ia-swipe-affordance" class="hidden absolute inset-0 bg-white/70 backdrop-blur-sm flex-col items-center justify-center text-zinc-900 font-semibold rounded-2xl cursor-pointer transition-opacity duration-300 z-10"> 
+                    <div class="flex items-center gap-3 animate-pulse"> <i data-lucide="chevrons-left"></i> <span>Swipe to see full diagram</span> <i data-lucide="chevrons-right"></i> </div> 
+                    <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span> 
+                </div> 
+            </div> 
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 3.5: User Flows</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">To map the complete application experience, we visualized the primary user flows for each core feature. A key design goal was to minimize complexity, ensuring most critical tasks could be completed in an <span class="text-purple-600 font-bold">average of 5-6 steps</span>. This ensures every journey is logical, intuitive, and efficient.</p>
+            
+            <div x-data="{ activeTab: 'booking' }">
+                <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+                    <button @click="activeTab = 'booking'" :class="{ 'active': activeTab === 'booking' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">1. Booking an Appointment</button>
+                    <button @click="activeTab = 'pharmacy'" :class="{ 'active': activeTab === 'pharmacy' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">2. Ordering Medication</button>
+                    <button @click="activeTab = 'managing'" :class="{ 'active': activeTab === 'managing' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">3. Managing Appointments</button>
+                </div>
+
+                <div class="p-4 md:p-8 bg-zinc-100 rounded-2xl border border-zinc-200 w-full min-h-[250px] flex items-center">
+                    <div x-show="activeTab === 'booking'" x-transition class="w-full overflow-x-auto custom-scrollbar">
+                        <div class="flow-diagram min-w-max px-4 py-2">
+                            <div class="flow-step"><div class="w-14 h-14 bg-purple-100 border border-purple-200 rounded-full flex items-center justify-center"><i data-lucide="home" class="w-7 h-7 text-purple-600"></i></div><span class="mt-2 text-xs font-semibold">Dashboard</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="search" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Search Doctor</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="user-check" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Select Doctor</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="calendar-days" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Choose Timeslot</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="credit-card" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Confirm & Pay</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="check-circle" class="w-7 h-7 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Success</span></div>
+                        </div>
+                    </div>
+                     <div x-show="activeTab === 'pharmacy'" x-transition class="w-full overflow-x-auto custom-scrollbar" style="display: none;">
+                        <div class="flow-diagram min-w-max px-4 py-2">
+                            <div class="flow-step"><div class="w-14 h-14 bg-purple-100 border border-purple-200 rounded-full flex items-center justify-center"><i data-lucide="home" class="w-7 h-7 text-purple-600"></i></div><span class="mt-2 text-xs font-semibold">Dashboard</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="pill" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Pharmacy</span></div>
+                             <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="search" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Search Meds</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="shopping-cart" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Add to Cart</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="credit-card" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Checkout</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="truck" class="w-7 h-7 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Track Order</span></div>
+                        </div>
+                    </div>
+                    <div x-show="activeTab === 'managing'" x-transition class="w-full overflow-x-auto custom-scrollbar" style="display: none;">
+                        <div class="flow-diagram min-w-max px-4 py-2">
+                            <div class="flow-step"><div class="w-14 h-14 bg-purple-100 border border-purple-200 rounded-full flex items-center justify-center"><i data-lucide="home" class="w-7 h-7 text-purple-600"></i></div><span class="mt-2 text-xs font-semibold">Dashboard</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="calendar" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">My Appointments</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="calendar-check" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Select Appt.</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-zinc-200 border border-zinc-300 rounded-full flex items-center justify-center"><i data-lucide="sliders-horizontal" class="w-7 h-7 text-zinc-600"></i></div><span class="mt-2 text-xs font-semibold">Cancel or Reschedule</span></div>
+                            <div class="flow-step"><div class="w-14 h-14 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="check-circle" class="w-7 h-7 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Confirmation</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-zinc-900">Chapter 4: Visual Design & Style Guide</h2>
+            <p class="text-lg text-zinc-600 mt-4 max-w-3xl mx-auto mb-12">The visual design of WellNexus aims to be clean, accessible, and trustworthy. We chose a clear design system to ensure a calming and easy-to-navigate user experience.</p>
+            <div class="grid md:grid-cols-2 gap-12 text-left bg-zinc-100 p-8 rounded-2xl border border-zinc-200">
+                <div>
+                    <h3 class="text-2xl font-bold text-zinc-900 mb-6">Typography</h3>
+                    <p class="text-zinc-600 mb-6">The <span class="text-zinc-900 font-semibold">Inter</span> typeface was chosen for its exceptional legibility on digital screens. Its neutral yet friendly character makes it perfect for a healthcare application, ensuring clarity from large headings to small labels.</p>
+                    <div class="space-y-4 font-inter text-zinc-700">
+                        <div>
+                            <p class="text-sm text-zinc-500">Heading 1</p>
+                            <p class="text-4xl font-black text-zinc-900">Find your desire healt solution</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-zinc-500">Heading 2</p>
+                            <p class="text-2xl font-bold text-zinc-900">Top Doctor</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-zinc-500">Body Text</p>
+                            <p>Dr. Marcus Horiz</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-12">
+                    <div>
+                         <h3 class="text-2xl font-bold text-zinc-900 mb-6">Color Palette</h3>
+                         <p class="text-zinc-600 mb-6">The palette is built on a foundation of clean white and cool grays to feel modern and trustworthy. A deep, authoritative navy blue is used as the primary accent for buttons and calls to action, creating a sense of professionalism and security.</p>
+                         <div class="flex flex-wrap gap-4">
+                            <div class="text-center"><div class="w-20 h-20 rounded-lg" style="background-color: #221479;"></div><span class="text-xs mt-2 text-zinc-500">#221479</span></div>
+                            <div class="text-center"><div class="w-20 h-20 rounded-lg bg-white border border-zinc-200"></div><span class="text-xs mt-2 text-zinc-500">#FFFFFF</span></div>
+                            <div class="text-center"><div class="w-20 h-20 rounded-lg" style="background-color: #101623;"></div><span class="text-xs mt-2 text-zinc-500">#101623</span></div>
+                            <div class="text-center"><div class="w-20 h-20 rounded-lg" style="background-color: #717784;"></div><span class="text-xs mt-2 text-zinc-500">#717784</span></div>
+                            <div class="text-center"><div class="w-20 h-20 rounded-lg" style="background-color: #A1A8B0;"></div><span class="text-xs mt-2 text-zinc-500">#A1A8B0</span></div>
+                         </div>
+                    </div>
+                    <div>
+                         <h3 class="text-2xl font-bold text-zinc-900 mb-6">Iconography</h3>
+                         <p class="text-zinc-600 mb-6">A set of minimalist, line-based icons was used for immediate recognition and to maintain a clean, uncluttered interface across the application.</p>
+                         <div class="flex flex-wrap gap-6 text-purple-500">
+                            <i data-lucide="stethoscope" class="w-8 h-8"></i>
+                            <i data-lucide="pill" class="w-8 h-8"></i>
+                            <i data-lucide="hospital" class="w-8 h-8"></i>
+                            <i data-lucide="ambulance" class="w-8 h-8"></i>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 text-center reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">Chapter 5: The Final Product</h2>
+            <p class="text-lg text-zinc-600 max-w-3xl mx-auto mb-12">The culmination of our research and design process is a high-fidelity Figma deliverable, available as both an interactive prototype and a view of all screens.</p>
+            
+            <div x-data="{ finalTab: 'prototype' }">
+                <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+                    <button @click="finalTab = 'prototype'" :class="{ 'active': finalTab === 'prototype' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">Interactive Prototype</button>
+                    <button @click="finalTab = 'screens'" :class="{ 'active': finalTab === 'screens' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">All Screens</button>
+                </div>
+
+                 <div class="bg-zinc-100 rounded-2xl border border-zinc-200">
+                    <div x-show="finalTab === 'prototype'" x-transition class="figma-embed-container">
+                        <iframe style="border: 1px solid #e4e4e7; border-radius: 1rem;" src="https://embed.figma.com/proto/uiGEz3DPUlyoIYhZjYWH0x/WellNexus?page-id=0%3A1&node-id=1-4431&viewport=234%2C410%2C0.05&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A4470&embed-host=share" allowfullscreen></iframe>
+                    </div>
+                     <div x-show="finalTab === 'screens'" x-transition style="display: none;" class="figma-embed-container">
+                        <iframe style="border: 1px solid #e4e4e7; border-radius: 1rem;" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FuiGEz3DPUlyoIYhZjYWH0x%2FWellNexus%3Fnode-id%3D0-1" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="text-center my-16 md:my-24 py-16 border-t border-zinc-200 reveal">
+             <div class="mb-6 text-purple-500"><i data-lucide="party-popper" class="h-12 w-12 mx-auto animate-pulse"></i></div>
+             <h2 class="text-3xl font-bold text-zinc-900 mb-4">And that's a wrap!</h2>
+             <p class="text-lg text-zinc-600 max-w-xl mx-auto mb-8">Thank you for exploring this case study. Think we could create the next big thing together? My inbox is always open for conspiracies and collaborations.</p>
+             <div class="flex justify-center gap-4">
+                 <a href="index.html#work" class="primary-button px-6 py-3 rounded-full font-bold"><i data-lucide="arrow-left" class="w-5 h-5"></i><span>All Projects</span></a>
+                 <a href="about.html" class="secondary-cta group relative inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold">
+                    <span>About Me</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                </a>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 border-t border-zinc-200">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-zinc-500 text-sm">&copy; 2025 Priyanshu Rai. All Rights Reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-zinc-500 hover:text-zinc-900 transition-colors">LinkedIn</a>
+                <a href="#" class="text-zinc-500 hover:text-zinc-900 transition-colors">Behance</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // -- MOBILE MENU SCRIPT --
+            const menuButton = document.getElementById('mobile-menu-button');
+            const closeButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+            const body = document.body;
+
+            const toggleMenu = () => {
+                const isActive = mobileMenu.classList.toggle('active');
+                menuButton.classList.toggle('active');
+                backdrop.classList.toggle('active');
+                body.style.overflow = isActive ? 'hidden' : '';
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+            closeButton.addEventListener('click', toggleMenu);
+            backdrop.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            lucide.createIcons();
+            
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            const iaAffordance = document.getElementById('ia-swipe-affordance');
+            const iaScrollContainer = document.getElementById('ia-scroll-container');
+
+            if(iaAffordance && iaScrollContainer) {
+                const isDismissed = sessionStorage.getItem('iaOverlayDismissed') === 'true';
+                
+                const checkScroll = () => {
+                    if (iaScrollContainer.scrollWidth > iaScrollContainer.clientWidth) {
+                        if (!isDismissed) {
+                            iaAffordance.classList.remove('hidden');
+                            iaAffordance.classList.add('flex');
+                        }
+                    } else {
+                            iaAffordance.classList.add('hidden');
+                    }
+                };
+                
+                setTimeout(checkScroll, 100);
+
+                iaAffordance.addEventListener('click', () => {
+                    iaAffordance.style.opacity = '0';
+                    setTimeout(() => {
+                        iaAffordance.classList.add('hidden');
+                    }, 300);
+                    sessionStorage.setItem('iaOverlayDismissed', 'true');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
