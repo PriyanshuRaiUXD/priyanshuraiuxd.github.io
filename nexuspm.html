@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nexus PM Case Study - Priyanshu Rai</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><style>text{font-family: 'Satoshi', sans-serif; font-weight: 900;}.main-text{fill:black;}</style><text x='50' y='80' font-size='70' text-anchor='middle' class='main-text'>PR</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Satoshi', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(90deg, #1e293b, #475569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .primary-button {
+            background-color: #8A3FFC; /* Custom Purple */
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .primary-button:hover {
+            background-color: #792EEA; /* Darker Purple */
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.3);
+        }
+        .nav-button {
+             background-color: rgba(0, 0, 0, 0.03);
+             border: 1px solid rgba(0, 0, 0, 0.05);
+             transition: all 0.2s ease;
+             color: #475569;
+        }
+        .nav-button:hover, .nav-active {
+            background-color: #18181B;
+            color: #FFFFFF !important;
+             border-color: #18181B;
+        }
+        .resume-button {
+            border: 1px solid #8A3FFC;
+            color: #8A3FFC;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .resume-button:hover {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animated-hero-bg {
+            background: linear-gradient(110deg, 
+                rgba(248, 250, 252, 1) 25%, 
+                rgba(138, 63, 252, 0.05) 50%, 
+                rgba(248, 250, 252, 1) 75%
+            );
+            background-size: 200% 200%;
+            animation: animate-bg 15s ease-in-out infinite;
+        }
+        @keyframes animate-bg {
+          0% { background-position: 10% 0%; }
+          50% { background-position: 90% 100%; }
+          100% { background-position: 10% 0%; }
+        }
+        
+        .secondary-cta {
+            position: relative;
+            overflow: hidden;
+            background-color: transparent;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+        .secondary-cta:hover {
+            border-color: #8A3FFC;
+            color: #8A3FFC;
+            box-shadow: 0 0 20px rgba(138, 63, 252, 0.2);
+        }
+        .secondary-cta::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease-in-out;
+        }
+        .secondary-cta:hover::before { left: 150%; }
+
+        #mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 80%; max-width: 300px; background-color: #FFFFFF; box-shadow: 0 0 20px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); z-index: 90; }
+        #mobile-menu.active { transform: translateX(0); }
+        #menu-backdrop { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.4); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 80; }
+        #menu-backdrop.active { opacity: 1; pointer-events: auto; }
+        #mobile-menu-button { width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; position: relative; }
+        .hamburger-line { width: 24px; height: 2px; background-color: #1e293b; transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center; }
+        #mobile-menu-button.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #mobile-menu-button.active .hamburger-line:nth-child(2) { opacity: 0; }
+        #mobile-menu-button.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        
+        .logo-container { position: relative; display: flex; align-items: center; min-width: 110px; height: 24px; }
+        .logo-text { position: absolute; white-space: nowrap; }
+        @keyframes name-animation { 0%, 45% { opacity: 1; transform: translateY(0); } 50%, 100% { opacity: 0; transform: translateY(-5px); } }
+        .logo-name { animation: name-animation 8s ease-in-out infinite; }
+        @keyframes title-animation { 0%, 50% { opacity: 0; transform: translateY(5px); } 55%, 95% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
+        .logo-title { opacity: 0; animation: title-animation 8s ease-in-out infinite; }
+
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #cbd5e1 #F1F5F9; }
+        
+        .swipe-affordance {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #18181B;
+            font-weight: 600;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .ia-tree { display: flex; justify-content: flex-start; }
+        .ia-tree > ul { display: inline-block; vertical-align: top; }
+        .ia-tree ul { padding-top: 20px; position: relative; }
+        .ia-tree li { text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; }
+        .ia-tree li::before, .ia-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 1px solid #cbd5e1; width: 50%; height: 20px; }
+        .ia-tree li::after { right: auto; left: 50%; border-left: 1px solid #cbd5e1; }
+        .ia-tree li:only-child::after, .ia-tree li:only-child::before { display: none; }
+        .ia-tree li:only-child { padding-top: 0; }
+        .ia-tree li:first-child::before, .ia-tree li:last-child::after { border: 0 none; }
+        .ia-tree li:last-child::before { border-right: 1px solid #cbd5e1; border-radius: 0 5px 0 0; }
+        .ia-tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .ia-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #cbd5e1; width: 0; height: 20px; }
+        .ia-tree li ul { padding-top: 20px; display: flex; justify-content: center; gap: 1rem;}
+        .ia-node { padding: 8px 12px; text-decoration: none; color: #1e293b; background-color: #FFFFFF; border: 1px solid #e2e8f0; font-size: 14px; display: inline-block; border-radius: 8px; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+        .flow-diagram { display: flex; align-items: center; gap: 2.5rem; }
+        .flow-step { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; flex-shrink: 0; width: 7rem; }
+        .flow-step:not(:last-child)::after {
+            content: ''; position: absolute; right: -2rem; top: 1.5rem; width: 1.5rem; height: 1.5rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: center;
+        }
+
+        .tab-button {
+            background-color: #FFFFFF;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+        .tab-button.active {
+            background-color: #8A3FFC;
+            color: #FFFFFF;
+            border-color: #8A3FFC;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center p-2 rounded-full bg-white/30 backdrop-blur-lg border border-black/10">
+            <div class="flex-shrink-0 pl-4">
+                <a href="index.html" class="flex items-center">
+                    <div class="logo-container">
+                        <span class="logo-text logo-name text-zinc-800 font-bold">Priyanshu Rai</span>
+                        <span class="logo-text logo-title font-bold text-purple-600">UXD</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="index.html#work" class="nav-button nav-active px-4 py-2 rounded-full text-sm font-medium">Projects</a>
+                <a href="index.html#process" class="nav-button px-4 py-2 rounded-full text-sm font-medium">My Flow</a>
+                <a href="about.html" class="nav-button px-4 py-2 rounded-full text-sm font-medium">About</a>
+            </div>
+
+            <div class="flex items-center gap-2 pr-2">
+                <a href="https://drive.google.com/file/d/1lrx5RU-GefX0RiRiRhkf1H0qt3trruUa/view?usp=sharing" class="resume-button px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium">View Resume</a>
+                
+                <div class="hidden md:flex">
+                    <a href="index.html#contact" class="primary-button px-4 py-2 rounded-full text-sm font-bold">Get In Touch</a>
+                </div>
+
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" class="relative z-[101] rounded-full hover:bg-zinc-200/50">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu-backdrop"></div>
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-7 right-6 p-2 z-[102]">
+            <i data-lucide="x" class="w-8 h-8 text-zinc-800"></i>
+        </button>
+        <div class="p-8 pt-24">
+            <nav class="flex flex-col gap-6 text-xl font-medium text-zinc-800">
+                <a href="index.html#work" class="mobile-menu-link hover:text-purple-600">Projects</a>
+                <a href="index.html#process" class="mobile-menu-link hover:text-purple-600">My Flow</a>
+                <a href="about.html" class="mobile-menu-link hover:text-purple-600">About</a>
+                <div class="pt-6 mt-6 border-t border-zinc-200">
+                     <a href="index.html#contact" class="primary-button justify-center py-3 w-full rounded-full font-bold">Get In Touch</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <main class="container mx-auto p-4 md:p-8 pt-24 md:pt-32">
+
+        <section class="text-center pt-12 pb-12 reveal">
+            <a href="index.html#work" class="text-purple-600 hover:text-purple-500 transition-colors mb-4 inline-flex items-center gap-2"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to All Projects</a>
+            <h1 class="text-5xl md:text-7xl font-black leading-tight gradient-text mt-2">Nexus PM</h1>
+            <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl text-slate-600">An AI-powered project management command center designed to predict risks, optimize team capacity, and provide a clear, unified view of project health.</p>
+        </section>
+        
+        <section class="text-center mb-4 md:hidden">
+            <button id="landscape-mode-btn" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition-colors">
+                <i data-lucide="smartphone" class="w-4 h-4"></i>
+                <span>Rotate for Best View</span>
+            </button>
+        </section>
+
+        <section class="my-16 md:my-24 reveal grid md:grid-cols-5 gap-16 items-start">
+            <div class="md:col-span-3">
+                 <h2 class="text-3xl font-bold text-slate-900 mb-6">The Problem: Reactive vs. Proactive</h2>
+                 <p class="text-lg text-slate-600 mb-8">Modern project management is a chaotic dance of spreadsheets, task boards, and endless status meetings. PMs are drowning in data but starved for wisdom. Traditional tools are reactive, showing problems only after they occur. This forces teams into a constant cycle of firefighting, leading to <span class="font-bold text-slate-800">budget overruns, missed deadlines, and team burnout.</span></p>
+                 <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="target" class="text-purple-500 w-5 h-5"></i>Project Goals</h3>
+                 <ul class="list-none text-slate-700 space-y-2">
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-purple-500 flex-shrink-0 mt-1.5 w-5 h-5"></i><span>Shift project management from a reactive to a <span class="font-semibold">proactive, predictive discipline.</span></span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-purple-500 flex-shrink-0 mt-1.5 w-5 h-5"></i><span>Create a <span class="font-semibold">single source of truth</span> that provides a holistic, real-time view of portfolio health.</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-purple-500 flex-shrink-0 mt-1.5 w-5 h-5"></i><span>Empower PMs to make <span class="font-semibold">data-driven decisions</span> quickly by simulating the impact of changes.</span></li>
+                 </ul>
+            </div>
+            <div class="md:col-span-2 bg-white border border-slate-200 p-8 rounded-2xl space-y-6 sticky top-24">
+                <div>
+                    <h4 class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-2">Project Type</h4>
+                    <p class="text-lg font-medium text-slate-900">Personal Concept Project</p>
+                </div>
+                <div>
+                    <h4 class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-4">My Role: End-to-End Product Designer</h4>
+                    <ul class="space-y-3 text-slate-700">
+                        <li class="flex items-start gap-3"><i data-lucide="search" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">UX Researcher:</span> Conducted interviews and competitive analysis.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="drafting-compass" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">UX/UI Designer:</span> Designed flows, wireframes, and high-fidelity mockups.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="bot" class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1"></i><span><span class="font-bold">AI Interaction Designer:</span> Conceptualized AI-driven features.</span></li>
+                    </ul>
+                </div>
+                <div><h4 class="text-sm text-slate-500 font-bold uppercase tracking-wider">Timeline</h4><p class="text-lg font-medium text-slate-900">4 Week Sprint</p></div>
+                 <div><h4 class="text-sm text-slate-500 font-bold uppercase tracking-wider">Tools</h4><p class="text-lg font-medium text-slate-900">Figma, Generative AI</p></div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal bg-white py-20 rounded-2xl border border-slate-200">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Chapter 1: Research & Discovery</h2>
+                    <p class="text-lg text-slate-600 mb-16">The first step was to validate my hypothesis by talking to real project managers and analyzing the existing tools they use. The goal was to find the gap between what current tools offer and what PMs truly need.</p>
+                </div>
+                
+                 <div class="mb-20">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">Competitive Analysis</h3>
+                    <div class="relative">
+                        <div id="ca-scroll-container" class="overflow-x-auto custom-scrollbar">
+                            <table class="w-full min-w-[800px] text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-slate-300">
+                                        <th class="p-4 text-sm font-bold uppercase text-slate-500">Feature</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-slate-500 text-center">Jira</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-slate-500 text-center">Asana</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-slate-500 text-center">Monday.com</th>
+                                        <th class="p-4 text-sm font-bold uppercase text-purple-600 text-center bg-purple-100/50 rounded-t-lg">Nexus PM</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr class="hover:bg-slate-50"><td class="p-4 font-semibold">Predictive Risk Analysis</td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                    <tr class="hover:bg-slate-50"><td class="p-4 font-semibold">AI-Driven Insights</td><td class="p-4 text-center">Limited</td><td class="p-4 text-center">Limited</td><td class="p-4 text-center">Limited</td><td class="p-4 text-center font-bold text-purple-600 bg-purple-100/50">Core Feature</td></tr>
+                                    <tr class="hover:bg-slate-50"><td class="p-4 font-semibold">Team Capacity Planning</td><td class="p-4 text-center">Add-on</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                    <tr class="hover:bg-slate-50"><td class="p-4 font-semibold">Impact Simulation</td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                    <tr class="hover:bg-slate-50"><td class="p-4 font-semibold">Automated Reporting</td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mx-auto"></i></td><td class="p-4 text-center bg-purple-100/50"><i data-lucide="check-circle-2" class="w-5 h-5 text-purple-500 mx-auto"></i></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="ca-swipe-affordance" class="swipe-affordance">
+                            <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full table</span><i data-lucide="chevrons-right"></i></div>
+                            <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                        </div>
+                    </div>
+                     <div class="mt-8 p-6 bg-slate-100/50 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">Key Takeaways</h4>
+                        <p class="text-slate-600">The market is dominated by excellent task management tools, but they all share a critical flaw: they are reactive. They log what has happened but fail to predict what *will* happen. This creates a massive opportunity for a tool like Nexus PM, which is built from the ground up to be a proactive, predictive partner for PMs, not just a digital to-do list.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">User Personas</h3>
+                     <div class="grid md:grid-cols-2 gap-8 items-start">
+                        <div class="bg-white border border-slate-200 p-8 rounded-2xl">
+                           <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop" alt="Persona Photo of Sarah" class="w-24 h-24 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-slate-900">Sarah, The Strategic PM</h4><p class="text-purple-600 mb-4">Manages a portfolio of 5-7 high-stakes projects.</p><p class="italic text-slate-600">"I need to see the forest, not just the trees. Give me the one number that tells me if a project is okay, and tell me where the next fire will be *before* it starts."</p>
+                        </div>
+                        <div class="bg-white border border-slate-200 p-8 rounded-2xl">
+                           <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=500&auto=format&fit=crop" alt="Persona Photo of David" class="w-24 h-24 rounded-full mb-4 object-cover"><h4 class="text-xl font-bold text-slate-900">David, The Team Lead</h4><p class="text-purple-600 mb-4">Leads a team of 8 developers and designers.</p><p class="italic text-slate-600">"My team's well-being is my top priority. I need a way to protect them from overload and ensure workloads are fair, but I can't track every single task manually."</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Chapter 2: Challenges & Constraints</h2>
+            <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">Designing a truly intelligent PM tool presented several core challenges that shaped the design process, moving beyond simple feature implementation to tackle fundamental user needs.</p>
+            <div class="grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
+                <div class="bg-white/60 p-6 rounded-2xl border border-slate-200">
+                    <i data-lucide="database-zap" class="w-10 h-10 text-purple-500 mb-4"></i>
+                    <h3 class="font-bold text-lg text-slate-900">Data Complexity</h3>
+                    <p class="text-slate-600 mt-2">How do we unify disparate data from Jira, Slack, and GitHub into a single, coherent narrative without overwhelming the user with noise?</p>
+                </div>
+                 <div class="bg-white/60 p-6 rounded-2xl border border-slate-200">
+                    <i data-lucide="shield-check" class="w-10 h-10 text-purple-500 mb-4"></i>
+                    <h3 class="font-bold text-lg text-slate-900">Building Trust in AI</h3>
+                    <p class="text-slate-600 mt-2">How can we make AI recommendations feel transparent and reliable? Users must understand *why* the AI suggests a course of action, not just what it suggests.</p>
+                </div>
+                 <div class="bg-white/60 p-6 rounded-2xl border border-slate-200">
+                    <i data-lucide="feather" class="w-10 h-10 text-purple-500 mb-4"></i>
+                    <h3 class="font-bold text-lg text-slate-900">Designing for Simplicity</h3>
+                    <p class="text-slate-600 mt-2">How do we present powerful, complex analytics (like risk forecasts and simulations) in a way that is immediately understandable and actionable for a busy PM?</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="my-16 md:my-24 reveal text-center"> 
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Chapter 3: Structure & Flow</h2> 
+            <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">With a clear understanding of our users and the market gap, the next step was to define the application's structure and map out the critical user journeys.</p> 
+            
+            <div class="mb-20">
+                <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">Information Architecture</h3>
+                <div class="p-8 bg-white rounded-2xl border border-slate-200 w-full relative"> 
+                    <div id="ia-scroll-container" class="overflow-x-auto custom-scrollbar"> 
+                        <div class="ia-tree min-w-[2000px]"> 
+                            <ul> 
+                                <li> 
+                                    <div class="ia-node" style="background-color: #8A3FFC; border-color: #a78bfa; color: white;">Nexus PM</div> 
+                                    <ul> 
+                                        <li>
+                                            <div class="ia-node">Home</div>
+                                            <ul>
+                                                <li><div class="ia-node">AI Daily Briefing</div></li>
+                                                <li><div class="ia-node">Personal Hub</div></li>
+                                                <li><div class="ia-node">Live Feed</div></li>
+                                                <li><div class="ia-node">Recommendations</div></li>
+                                                <li><div class="ia-node">Upcoming Milestones</div></li>
+                                                <li><div class="ia-node">Priority Email</div></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="ia-node">Projects</div>
+                                            <ul>
+                                                <li><div class="ia-node">All Projects View</div></li>
+                                                <li>
+                                                    <div class="ia-node">Project Detail</div>
+                                                    <ul>
+                                                        <li><div class="ia-node">AI Summary</div></li>
+                                                        <li><div class="ia-node">Task Board</div></li>
+                                                        <li><div class="ia-node">Burn-down Chart</div></li>
+                                                        <li><div class="ia-node">Budget Analysis</div></li>
+                                                        <li><div class="ia-node">Team Health</div></li>
+                                                        <li><div class="ia-node">Communication Hub</div></li>
+                                                        <li><div class="ia-node">Blockers & Resolutions</div></li>
+                                                        <li><div class="ia-node">Activity Log</div></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="ia-node">Goals</div>
+                                            <ul>
+                                                <li><div class="ia-node">Strategic Metrics</div></li>
+                                                <li><div class="ia-node">AI Strategy Summary</div></li>
+                                                <li><div class="ia-node">Objectives & Key Results</div></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="ia-node">Intelligence</div>
+                                            <ul>
+                                                <li><div class="ia-node">Health & Forecast</div></li>
+                                                <li><div class="ia-node">Portfolio Risk Matrix</div></li>
+                                                <li><div class="ia-node">Budget Tracker</div></li>
+                                                <li><div class="ia-node">Anomaly Detection</div></li>
+                                                <li><div class="ia-node">Resource Simulator</div></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="ia-node">Activity</div>
+                                            <ul>
+                                                <li><div class="ia-node">AI Weekly Digest</div></li>
+                                                <li><div class="ia-node">Activity Timeline</div></li>
+                                                <li><div class="ia-node">Filters</div></li>
+                                            </ul>
+                                        </li>
+                                         <li>
+                                            <div class="ia-node">Settings</div>
+                                            <ul>
+                                                <li><div class="ia-node">My Profile</div></li>
+                                                <li><div class="ia-node">AI Controls</div></li>
+                                                <li><div class="ia-node">Notifications</div></li>
+                                                <li><div class="ia-node">Connected Apps</div></li>
+                                                <li><div class="ia-node">Workspace</div></li>
+                                                <li><div class="ia-node">Security</div></li>
+                                            </ul>
+                                        </li>
+                                    </ul> 
+                                </li> 
+                            </ul> 
+                        </div> 
+                    </div> 
+                    <div id="ia-swipe-affordance" class="swipe-affordance">
+                        <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full diagram</span><i data-lucide="chevrons-right"></i></div>
+                        <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">User Flows</h3>
+                <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">To map the complete application experience, we visualized the primary user journeys. A key design goal was to minimize complexity and highlight how AI assists users in achieving their goals efficiently.</p>
+                
+                <div x-data="{ activeTab: 'simulation' }">
+                    <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+                        <button @click="activeTab = 'simulation'" :class="{ 'active': activeTab === 'simulation' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">1. Simulating a Change</button>
+                        <button @click="activeTab = 'onboarding'" :class="{ 'active': activeTab === 'onboarding' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">2. AI-Powered Onboarding</button>
+                        <button @click="activeTab = 'risk'" :class="{ 'active': activeTab === 'risk' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">3. Resolving a Risk</button>
+                        <button @click="activeTab = 'rebalance'" :class="{ 'active': activeTab === 'rebalance' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">4. Rebalancing Workload</button>
+                    </div>
+
+                    <div class="p-4 md:p-8 bg-white rounded-2xl border border-slate-200 w-full min-h-[300px] flex items-center">
+                        <!-- Flow 1: Simulation -->
+                        <div x-show="activeTab === 'simulation'" x-transition class="w-full">
+                            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This flow shows how a strategic PM like Sarah can quickly understand the ripple effects of a potential decision without manual calculation.</p>
+                            <div class="relative">
+                                <div id="flow-scroll-container-1" class="w-full overflow-x-auto custom-scrollbar">
+                                    <div class="flow-diagram min-w-max px-4 py-2">
+                                        <div class="flow-step"><div class="w-16 h-16 bg-purple-100 border border-purple-200 rounded-full flex items-center justify-center"><i data-lucide="bar-chart-big" class="w-8 h-8 text-purple-600"></i></div><span class="mt-2 text-xs font-semibold">Open Intelligence</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="mouse-pointer-click" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Select Scenario</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="sliders-horizontal" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Adjust Variables</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="brain-circuit" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Run Simulation</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="pie-chart" class="w-8 h-8 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Review Impact</span></div>
+                                    </div>
+                                </div>
+                                <div id="flow-swipe-affordance-1" class="swipe-affordance">
+                                    <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full diagram</span><i data-lucide="chevrons-right"></i></div>
+                                    <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flow 2: Onboarding -->
+                        <div x-show="activeTab === 'onboarding'" x-transition class="w-full" style="display: none;">
+                             <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This flow demonstrates how Nexus PM turns a vague project idea into a structured plan, saving hours of manual setup.</p>
+                             <div class="relative">
+                                <div id="flow-scroll-container-2" class="w-full overflow-x-auto custom-scrollbar">
+                                    <div class="flow-diagram min-w-max px-4 py-2">
+                                        <div class="flow-step"><div class="w-16 h-16 bg-purple-100 border border-purple-200 rounded-full flex items-center justify-center"><i data-lucide="plus-square" class="w-8 h-8 text-purple-600"></i></div><span class="mt-2 text-xs font-semibold">New Project</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="pen-line" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Describe Goal in Prompt</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="bot" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">AI Generates Plan & Tasks</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="edit" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">User Reviews & Edits</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="check-check" class="w-8 h-8 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Project Created</span></div>
+                                    </div>
+                                </div>
+                                 <div id="flow-swipe-affordance-2" class="swipe-affordance">
+                                    <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full diagram</span><i data-lucide="chevrons-right"></i></div>
+                                    <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flow 3: Risk Resolution -->
+                        <div x-show="activeTab === 'risk'" x-transition class="w-full" style="display: none;">
+                            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This critical flow illustrates how a team lead like David can proactively address an AI-detected issue before it derails the project.</p>
+                            <div class="relative">
+                                <div id="flow-scroll-container-3" class="w-full overflow-x-auto custom-scrollbar">
+                                    <div class="flow-diagram min-w-max px-4 py-2">
+                                        <div class="flow-step"><div class="w-16 h-16 bg-red-100 border border-red-200 rounded-full flex items-center justify-center"><i data-lucide="alert-triangle" class="w-8 h-8 text-red-600"></i></div><span class="mt-2 text-xs font-semibold">AI Detects Risk Alert</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="search" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">User Views Details</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="lightbulb" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Review AI Suggestions</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="mouse-pointer-click" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Selects & Applies Action</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="shield-check" class="w-8 h-8 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Risk Mitigated</span></div>
+                                    </div>
+                                </div>
+                                <div id="flow-swipe-affordance-3" class="swipe-affordance">
+                                    <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full diagram</span><i data-lucide="chevrons-right"></i></div>
+                                    <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flow 4: Rebalancing Workload -->
+                        <div x-show="activeTab === 'rebalance'" x-transition class="w-full" style="display: none;">
+                            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This flow is for the team lead, David, who needs to ensure his team remains healthy and productive without micromanaging.</p>
+                             <div class="relative">
+                                <div id="flow-scroll-container-4" class="w-full overflow-x-auto custom-scrollbar">
+                                    <div class="flow-diagram min-w-max px-4 py-2">
+                                        <div class="flow-step"><div class="w-16 h-16 bg-purple-100 border border-purple-200 rounded-full flex items-center justify-center"><i data-lucide="users" class="w-8 h-8 text-purple-600"></i></div><span class="mt-2 text-xs font-semibold">Review Team Workload</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-red-100 border border-red-200 rounded-full flex items-center justify-center"><i data-lucide="user-x" class="w-8 h-8 text-red-600"></i></div><span class="mt-2 text-xs font-semibold">Identify Overloaded Member</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center"><i data-lucide="bot" class="w-8 h-8 text-slate-600"></i></div><span class="mt-2 text-xs font-semibold">Ask AI for Rebalance Plan</span></div>
+                                        <div class="flow-step"><div class="w-16 h-16 bg-green-100 border border-green-200 rounded-full flex items-center justify-center"><i data-lucide="check-check" class="w-8 h-8 text-green-600"></i></div><span class="mt-2 text-xs font-semibold">Apply Suggestion</span></div>
+                                    </div>
+                                </div>
+                                <div id="flow-swipe-affordance-4" class="swipe-affordance">
+                                    <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full diagram</span><i data-lucide="chevrons-right"></i></div>
+                                    <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Chapter 4: Early Sketches & Ideation</h2>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-12">The initial design phase focused on low-fidelity wireframes to quickly explore layouts for the core screens. The goal was to establish a clear visual hierarchy for complex data and test fundamental interaction concepts before committing to high-fidelity designs.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
+                    <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/priyanshuraiuxd.github.io/main/dashbaord%20li.png" alt="Low-fidelity wireframe of the main dashboard" class="rounded-md w-full h-auto object-cover bg-slate-100">
+                    <h4 class="font-semibold text-slate-800">Dashboard Exploration</h4>
+                    <p class="text-sm text-slate-500">Early sketches focused on a modular, card-based layout to surface the most critical information first.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
+                    <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/priyanshuraiuxd.github.io/main/project%20li.png" alt="Wireframe of a risk analysis component" class="rounded-md w-full h-auto object-cover bg-slate-100">
+                    <h4 class="font-semibold text-slate-800">Project Health View</h4>
+                    <p class="text-sm text-slate-500">Ideating on how to present project health scores and contributing factors clearly and concisely.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
+                    <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/priyanshuraiuxd.github.io/main/resource%20li.png" alt="Wireframe of the team capacity planning view" class="rounded-md w-full h-auto object-cover bg-slate-100">
+                    <h4 class="font-semibold text-slate-800">Team Resource Allocator</h4>
+                    <p class="text-sm text-slate-500">Exploring ways to visualize team workload to quickly identify who is over or under capacity.</p>
+                </div>
+            </div>
+             <div class="mt-12 p-6 bg-slate-100/50 rounded-2xl border border-slate-200 max-w-4xl mx-auto">
+                <h4 class="font-bold text-slate-900 text-lg mb-2 text-center">Key Takeaways from Lo-Fi Testing</h4>
+                <p class="text-slate-600 text-center">Early feedback from users indicated a strong preference for the modular dashboard, as it allowed for personalization. They found the initial simulation input too complex, which led to a simplified, scenario-based approach in later iterations. This phase was crucial for validating the core structure before investing in detailed visual design.</p>
+            </div>
+        </section>
+
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Chapter 5: Visual Design & Style Guide</h2>
+            <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">The visual design of Nexus PM is clean, professional, and data-forward. It's designed to feel like a calm, intelligent command center, not a cluttered task list.</p>
+            <div class="grid md:grid-cols-2 gap-12 text-left bg-white p-8 rounded-2xl border border-slate-200">
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-6">Typography</h3>
+                    <p class="text-slate-600 mb-6">The <span class="text-slate-900 font-semibold">Inter</span> typeface was chosen for its excellent legibility on screens, crucial for a data-heavy application. Its clean, neutral forms allow the data to take center stage.</p>
+                    <div class="space-y-4 font-inter text-slate-700">
+                        <div>
+                            <p class="text-sm text-slate-500">Heading 1</p>
+                            <p class="text-4xl font-bold text-slate-900">Welcome back, Alex</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500">Heading 2</p>
+                            <p class="text-2xl font-semibold text-slate-900">AI Daily Briefing</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500">Body Text</p>
+                            <p>Your portfolio health is strong at 85/100.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-12">
+                    <div>
+                         <h3 class="text-2xl font-bold text-slate-900 mb-6">Color Palette</h3>
+                         <p class="text-slate-600 mb-6">The palette uses a calm base of slate grays with a vibrant purple as the primary action color. Green, yellow, and red are used purposefully as status indicators to convey information at a glance.</p>
+                         <div class="flex flex-wrap gap-4">
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #8A3FFC;"></div><span class="text-xs mt-2 text-slate-500">Primary</span></div>
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #1e293b;"></div><span class="text-xs mt-2 text-slate-500">Headings</span></div>
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #f8fafc;"></div><span class="text-xs mt-2 text-slate-500">Background</span></div>
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #16a34a;"></div><span class="text-xs mt-2 text-slate-500">Success</span></div>
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #f59e0b;"></div><span class="text-xs mt-2 text-slate-500">Warning</span></div>
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #ef4444;"></div><span class="text-xs mt-2 text-slate-500">Danger</span></div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Chapter 6: The Final Product</h2>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-12">The result is a clean, data-rich interface that feels less like a task tracker and more like an intelligent partner. The UI is designed to build trust in the AI by making its insights transparent and its recommendations easy to understand.</p>
+            
+            <div class="bg-slate-900 rounded-2xl p-4 md:p-8">
+                <div class="bg-white/5 rounded-t-lg p-2 flex items-center gap-1.5">
+                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <iframe class="w-full h-[600px] rounded-b-lg" src="https://www.priyanshuux.com/Nexus_PM/index.html" title="Nexus PM Final Prototype"></iframe>
+            </div>
+        </section>
+
+        <section class="text-center my-16 md:my-24 py-16 border-t border-slate-200 reveal">
+             <div class="mb-6 text-purple-500"><i data-lucide="lightbulb" class="h-12 w-12 mx-auto"></i></div>
+             <h2 class="text-3xl font-bold text-slate-900 mb-4">Outcome & Reflection</h2>
+             <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-8">Nexus PM is a conceptual leap from reactive task tracking to proactive, intelligent project orchestration. The key lesson from this project was the importance of designing for trust. AI features are only useful if users trust the insights they provide. This meant making the AI's reasoning as transparent as possible and always giving the user the final say.</p>
+             <p class="text-md text-slate-500 max-w-3xl mx-auto italic"><b class="text-slate-600">Future Work:</b> The next step would be to conduct rigorous usability testing, especially on the Impact Engine, to refine the interaction model. I would also explore deeper integrations with financial and HR systems to enrich the AI's predictive capabilities.</p>
+             <div class="flex justify-center gap-4 mt-8">
+                 <a href="index.html#work" class="primary-button px-6 py-3 rounded-full font-bold"><i data-lucide="arrow-left" class="w-5 h-5"></i><span>All Projects</span></a>
+                 <a href="about.html" class="secondary-cta group relative inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold">
+                    <span>About Me</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                </a>
+             </div>
+        </section>
+    </main>
+
+    <footer class="text-center p-8 border-t border-slate-200">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-sm">&copy; 2025 Priyanshu Rai. All Rights Reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/in/priyanshu-rai-4531001a0/" class="text-slate-500 hover:text-slate-900 transition-colors">LinkedIn</a>
+                <a href="https://www.behance.net/priyanshu_rai" class="text-slate-500 hover:text-slate-900 transition-colors">Behance</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+            const body = document.body;
+
+            const toggleMenu = () => {
+                const isActive = mobileMenu.classList.toggle('active');
+                menuButton.classList.toggle('active');
+                backdrop.classList.toggle('active');
+                body.style.overflow = isActive ? 'hidden' : '';
+            };
+
+            [menuButton, backdrop, ...menuLinks].forEach(el => el.addEventListener('click', toggleMenu));
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            const initSwipeAffordance = (containerId, affordanceId, storageKey) => {
+                const affordance = document.getElementById(affordanceId);
+                const scrollContainer = document.getElementById(containerId);
+
+                if (affordance && scrollContainer) {
+                    const isDismissed = sessionStorage.getItem(storageKey) === 'true';
+                    
+                    if (isDismissed) {
+                        affordance.style.display = 'none';
+                        return;
+                    }
+
+                    const checkScroll = () => {
+                        const isScrollable = scrollContainer.scrollWidth > scrollContainer.clientWidth;
+                        const targetContainer = affordance.closest('.relative').querySelector('.overflow-x-auto');
+                        if (targetContainer === scrollContainer && isScrollable) {
+                             affordance.style.display = 'flex';
+                        } else {
+                            affordance.style.display = 'none';
+                        }
+                    };
+                    
+                    setTimeout(checkScroll, 300);
+
+                    affordance.addEventListener('click', () => {
+                        affordance.style.opacity = '0';
+                        setTimeout(() => {
+                            affordance.style.display = 'none';
+                        }, 300);
+                        sessionStorage.setItem(storageKey, 'true');
+                    });
+                }
+            };
+
+            initSwipeAffordance('ca-scroll-container', 'ca-swipe-affordance', 'nexusCaOverlayDismissed');
+            initSwipeAffordance('ia-scroll-container', 'ia-swipe-affordance', 'nexusIaOverlayDismissed');
+            
+            // Special handling for tabbed user flows
+            const tabs = document.querySelectorAll('.tab-button');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // We need to wait for AlpineJS to update the DOM
+                    setTimeout(() => {
+                        const activeFlowContainer = document.querySelector('[x-show="activeTab"]:not([style*="display: none"]) .overflow-x-auto');
+                        if (activeFlowContainer) {
+                            const activeAffordance = activeFlowContainer.parentElement.querySelector('.swipe-affordance');
+                            if (activeAffordance) {
+                                initSwipeAffordance(activeFlowContainer.id, activeAffordance.id, 'nexusFlowOverlayDismissed');
+                            }
+                        }
+                    }, 50);
+                });
+            });
+            // Initial check for the default active tab
+            initSwipeAffordance('flow-scroll-container-1', 'flow-swipe-affordance-1', 'nexusFlowOverlayDismissed');
+
+            // --- Mobile Landscape Orientation Logic ---
+            const landscapeBtn = document.getElementById('landscape-mode-btn');
+            if (landscapeBtn) {
+                // Check if the API is supported for a better UX
+                if ('orientation' in screen && 'lock' in screen.orientation) {
+                    landscapeBtn.addEventListener('click', async () => {
+                        try {
+                            // Request fullscreen first, as many browsers require it for orientation lock.
+                            if (document.fullscreenElement) {
+                                await screen.orientation.lock('landscape-primary');
+                            } else {
+                                await document.documentElement.requestFullscreen();
+                                await screen.orientation.lock('landscape-primary');
+                            }
+                        } catch (err) {
+                            console.error("Could not lock orientation or enter fullscreen:", err);
+                            // Fallback for browsers that might not need fullscreen
+                            try {
+                                await screen.orientation.lock('landscape-primary');
+                            } catch (err2) {
+                                console.error("Orientation lock failed even without fullscreen:", err2);
+                                landscapeBtn.innerHTML = '<span>Rotation Not Supported</span>';
+                                landscapeBtn.disabled = true;
+                            }
+                        }
+                    });
+
+                    // Add a listener to unlock orientation when exiting fullscreen
+                    document.addEventListener('fullscreenchange', () => {
+                        if (!document.fullscreenElement && 'unlock' in screen.orientation) {
+                            screen.orientation.unlock();
+                        }
+                    });
+
+                } else {
+                    // Hide the button on devices that don't support the Screen Orientation API
+                    landscapeBtn.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
