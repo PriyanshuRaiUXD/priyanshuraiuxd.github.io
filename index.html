@@ -110,8 +110,8 @@
         }
         
         .card-image-container { overflow: hidden; }
-        .card-image-container img { transition: transform 0.4s ease-out; }
-        .glow-card:hover .card-image-container img { transform: scale(1.05); }
+        .card-image-container img, .card-image-container svg { transition: transform 0.4s ease-out; }
+        .glow-card:hover .card-image-container img, .glow-card:hover .card-image-container svg { transform: scale(1.05); }
         
         .primary-button {
             background-color: #8A3FFC;
@@ -288,24 +288,36 @@
                 <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="web-ui">Web UI</button>
                 <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="mobile-app">Mobile App</button>
                 <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="research">Research</button>
-                <button class="filter-button px-4 py-2 rounded-full text-sm" data-filter="ar-vr">AR/VR</button>
             </div>
             
             <div id="case-study-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                <a href="#" class="case-study glow-card rounded-2xl md:col-span-2 flex flex-col" data-category="web-ui">
-                    <div class="card-image-container aspect-video bg-zinc-100">
-                        <img src="https://placehold.co/800x450/FAFAFA/8A3FFC?text=Project+Alpha" alt="Project Alpha Thumbnail" class="w-full h-full object-cover">
+                <a href="nexuspm.html" class="case-study glow-card rounded-2xl md:col-span-2 flex flex-col" data-category="productivity,saas,web-ui,research">
+                    <div class="card-image-container aspect-video bg-zinc-900 flex items-center justify-center p-4">
+                        <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/priyanshuraiuxd.github.io/main/Software%20Tool%20Logo%20Nexus%20PM%20(2).png" alt="NEXUS PM Logo" class="w-full h-full object-contain p-4">
                     </div>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Productivity</span>
+                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">SaaS</span>
                             <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Web UI</span>
                         </div>
-                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Alpha</h3>
-                        <p class="text-zinc-600 flex-grow">Reimagining a leading SaaS platform to create a seamless and intuitive onboarding experience.</p>
+                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Nexus PM</h3>
+                        <p class="text-zinc-600 flex-grow mb-4">An AI-powered project management tool designed to predict risks, optimize team capacity, and provide a clear, unified view of project health.</p>
+                        <div class="pt-4 mt-auto border-t border-zinc-200">
+                             <p class="text-xs text-zinc-500 font-bold uppercase mb-2">Tech & Methods</p>
+                             <div class="flex flex-wrap gap-2">
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">HTML</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">CSS</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Figma</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Generative AI</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Research</span>
+                                <span class="bg-zinc-200 text-zinc-700 text-xs font-medium px-2 py-1 rounded">Project Management</span>
+                             </div>
+                        </div>
                     </div>
                 </a>
 
-                <a href="wellnexus.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="mobile-app">
+                <a href="wellnexus.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="healthcare,mobile-app">
                     <div class="card-image-container aspect-video bg-zinc-900">
                          <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/image.svg" alt="WellNexus Case Study Thumbnail" class="w-full h-full object-cover p-4">
                     </div>
@@ -328,7 +340,7 @@
                     </div>
                 </a>
                 
-                <a href="shoppio.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="mobile-app">
+                <a href="shoppio.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="e-commerce,mobile-app">
                     <div class="card-image-container aspect-video" style="background-color: #FAF9F6;">
                         <img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/exported-frames_page-0001-removebg-preview.png" alt="Shoppio app mockups thumbnail" class="w-full h-full object-cover">
                     </div>
@@ -352,23 +364,11 @@
                     </div>
                 </a>
 
-                <a href="#" class="case-study glow-card rounded-2xl md:col-span-2 flex flex-col" data-category="web-ui">
-                    <div class="card-image-container aspect-video bg-zinc-100">
-                        <img src="https://placehold.co/800x450/FAFAFA/8A3FFC?text=Project+Beta" alt="Project Beta Thumbnail" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 md:p-8 flex-grow flex flex-col">
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">Web UI</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Beta</h3>
-                        <p class="text-zinc-600 flex-grow">A new web experience for a leading tech company.</p>
-                    </div>
-                </a>
-                
                 <a href="studigo-research.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="research">
-                    <div class="card-image-container aspect-video bg-zinc-100">
-                        <div class="w-full h-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-purple-700"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <div class="card-image-container aspect-video bg-zinc-100 flex items-center justify-center p-4">
+                        <div class="flex flex-col items-center justify-center">
+                            <i data-lucide="microscope" class="w-16 h-16 text-purple-600 mb-2" stroke-width="1.5"></i>
+                            <p class="font-semibold text-zinc-700">Research Project</p>
                         </div>
                     </div>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
@@ -380,23 +380,11 @@
                     </div>
                 </a>
 
-                <a href="#" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="ar-vr">
-                    <div class="card-image-container aspect-video bg-zinc-100">
-                        <img src="https://placehold.co/600x338/FAFAFA/8A3FFC?text=Project+Echo" alt="Project Echo Thumbnail" class="w-full h-full object-cover">
-                    </div>
-                     <div class="p-6 md:p-8 flex-grow flex flex-col">
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="text-purple-600 bg-purple-100 text-xs font-semibold uppercase px-3 py-1 rounded-full">AR/VR</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Project Echo</h3>
-                        <p class="text-zinc-600 flex-grow">Designing an immersive AR experience to bring museum exhibits to life.</p>
-                    </div>
-                </a>
-
                  <a href="invisble_ux_in_AI_assistants.html" class="case-study glow-card rounded-2xl md:col-span-1 flex flex-col" data-category="research,ai-ml">
-                    <div class="card-image-container aspect-video bg-zinc-100">
-                        <div class="w-full h-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-purple-700"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><path d="M12 12v6"/><path d="M12 6v2"/><path d="m15 9-1.5 1.5"/><path d="M9 15l-1.5 1.5"/></svg>
+                    <div class="card-image-container aspect-video bg-zinc-100 flex items-center justify-center p-4">
+                         <div class="flex flex-col items-center justify-center">
+                           <i data-lucide="microscope" class="w-16 h-16 text-purple-600 mb-2" stroke-width="1.5"></i>
+                            <p class="font-semibold text-zinc-700">Research Project</p>
                         </div>
                     </div>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
@@ -437,8 +425,7 @@
                                 <defs>
                                     <filter id="filter_glow_5" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                                         <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-                                        <feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_2"/>
+                                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_90_2"/>
                                     </filter>
                                 </defs>
                             </svg>
@@ -763,3 +750,4 @@
     </script>
 </body>
 </html>
+
