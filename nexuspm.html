@@ -21,6 +21,7 @@
         .gradient-text {
             background: linear-gradient(90deg, #1e293b, #475569);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .primary-button {
@@ -458,7 +459,6 @@
                     </div>
 
                     <div class="p-4 md:p-8 bg-white rounded-2xl border border-slate-200 w-full min-h-[300px] flex items-center">
-                        <!-- Flow 1: Simulation -->
                         <div x-show="activeTab === 'simulation'" x-transition class="w-full">
                             <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This flow shows how a strategic PM like Sarah can quickly understand the ripple effects of a potential decision without manual calculation.</p>
                             <div class="relative">
@@ -478,7 +478,6 @@
                             </div>
                         </div>
 
-                        <!-- Flow 2: Onboarding -->
                         <div x-show="activeTab === 'onboarding'" x-transition class="w-full" style="display: none;">
                              <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This flow demonstrates how Nexus PM turns a vague project idea into a structured plan, saving hours of manual setup.</p>
                              <div class="relative">
@@ -498,7 +497,6 @@
                             </div>
                         </div>
 
-                        <!-- Flow 3: Risk Resolution -->
                         <div x-show="activeTab === 'risk'" x-transition class="w-full" style="display: none;">
                             <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This critical flow illustrates how a team lead like David can proactively address an AI-detected issue before it derails the project.</p>
                             <div class="relative">
@@ -518,7 +516,6 @@
                             </div>
                         </div>
 
-                        <!-- Flow 4: Rebalancing Workload -->
                         <div x-show="activeTab === 'rebalance'" x-transition class="w-full" style="display: none;">
                             <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This flow is for the team lead, David, who needs to ensure his team remains healthy and productive without micromanaging.</p>
                              <div class="relative">
@@ -594,7 +591,7 @@
                          <h3 class="text-2xl font-bold text-slate-900 mb-6">Color Palette</h3>
                          <p class="text-slate-600 mb-6">The palette uses a calm base of slate grays with a vibrant purple as the primary action color. Green, yellow, and red are used purposefully as status indicators to convey information at a glance.</p>
                          <div class="flex flex-wrap gap-4">
-                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #2563eb;"></div><span class="text-xs mt-2 text-slate-500">Primary</span></div>
+                            <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #8A3FFC;"></div><span class="text-xs mt-2 text-slate-500">Primary</span></div>
                             <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #1e293b;"></div><span class="text-xs mt-2 text-slate-500">Headings</span></div>
                             <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #f8fafc;"></div><span class="text-xs mt-2 text-slate-500">Background</span></div>
                             <div class="text-center"><div class="w-16 h-16 rounded-lg" style="background-color: #16a34a;"></div><span class="text-xs mt-2 text-slate-500">Success</span></div>
@@ -611,12 +608,18 @@
             <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-12">The result is a clean, data-rich interface that feels less like a task tracker and more like an intelligent partner. The UI is designed to build trust in the AI by making its insights transparent and its recommendations easy to understand.</p>
             
             <div class="bg-slate-900 rounded-2xl p-4 md:p-8">
-                <div class="bg-white/5 rounded-t-lg p-2 flex items-center gap-1.5">
-                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div class="bg-white/5 rounded-t-lg p-2 flex items-center justify-between gap-1.5">
+                    <div class="flex items-center gap-1.5">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <button id="fullscreen-btn" class="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-white/10">
+                        <i data-lucide="maximize" class="w-3 h-3"></i>
+                        <span>Full Screen</span>
+                    </button>
                 </div>
-                <iframe class="w-full h-[600px] rounded-b-lg" src="https://www.priyanshuux.com/Nexus_PM/index.html" title="Nexus PM Final Prototype"></iframe>
+                <iframe id="prototype-iframe" class="w-full h-[600px] rounded-b-lg" src="https://www.priyanshuux.com/Nexus_PM/index.html" title="Nexus PM Final Prototype"></iframe>
             </div>
         </section>
 
@@ -769,9 +772,25 @@
                     landscapeBtn.style.display = 'none';
                 }
             }
+
+            // --- FULLSCREEN PROTOTYPE SCRIPT ---
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const prototypeIframe = document.getElementById('prototype-iframe');
+
+            if (fullscreenBtn && prototypeIframe) {
+                fullscreenBtn.addEventListener('click', () => {
+                    if (prototypeIframe.requestFullscreen) {
+                        prototypeIframe.requestFullscreen();
+                    } else if (prototypeIframe.mozRequestFullScreen) { // Firefox
+                        prototypeIframe.mozRequestFullScreen();
+                    } else if (prototypeIframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                        prototypeIframe.webkitRequestFullscreen();
+                    } else if (prototypeIframe.msRequestFullscreen) { // IE/Edge
+                        prototypeIframe.msRequestFullscreen();
+                    }
+                });
+            }
         });
     </script>
 </body>
 </html>
-
-
