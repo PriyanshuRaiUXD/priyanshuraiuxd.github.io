@@ -67,9 +67,9 @@
             transform: translateY(0);
         }
         .animated-hero-bg {
-            background: linear-gradient(110deg, 
-                rgba(248, 250, 252, 1) 25%, 
-                rgba(138, 63, 252, 0.05) 50%, 
+            background: linear-gradient(110deg,
+                rgba(248, 250, 252, 1) 25%,
+                rgba(138, 63, 252, 0.05) 50%,
                 rgba(248, 250, 252, 1) 75%
             );
             background-size: 200% 200%;
@@ -80,7 +80,7 @@
           50% { background-position: 90% 100%; }
           100% { background-position: 10% 0%; }
         }
-        
+
         .secondary-cta {
             position: relative;
             overflow: hidden;
@@ -111,7 +111,7 @@
         #mobile-menu-button.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         #mobile-menu-button.active .hamburger-line:nth-child(2) { opacity: 0; }
         #mobile-menu-button.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-        
+
         .logo-container { position: relative; display: flex; align-items: center; min-width: 110px; height: 24px; }
         .logo-text { position: absolute; white-space: nowrap; }
         @keyframes name-animation { 0%, 45% { opacity: 1; transform: translateY(0); } 50%, 100% { opacity: 0; transform: translateY(-5px); } }
@@ -124,7 +124,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #cbd5e1 #F1F5F9; }
-        
+
         .swipe-affordance {
             display: none;
             position: absolute;
@@ -199,7 +199,7 @@
 
             <div class="flex items-center gap-2 pr-2">
                 <a href="https://drive.google.com/file/d/1lrx5RU-GefX0RiRiRhkf1H0qt3trruUa/view?usp=sharing" class="resume-button px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium">View Resume</a>
-                
+
                 <div class="hidden md:flex">
                     <a href="index.html#contact" class="primary-button px-4 py-2 rounded-full text-sm font-bold">Get In Touch</a>
                 </div>
@@ -239,7 +239,7 @@
             <h1 class="text-5xl md:text-7xl font-black leading-tight gradient-text mt-2">Nexus PM</h1>
             <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl text-slate-600">An AI-powered project management command center designed to predict risks, optimize team capacity, and provide a clear, unified view of project health.</p>
         </section>
-        
+
         <section class="text-center mb-4 md:hidden">
             <button id="landscape-mode-btn" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition-colors">
                 <i data-lucide="smartphone" class="w-4 h-4"></i>
@@ -282,7 +282,7 @@
                     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Chapter 1: Research & Discovery</h2>
                     <p class="text-lg text-slate-600 mb-16">The first step was to validate my hypothesis by talking to real project managers and analyzing the existing tools they use. The goal was to find the gap between what current tools offer and what PMs truly need.</p>
                 </div>
-                
+
                  <div class="mb-20">
                     <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">Competitive Analysis</h3>
                     <div class="relative">
@@ -354,19 +354,19 @@
         </section>
 
 
-        <section class="my-16 md:my-24 reveal text-center"> 
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Chapter 3: Structure & Flow</h2> 
-            <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">With a clear understanding of our users and the market gap, the next step was to define the application's structure and map out the critical user journeys.</p> 
-            
+        <section class="my-16 md:my-24 reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Chapter 3: Structure & Flow</h2>
+            <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">With a clear understanding of our users and the market gap, the next step was to define the application's structure and map out the critical user journeys.</p>
+
             <div class="mb-20">
                 <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">Information Architecture</h3>
-                <div class="p-8 bg-white rounded-2xl border border-slate-200 w-full relative"> 
-                    <div id="ia-scroll-container" class="overflow-x-auto custom-scrollbar"> 
-                        <div class="ia-tree min-w-[2000px]"> 
-                            <ul> 
-                                <li> 
-                                    <div class="ia-node" style="background-color: #8A3FFC; border-color: #a78bfa; color: white;">Nexus PM</div> 
-                                    <ul> 
+                <div class="p-8 bg-white rounded-2xl border border-slate-200 w-full relative">
+                    <div id="ia-scroll-container" class="overflow-x-auto custom-scrollbar">
+                        <div class="ia-tree min-w-[2000px]">
+                            <ul>
+                                <li>
+                                    <div class="ia-node" style="background-color: #8A3FFC; border-color: #a78bfa; color: white;">Nexus PM</div>
+                                    <ul>
                                         <li>
                                             <div class="ia-node">Home</div>
                                             <ul>
@@ -434,11 +434,11 @@
                                                 <li><div class="ia-node">Security</div></li>
                                             </ul>
                                         </li>
-                                    </ul> 
-                                </li> 
-                            </ul> 
-                        </div> 
-                    </div> 
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <div id="ia-swipe-affordance" class="swipe-affordance">
                         <div class="flex items-center gap-3 animate-pulse"><i data-lucide="chevrons-left"></i><span>Swipe to see full diagram</span><i data-lucide="chevrons-right"></i></div>
                         <span class="text-xs mt-2 text-zinc-500">(Tap to dismiss)</span>
@@ -449,7 +449,7 @@
             <div>
                 <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">User Flows</h3>
                 <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto mb-12">To map the complete application experience, we visualized the primary user journeys. A key design goal was to minimize complexity and highlight how AI assists users in achieving their goals efficiently.</p>
-                
+
                 <div x-data="{ activeTab: 'simulation' }">
                     <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
                         <button @click="activeTab = 'simulation'" :class="{ 'active': activeTab === 'simulation' }" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition-colors">1. Simulating a Change</button>
@@ -614,12 +614,17 @@
                         <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
                         <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                     </div>
-                    <button id="fullscreen-btn" class="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-white/10">
-                        <i data-lucide="maximize" class="w-3 h-3"></i>
-                        <span>Full Screen</span>
-                    </button>
+                    <div class="flex items-center gap-2"> <button id="reload-btn" class="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-white/10">
+                            <i data-lucide="rotate-cw" class="w-3 h-3"></i>
+                            <span>Reload</span>
+                        </button>
+                        <button id="fullscreen-btn" class="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-white/10">
+                            <i data-lucide="maximize" class="w-3 h-3"></i>
+                            <span>Full Screen</span>
+                        </button>
+                    </div>
                 </div>
-                <iframe id="prototype-iframe" class="w-full h-[600px] rounded-b-lg" src="https://www.priyanshuux.com/Nexus_PM/index.html" title="Nexus PM Final Prototype"></iframe>
+                <iframe id="prototype-iframe" class="w-full h-[600px] rounded-b-lg" src="https://www.priyanshuux.com/Nexus_PM/" title="Nexus PM Final Prototype"></iframe>
             </div>
         </section>
 
@@ -773,21 +778,27 @@
                 }
             }
 
-            // --- FULLSCREEN PROTOTYPE SCRIPT ---
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            // --- PROTOTYPE FRAME SCRIPTS ---
             const prototypeIframe = document.getElementById('prototype-iframe');
-
+            
+            // Fullscreen Button
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
             if (fullscreenBtn && prototypeIframe) {
                 fullscreenBtn.addEventListener('click', () => {
                     if (prototypeIframe.requestFullscreen) {
                         prototypeIframe.requestFullscreen();
-                    } else if (prototypeIframe.mozRequestFullScreen) { // Firefox
-                        prototypeIframe.mozRequestFullScreen();
-                    } else if (prototypeIframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                    } else if (prototypeIframe.webkitRequestFullscreen) { // Safari
                         prototypeIframe.webkitRequestFullscreen();
-                    } else if (prototypeIframe.msRequestFullscreen) { // IE/Edge
-                        prototypeIframe.msRequestFullscreen();
                     }
+                });
+            }
+
+            // Reload Button (NEW)
+            const reloadBtn = document.getElementById('reload-btn');
+            if (reloadBtn && prototypeIframe) {
+                reloadBtn.addEventListener('click', () => {
+                    // This reloads the iframe by resetting its src attribute
+                    prototypeIframe.src = prototypeIframe.src;
                 });
             }
         });
