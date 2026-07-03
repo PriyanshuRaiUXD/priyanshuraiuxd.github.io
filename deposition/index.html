@@ -91,11 +91,27 @@
   .pull-btn:hover .pull-verb{transform:translateY(2px)}
   .pull-btn[aria-expanded="true"] .pull-verb .chev{display:inline-block;transform:rotate(180deg)}
   .chev{display:inline-block;transition:transform .2s ease}
-  @media (prefers-reduced-motion:reduce){.chev,.pull-btn .pull-verb{transition:none}}
+  @media (prefers-reduced-motion:reduce){
+    .chev,.pull-btn .pull-verb{transition:none}
+    .chain-wrap{transition:none}
+    .chain .link{transform:none;transition:opacity .12s ease-out;transition-delay:0s!important}
+  }
+  a,.pull-btn{transition:color .12s ease-out,text-decoration-color .12s ease-out}
+  @media (prefers-reduced-motion:no-preference){
+    .mast .label{animation:settle .5s cubic-bezier(.22,1,.36,1) backwards}
+    .mast h1{animation:settle .5s cubic-bezier(.22,1,.36,1) .07s backwards}
+    .mast .lede{animation:settle .5s cubic-bezier(.22,1,.36,1) .14s backwards}
+    .mast .contactline{animation:settle .5s cubic-bezier(.22,1,.36,1) .21s backwards}
+    @keyframes settle{from{opacity:0;transform:translateY(10px)}}
+  }
 
-  .chain{margin-top:1.4rem;border-left:2px solid var(--thread);padding-left:1.2rem}
+  .chain-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1)}
+  .chain-wrap.open{grid-template-rows:1fr}
+  .chain{margin-top:1.4rem;border-left:2px solid var(--thread);padding-left:1.2rem;overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s 420ms}
+  .chain-wrap.open .chain{visibility:visible;transition:visibility 0s}
   .chain ol{list-style:none}
-  .chain .link{padding:1rem 0}
+  .chain .link{padding:1rem 0;opacity:0;transform:translateY(8px);transition:opacity .32s cubic-bezier(.22,1,.36,1),transform .32s cubic-bezier(.22,1,.36,1)}
+  .chain-wrap.open .link{opacity:1;transform:none;transition-delay:calc(var(--i,0)*80ms + 140ms)}
   .chain .link+.link{border-top:1px dashed var(--hairline)}
   .chain .label{margin-bottom:.6rem}
   .chain .plate{margin-top:.5rem;display:block}
@@ -124,7 +140,9 @@
 
   @media print{
     body{background:#fff;font-size:12pt}
-    .chain[hidden]{display:block!important}
+    .chain-wrap{grid-template-rows:1fr!important}
+    .chain{visibility:visible!important}
+    .chain .link{opacity:1!important;transform:none!important}
     .pull-verb,.skip{display:none!important}
     .card{break-inside:avoid-page}
     a{text-decoration:none}
@@ -227,9 +245,10 @@
               <p class="body">One-drink escalation. Dies at the entry floor, held near the 0.02 base rate — and the spec proves even maximum possible one-event evidence could only reach 0.53, far below the 0.85 commit bar.</p>
               <span class="pull-verb plate">Pull the claim <span class="chev">⌄</span></span>
             </button>
-            <div class="chain" id="chain-refused" hidden role="region" aria-labelledby="pull-refused">
+            <div class="chain-wrap" id="chain-refused" role="region" aria-labelledby="pull-refused">
+              <div class="chain">
               <ol>
-                <li class="link">
+                <li class="link" style="--i:0">
                   <p class="label">1 · The test that asserts it</p>
                   <pre>test("one-drink escalation is REFUSED at the entry floor", () => {
   const r = gate({ kind: EDGE.ESCALATION, from: "drink",
@@ -240,7 +259,7 @@
 });</pre>
                   <span class="plate">test/gate.test.js · lines 6–11 · 5/5 passing · 2026-06-29</span>
                 </li>
-                <li class="link">
+                <li class="link" style="--i:1">
                   <p class="label">2 · The code that decides it</p>
                   <pre>// GUARD 1 — entry floor. Too little data to even reason
 // about. (one-drink dies here)
@@ -251,7 +270,7 @@ if (n < entryFloor) {
 }</pre>
                   <span class="plate">src/gate.js · lines 32–39 · 2026-06-29</span>
                 </li>
-                <li class="link">
+                <li class="link" style="--i:2">
                   <p class="label">3 · The insight that justifies it</p>
                   <pre>prior_odds(link) = 0.10 / 0.90 = 0.111
 max BF (1 success) = 1.0 / 0.10 = 10
@@ -260,12 +279,13 @@ posterior_odds = 0.111 × 10 = 1.11 → p_edge_exists = 0.53
                   <p class="body" style="font-size:15px">"The edge is mathematically incapable of committing from one event."</p>
                   <span class="plate">Spec §3.3 · worked arithmetic, verbatim · 2026-06-27</span>
                 </li>
-                <li class="link">
+                <li class="link" style="--i:3">
                   <p class="label">4 · The raw record beneath</p>
                   <blockquote>"The canonical red line: one-time drinking must never link to alcoholism." — and red-team finding #20: an early draft claimed BF≈17 for this case, an impossible number (max is 10). Caught, corrected in place, preserved.</blockquote>
                   <span class="plate">Spec line 14 + §11 red-team ledger, finding #20 · 2026-06-27</span>
                 </li>
               </ol>
+              </div>
             </div>
           </li>
           <li>
@@ -337,8 +357,7 @@ posterior_odds = 0.111 × 10 = 1.11 → p_edge_exists = 0.53
     if(!btn || !chain) return;
     function setOpen(open){
       btn.setAttribute('aria-expanded', String(open));
-      if(open){ chain.removeAttribute('hidden'); }
-      else { chain.setAttribute('hidden',''); }
+      chain.classList.toggle('open', open);
       var verb = btn.querySelector('.pull-verb');
       if(verb){ verb.childNodes[0].nodeValue = open ? 'Close the chain ' : 'Pull the claim '; }
     }
