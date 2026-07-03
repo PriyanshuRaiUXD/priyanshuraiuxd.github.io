@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priyanshu Rai — UX Designer</title>
+<meta name="description" content="Priyanshu Rai — UX designer crafting user-centric products from concept to launch. Selected work: Nexus PM, WellNexus, Shoppio, StudiGo Research, Invisible UX & AI Trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0C14'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23A78BFA'/%3E%3Ccircle cx='25' cy='7' r='1.5' fill='%23E2E8F0'/%3E%3Ccircle cx='7' cy='24' r='1' fill='%23E2E8F0'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --space:#0B0C14; --space-2:#12141F; --star:#E7E9F4; --mute:#9AA0B5;
+    --violet:#A78BFA; --violet-deep:#7C5CFA; --glass:rgba(231,233,244,.06);
+    --edge:rgba(231,233,244,.10); --edge-hot:rgba(167,139,250,.45);
+    --sans:"Schibsted Grotesk",system-ui,sans-serif; --mono:"Spline Sans Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{background:var(--space);color:var(--star);font-family:var(--sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  h1,h2,h3{text-wrap:balance;letter-spacing:-.02em}
+  p{text-wrap:pretty}
+  a{color:var(--star);text-decoration:none}
+  ::selection{background:var(--violet);color:var(--space)}
+  :focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:2px}
+  img{display:block;max-width:100%}
+
+  #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .aurora{position:absolute;pointer-events:none;filter:blur(80px);opacity:.5;border-radius:50%}
+
+  .label{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+  .label.violet{color:var(--violet)}
+  .grad-text{background:linear-gradient(180deg,#FFFFFF 0%,#C9CEE4 55%,#8E93AD 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  main,nav,section,footer{position:relative;z-index:1}
+
+  nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:1rem clamp(20px,4vw,48px);transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+  nav.scrolled{background:rgba(11,12,20,.75);backdrop-filter:blur(14px);border-bottom-color:var(--edge)}
+  nav .wordmark{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+  nav .wordmark b{color:var(--violet);font-weight:500}
+  nav ul{display:flex;gap:1.8rem;list-style:none;align-items:center}
+  nav ul a{font-size:13.5px;color:var(--mute);padding:.5rem 0;transition:color .15s}
+  nav ul a:hover{color:var(--star)}
+  nav .cta{color:var(--star);border:1px solid var(--edge);padding:.5rem 1rem;border-radius:99px;transition:border-color .2s,box-shadow .2s}
+  nav .cta:hover{border-color:var(--edge-hot);box-shadow:0 0 24px rgba(124,92,250,.35)}
+  @media(max-width:700px){nav ul li{display:none}nav ul li:last-child{display:block}}
+
+  /* hero */
+  .hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:16vh clamp(20px,4vw,48px) 10vh;position:relative}
+  .beam{position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:34vh;background:linear-gradient(to bottom,transparent,var(--violet));opacity:.9}
+  .beam::after{content:"";position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--violet);box-shadow:0 0 24px 6px rgba(167,139,250,.8)}
+  .hero-inner{max-width:880px}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--edge);border-radius:99px;padding:.45rem 1rem;margin-bottom:1.8rem;background:var(--glass)}
+  .hero .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#6EE7A0;box-shadow:0 0 10px #6EE7A0}
+  .hero .eyebrow span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+  .hero h1{font-size:clamp(44px,8.5vw,104px);font-weight:800;line-height:1.02;margin-bottom:1.4rem}
+  .hero .sub{max-width:36em;margin:0 auto 2.4rem;color:var(--mute);font-size:clamp(16px,2vw,19px)}
+  .btn-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .btn{position:relative;display:inline-block;padding:.85rem 1.7rem;border-radius:99px;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .2s ease}
+  .btn.primary{background:linear-gradient(180deg,#8B6CFA,#6D4AE8);box-shadow:0 0 0 1px rgba(167,139,250,.5),0 8px 40px rgba(124,92,250,.45);overflow:hidden}
+  .btn.primary:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(167,139,250,.8),0 10px 48px rgba(124,92,250,.65)}
+  .btn.primary .shimmer{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%)}
+  .btn.ghost{border:1px solid var(--edge);color:var(--mute)}
+  .btn.ghost:hover{color:var(--star);border-color:var(--edge-hot)}
+
+  .section{padding:14vh clamp(20px,4vw,48px);max-width:1160px;margin:0 auto}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 8vh}
+  .sec-head .label{display:block;margin-bottom:1rem}
+  .sec-head h2{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.05}
+  .sec-head p{color:var(--mute);margin-top:1rem}
+
+  /* work */
+  .grid{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{position:relative;border:1px solid var(--edge);border-radius:16px;background:linear-gradient(180deg,var(--glass),rgba(231,233,244,.02));padding:1.6rem;transition:border-color .25s,transform .25s,box-shadow .25s;overflow:hidden}
+  .card:hover{border-color:var(--edge-hot);transform:translateY(-4px);box-shadow:0 20px 60px rgba(124,92,250,.18)}
+  .card .glowline{position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent)}
+  .card.feature{grid-column:1/-1}
+  @media(min-width:900px){.card.feature{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;align-items:center}}
+  .card .thumb{border-radius:10px;overflow:hidden;border:1px solid var(--edge);margin-bottom:1.2rem;background:#171927}
+  .card.feature .thumb{margin:0}
+  .card .thumb img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+  .card .thumb.paper{background:#EDE8DD;display:grid;place-items:center;padding:1rem}
+  .card .thumb.paper img{object-fit:contain;aspect-ratio:16/10}
+  .card .num{font-family:var(--mono);font-size:11px;color:var(--violet);letter-spacing:.1em;margin-bottom:.8rem;display:block;text-transform:uppercase}
+  .card h3{font-size:clamp(22px,2.6vw,30px);font-weight:700;margin-bottom:.6rem}
+  .card p{color:var(--mute);font-size:15px;margin-bottom:1rem}
+  .card .tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.4rem}
+  .card .tags span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);border:1px solid var(--edge);border-radius:99px;padding:.22rem .6rem}
+  .card .link{font-size:13.5px;font-weight:600;color:var(--violet)}
+  .card .link:hover{color:#C4B0FF}
+
+  /* process */
+  .steps{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));counter-reset:step}
+  .steps .card{padding:1.4rem}
+  .steps h3{font-size:17px;margin-bottom:.5rem}
+  .steps p{font-size:13.5px;margin-bottom:0}
+
+  /* about */
+  .about-wrap{display:grid;gap:2.5rem;align-items:center}
+  @media(min-width:880px){.about-wrap{grid-template-columns:2fr 3fr;gap:4rem}}
+  .portrait{border-radius:18px;overflow:hidden;border:1px solid var(--edge);position:relative}
+  .portrait img{width:100%;aspect-ratio:3/4;object-fit:cover}
+  .portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,12,20,.5),transparent 50%)}
+  .about-body h2{font-size:clamp(30px,4.5vw,48px);font-weight:800;margin-bottom:1.2rem}
+  .about-body p{color:var(--mute);margin-bottom:1rem;max-width:36em}
+  .about-body .roles{margin-top:1.6rem;font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--star);line-height:2.2}
+
+  /* contact */
+  .contact{text-align:center;position:relative;padding:18vh clamp(20px,4vw,48px) 12vh}
+  .contact h2{font-size:clamp(36px,7vw,84px);font-weight:800;line-height:1.02;margin-bottom:1.2rem}
+  .contact p{color:var(--mute);max-width:34em;margin:0 auto 2.4rem}
+  .meta{margin-top:5rem;display:flex;justify-content:center;flex-wrap:wrap;gap:1rem 2.2rem}
+  .meta a,.meta span{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);padding:.5rem 0}
+  .meta a:hover{color:var(--star)}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    #stars{display:none}
+    .btn.primary .shimmer{display:none}
+  }
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<nav id="nav" aria-label="Main">
+  <a class="wordmark" href="#top">Priyanshu Rai <b>/ UX</b></a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a class="cta" href="mailto:hello@priyanshuux.com">Get in touch</a></li>
+  </ul>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <div class="beam" aria-hidden="true"></div>
+    <div class="aurora" style="top:-10%;left:50%;transform:translateX(-50%);width:70vw;height:46vh;background:radial-gradient(closest-side,rgba(124,92,250,.5),transparent)"></div>
+    <div class="hero-inner">
+      <div class="eyebrow reveal"><span class="dot"></span><span>Open to opportunities — Germany &amp; India</span></div>
+      <h1 class="grad-text reveal">Designing products<br>people launch with.</h1>
+      <p class="sub reveal">I'm Priyanshu Rai — a UX designer crafting user-centric products from concept to launch, turning complex problems into warm, human moments.</p>
+      <div class="btn-row reveal">
+        <a class="btn primary" href="#work">View selected work<span class="shimmer"></span></a>
+        <a class="btn ghost" href="https://drive.google.com/file/d/1lrx5RU-GefX0RiRiRhkf1H0qt3trruUa/view?usp=sharing">Résumé ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="work">
+    <div class="aurora" style="top:6%;right:-20%;width:44vw;height:44vw;background:radial-gradient(closest-side,rgba(124,92,250,.28),transparent)"></div>
+    <div class="sec-head">
+      <span class="label violet reveal">Selected work — 2023–2026</span>
+      <h2 class="grad-text reveal">Five problems, untangled.</h2>
+    </div>
+    <div class="grid">
+      <article class="card feature reveal">
+        <div class="glowline"></div>
+        <div class="thumb"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/priyanshuraiuxd.github.io/main/dashbaord%20li.png" alt="Nexus PM dashboard design" loading="lazy"></div>
+        <div>
+          <span class="num">01 · AI / SaaS</span>
+          <h3>Nexus PM</h3>
+          <p>An AI-powered project management command center designed to predict risks, optimize team capacity, and provide a clear, unified view of project health.</p>
+          <div class="tags"><span>AI/ML</span><span>SaaS</span><span>Dashboard</span><span>Product design</span></div>
+          <a class="link" href="https://www.priyanshuux.com/Nexus_PM/">Live prototype →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="glowline"></div>
+        <div class="thumb paper"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/Untitled%20design%20(1).png" alt="WellNexus healthcare app mockups" loading="lazy"></div>
+        <span class="num">02 · Healthcare</span>
+        <h3>WellNexus</h3>
+        <p>A human-centered healthcare platform unifying appointments, records, and prescriptions into one intuitive, secure hub.</p>
+        <div class="tags"><span>Healthcare</span><span>Mobile</span><span>UX/UI</span></div>
+        <a class="link" href="https://embed.figma.com/proto/uiGEz3DPUlyoIYhZjYWH0x/WellNexus?page-id=0%3A1&node-id=1-4431&viewport=234%2C410%2C0.05&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A4470&embed-host=share">Interactive prototype →</a>
+      </article>
+
+      <article class="card reveal">
+        <div class="glowline"></div>
+        <div class="thumb paper"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/exported-frames_page-0001-removebg-preview.png" alt="Shoppio furniture e-commerce app screens" loading="lazy"></div>
+        <span class="num">03 · E-commerce</span>
+        <h3>Shoppio</h3>
+        <p>A curated furniture e-commerce app replacing endless catalogs with confident, streamlined discovery of stylish, affordable pieces.</p>
+        <div class="tags"><span>E-commerce</span><span>Mobile</span><span>UI design</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="glowline"></div>
+        <span class="num">04 · Research / HCI</span>
+        <h3>StudiGo Research</h3>
+        <p>An HCI research sprint into the friction international students face with German digital bureaucracy — n=50 survey, n=5 interviews, translated into evidence-based design principles.</p>
+        <div class="tags"><span>Research</span><span>HCI</span><span>Public services</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="glowline"></div>
+        <span class="num">05 · Research / AI ethics</span>
+        <h3>Invisible UX &amp; AI Trust</h3>
+        <p>A research blueprint on building user trust for AI-driven personal assistants through transparent, ethical, multimodal design.</p>
+        <div class="tags"><span>UX research</span><span>AI ethics</span><span>Ambient computing</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="aurora" style="left:-18%;top:20%;width:40vw;height:40vw;background:radial-gradient(closest-side,rgba(124,92,250,.22),transparent)"></div>
+    <div class="sec-head">
+      <span class="label violet reveal">My flow</span>
+      <h2 class="grad-text reveal">A loop, not a line.</h2>
+    </div>
+    <div class="steps">
+      <div class="card reveal"><div class="glowline"></div><span class="num">01</span><h3>Empathize &amp; define</h3><p>User interviews and research in Miro; AI synthesis surfaces pain points and problem statements.</p></div>
+      <div class="card reveal"><div class="glowline"></div><span class="num">02</span><h3>Ideate</h3><p>Workshops and Figma sketches, with AI collaborators challenging assumptions.</p></div>
+      <div class="card reveal"><div class="glowline"></div><span class="num">03</span><h3>Prototype</h3><p>High-fidelity interactive prototypes with crafted micro-interactions.</p></div>
+      <div class="card reveal"><div class="glowline"></div><span class="num">04</span><h3>Test</h3><p>Usability testing with Maze; AI-assisted transcript analysis for faster insight.</p></div>
+      <div class="card reveal"><div class="glowline"></div><span class="num">05</span><h3>Iterate</h3><p>Insights in Notion drive refinement in Figma — the loop never closes.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="about-wrap">
+      <div class="portrait reveal"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/IMG20240511182803.jpg" alt="Portrait of Priyanshu Rai" loading="lazy"></div>
+      <div class="about-body">
+        <span class="label violet reveal">A story of two worlds</span>
+        <h2 class="grad-text reveal">From Maharashtra to Siegen.</h2>
+        <p class="reveal">Hey there, I'm Priyanshu — a curious mind on a mission to transform tech from frustrating to freeing, from cold interfaces to warm, human moments.</p>
+        <p class="reveal">MSc Human-Computer Interaction at Universität Siegen. Previously: UX at Carl Zeiss AG, Ozibook, and freelance — bridging perspectives between India and Germany in everything I design.</p>
+        <p class="roles reveal">Seeking — UX Designer · UX Researcher · Interaction Designer</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="aurora" style="bottom:-6%;left:50%;transform:translateX(-50%);width:64vw;height:40vh;background:radial-gradient(closest-side,rgba(124,92,250,.4),transparent)"></div>
+    <span class="label violet reveal">Got a complex idea?</span>
+    <h2 class="grad-text reveal">Let's build it, beautifully.</h2>
+    <p class="reveal">If you're looking for a designer who is excited by a good challenge and driven to create meaningful work, we should connect.</p>
+    <div class="btn-row reveal">
+      <a class="btn primary" href="mailto:hello@priyanshuux.com">hello@priyanshuux.com<span class="shimmer"></span></a>
+    </div>
+    <div class="meta reveal">
+      <a href="https://www.linkedin.com/in/priyanshu-rai-4531001a0/">LinkedIn</a>
+      <a href="https://www.behance.net/priyanshu_rai">Behance</a>
+      <a href="https://github.com/PriyanshuRaiUXD">GitHub</a>
+      <span>Siegen · 2026</span>
+    </div>
+  </footer>
+</main>
+
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Starfield: lightweight canvas, twinkle + slow drift, scroll parallax.
+  const cv = document.getElementById('stars');
+  if (!reduced && cv) {
+    const ctx = cv.getContext('2d');
+    let W, H, stars = [];
+    const make = () => {
+      W = cv.width = innerWidth * devicePixelRatio;
+      H = cv.height = innerHeight * devicePixelRatio;
+      cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+      const n = Math.min(220, Math.floor(innerWidth / 7));
+      stars = Array.from({length: n}, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        r: (Math.random() * 1.1 + .3) * devicePixelRatio,
+        tw: Math.random() * Math.PI * 2, ts: .004 + Math.random() * .012,
+        depth: .25 + Math.random() * .75
+      }));
+    };
+    make(); addEventListener('resize', make);
+    let scroll = 0;
+    addEventListener('scroll', () => scroll = scrollY, { passive: true });
+    (function draw(){
+      ctx.clearRect(0, 0, W, H);
+      for (const s of stars) {
+        s.tw += s.ts;
+        const a = .25 + Math.abs(Math.sin(s.tw)) * .65;
+        const y = (s.y - scroll * s.depth * devicePixelRatio * .12 % H + H) % H;
+        ctx.globalAlpha = a * s.depth;
+        ctx.fillStyle = '#E7E9F4';
+        ctx.beginPath(); ctx.arc(s.x, y, s.r, 0, 7); ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    })();
+  }
+
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), { passive: true });
+
+  // Entrance reveals — content visible by default if IO unsupported.
+  if (reduced || !('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  // Button shimmer sweep every few seconds.
+  if (!reduced) setInterval(() => {
+    document.querySelectorAll('.btn.primary .shimmer').forEach(sh => {
+      sh.animate([{transform:'translateX(-120%)'},{transform:'translateX(120%)'}], {duration: 900, easing: 'ease-in-out'});
+    });
+  }, 4200);
+</script>
+</body>
+</html>
