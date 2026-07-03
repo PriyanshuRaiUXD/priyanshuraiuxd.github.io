@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priyanshu Rai — Case file № 01: Habit Orchestrator</title>
+<meta name="description" content="A deposition, not a portfolio: every claim can be pulled to its evidence. Case file № 01 — Habit Orchestrator, a linking engine that refuses to lie about your habits.">
+<meta property="og:title" content="Priyanshu Rai — The Deposition">
+<meta property="og:description" content="A portfolio you can cross-examine. Pull any claim; it produces its receipts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F3EC'/%3E%3Crect x='7' y='8' width='18' height='2' fill='%23191713'/%3E%3Crect x='7' y='14' width='18' height='2' fill='%23191713'/%3E%3Crect x='7' y='20' width='11' height='2' fill='%23B3331D'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#F6F3EC; --paper-deep:#EDE8DD; --ink:#191713; --ink-mute:#615A4D;
+    --hairline:#D8D1C2; --thread:#B3331D;
+    --serif:"Besley",Georgia,serif; --mono:"Spline Sans Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{text-wrap:balance}
+  p{text-wrap:pretty}
+  ::selection{background:var(--thread);color:var(--paper)}
+  a{color:var(--ink);text-decoration-color:var(--thread);text-decoration-thickness:1px;text-underline-offset:3px}
+  a:hover{color:var(--thread)}
+  :focus-visible{outline:2px solid var(--thread);outline-offset:2px;border-radius:1px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:.6rem 1rem;font-family:var(--mono);font-size:12px;z-index:10}
+  .skip:focus{left:12px;top:12px}
+
+  .display{font-family:var(--serif);font-weight:800;font-size:clamp(52px,11vw,96px);line-height:.98;letter-spacing:-.01em}
+  .display-2{font-family:var(--serif);font-weight:800;font-size:clamp(38px,7.5vw,66px);line-height:1.02;letter-spacing:-.008em}
+  .claim{font-family:var(--serif);font-weight:550;font-size:clamp(25px,5.2vw,38px);line-height:1.2;letter-spacing:-.004em}
+  .plate,.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:400;color:var(--ink-mute)}
+  .label{font-weight:500}
+
+  .col{max-width:680px;margin:0 auto;padding:0 20px}
+
+  header.mast{padding:9vh 0 7vh;border-bottom:1px solid var(--hairline)}
+  .mast .label{margin-bottom:1.4rem}
+  .mast h1{margin-bottom:1.6rem}
+  .mast .lede{max-width:34em}
+  .mast .contactline{margin-top:2.2rem;display:flex;gap:.6rem 2rem;flex-wrap:wrap}
+  .contactline a{display:inline-block;padding-block:.65rem}
+
+  article.casefile{padding:8vh 0 4vh}
+  .casehead .label{margin-bottom:1.2rem}
+  .casehead h2{margin-bottom:1.2rem}
+  .casehead .lede{max-width:30em;margin-bottom:1.6rem}
+  .casehead .plate{display:block;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:.7rem 0;line-height:1.9}
+
+  ol.cards{list-style:none;counter-reset:card}
+  .card{padding:7vh 0;border-bottom:1px solid var(--hairline)}
+  .card .label{margin-bottom:1.1rem;color:var(--thread)}
+  .card h3{margin-bottom:1.1rem;max-width:22em}
+  .card .body{max-width:36em;color:var(--ink);margin-bottom:1rem}
+  .card .body+.body{margin-top:-0.2rem}
+
+  figure.exhibit{margin-top:1.8rem}
+  .exhibit blockquote,.exhibit pre{
+    background:var(--paper-deep);border:1px solid var(--hairline);
+    padding:1rem 1.1rem;font-size:14.5px;line-height:1.55;
+  }
+  .exhibit blockquote{font-family:var(--serif);font-style:italic}
+  .exhibit blockquote em{font-style:italic}
+  .exhibit pre{font-family:var(--mono);font-size:12.5px;overflow-x:auto;white-space:pre;tab-size:2}
+  @media (max-width:640px){
+    .exhibit pre,.chain pre{white-space:pre-wrap;word-break:break-word;font-size:11.5px}
+  }
+  .exhibit figcaption{margin-top:.55rem}
+
+  .ledger{list-style:none;margin-top:1.6rem}
+  .ledger>li{border-top:1px solid var(--hairline);padding:1.1rem 0}
+  .ledger>li:last-child{border-bottom:1px solid var(--hairline)}
+  .verdict{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--paper);background:var(--ink);padding:.18rem .5rem;white-space:nowrap}
+  .verdict.refused{background:var(--thread)}
+  .entry-line{display:flex;gap:.9rem;align-items:baseline;flex-wrap:wrap}
+  .entry-line p{flex:1 1 24ch}
+
+  .pull-btn{
+    display:flex;gap:.9rem;align-items:baseline;flex-wrap:wrap;width:100%;
+    background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;padding:0;
+  }
+  .pull-btn .pull-verb{color:var(--thread);white-space:nowrap;transition:transform .15s ease}
+  .pull-btn:hover .pull-verb{transform:translateY(2px)}
+  .pull-btn[aria-expanded="true"] .pull-verb .chev{display:inline-block;transform:rotate(180deg)}
+  .chev{display:inline-block;transition:transform .2s ease}
+  @media (prefers-reduced-motion:reduce){.chev,.pull-btn .pull-verb{transition:none}}
+
+  .chain{margin-top:1.4rem;border-left:2px solid var(--thread);padding-left:1.2rem}
+  .chain ol{list-style:none}
+  .chain .link{padding:1rem 0}
+  .chain .link+.link{border-top:1px dashed var(--hairline)}
+  .chain .label{margin-bottom:.6rem}
+  .chain .plate{margin-top:.5rem;display:block}
+  .chain blockquote,.chain pre{
+    background:var(--paper-deep);border:1px solid var(--hairline);
+    padding:.85rem 1rem;font-size:14px;line-height:1.55;
+  }
+  .chain pre{font-family:var(--mono);font-size:12px;overflow-x:auto;white-space:pre;tab-size:2}
+
+  footer.colophon{padding:7vh 0 10vh}
+  .colophon .label{margin-bottom:1rem}
+  .colophon ul{list-style:none;max-width:38em}
+  .colophon li{padding:.45rem 0;border-bottom:1px solid var(--hairline);font-size:15px}
+  .colophon .contactline{margin-top:2.4rem;display:flex;gap:2rem;flex-wrap:wrap}
+
+  em{font-style:normal;color:var(--thread)}
+  .caveat{color:var(--ink-mute);font-size:15px;max-width:38em;margin-top:1rem}
+
+  @media (min-width:1020px){
+    .col{max-width:940px}
+    .card{display:grid;grid-template-columns:180px minmax(0,680px);column-gap:44px}
+    .card>.label{grid-column:1;margin-top:.5rem}
+    .card>*:not(.label){grid-column:2}
+    .casehead,.mast-inner,.colophon-inner{max-width:680px}
+  }
+
+  @media print{
+    body{background:#fff;font-size:12pt}
+    .chain[hidden]{display:block!important}
+    .pull-verb,.skip{display:none!important}
+    .card{break-inside:avoid-page}
+    a{text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#case-01">Skip to the case file</a>
+
+<header class="mast">
+  <div class="col mast-inner">
+    <p class="label">The record of</p>
+    <h1 class="display">Priyanshu&nbsp;Rai</h1>
+    <p class="body lede">UX designer, Siegen. This site is a deposition, not a showcase — every claim on it can be pulled down to its source. What holds, holds; what doesn't, says so.</p>
+    <div class="contactline">
+      <a class="plate" href="#case-01">Case file № 01</a>
+      <a class="plate" href="mailto:anshurai5432@gmail.com">Email</a>
+      <a class="plate" href="https://github.com/PriyanshuRaiUXD" rel="me">GitHub</a>
+      <a class="plate" href="https://www.priyanshuux.com">Previous record</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<article class="casefile" id="case-01" aria-labelledby="case-01-title">
+  <div class="col">
+    <header class="casehead">
+      <p class="label">Case file № 01 · June 2026 · sole designer-engineer · milestone 1 of 5</p>
+      <h2 class="display-2" id="case-01-title">Habit Orchestrator</h2>
+      <p class="body lede">A linking engine that refuses to lie about your habits.</p>
+      <span class="plate">8 cards · 17 recorded decisions · 3 specifications, 205&nbsp;KB · 14 source files · 5 canonical tests, all passing</span>
+    </header>
+
+    <ol class="cards">
+
+      <li class="card">
+        <p class="label">01 · The problem</p>
+        <h3 class="claim">Habit trackers count streaks and stay silent about connections. The moment a system starts inferring connections, it usually starts lying.</h3>
+        <p class="body">A spurious link presented confidently is not a UX flaw — in this domain it is harm. The red line the whole system is designed against: one-time drinking must never be linked to alcoholism.</p>
+        <figure class="exhibit">
+          <blockquote>"High precision / anti-over-linking — never inflate a behavior someone merely <em>does</em> into a behavior that has <em>captured</em> them. The canonical red line: one-time drinking must never link to alcoholism."</blockquote>
+          <figcaption class="plate">Spec · habit-linking-engine-spec.md · line 14 · 89 KB · 2026-06-27</figcaption>
+        </figure>
+      </li>
+
+      <li class="card">
+        <p class="label">02 · The constraint envelope</p>
+        <h3 class="claim">Three constraints preceded any design: the system must be able to refuse to conclude; every link needs a mechanism, not just a correlation; the user owns the record.</h3>
+        <p class="body">Owning the record means consent before sensitive inference — a Stage-0 pre-pass, upstream of generation, not a checkbox at display time — and true erasure after: aspiration and sensitive-origin claims are hard-deleted cryptographically, because an indelible record of a person's gap between who they are and who they want to be is coercive.</p>
+        <figure class="exhibit">
+          <blockquote>Consent at display time was rejected: by then the edges already exist and are harder to retract. Inference about a person's sensitive life does not happen without prior permission.</blockquote>
+          <figcaption class="plate">Governance invariants · spec §0.5, §6.0, §6.3 + elicitation spec §9.4 · 2026-06-27/28</figcaption>
+        </figure>
+      </li>
+
+      <li class="card">
+        <p class="label">03 · The pivotal insight</p>
+        <h3 class="claim">"How often does B follow A?" and "does the A→B link exist at all?" are different questions. Conflating them was the engine's original sin — it now asks both, separately.</h3>
+        <p class="body">Existence is decided by model comparison — does a model with this edge explain the data better than one without it? — against a prior that is deliberately stiff for anything shaped like pathology and cheap for benign links. Coffee→focus commits in days. Anything resembling escalation faces a skeptic.</p>
+        <figure class="exhibit">
+          <blockquote>"Stiff priors for pathology, cheap priors for benign behavior is precisely how the engine is simultaneously high-recall and anti-over-linking."</blockquote>
+          <figcaption class="plate">Spec §3.3 · + src/stats.js bayesFactorLinked · 2026-06-27/29</figcaption>
+        </figure>
+      </li>
+
+      <li class="card">
+        <p class="label">04 · The pivotal decision</p>
+        <h3 class="claim">One gate, three independent tests, all mandatory: significance, effect size, maturity. The weighted-score alternative was rejected because it lets one loud signal buy its way past the other two.</h3>
+        <p class="body">A candidate edge is a defendant. Is the association beyond chance? Is it strong enough to be a real chain — with separate floors for triggers and reinforcements, because they measure different things? Is there enough data to be sure — confidence shrunk by n/(n+4)? Fail any one test: no commitment. The tiers are words, not scores: committed, hypothesis, abstain.</p>
+        <figure class="exhibit">
+          <pre>// A candidate edge is a *defendant*: it must survive THREE
+// independent tests before it is committed:
+//   1. SIGNIFICANCE — is the association beyond chance?
+//   2. EFFECT SIZE  — is the link actually strong enough?
+//   3. MATURITY     — is there enough data to be sure?
+// Routing — all three must pass to commit.</pre>
+          <figcaption class="plate">Code · src/gate.js lines 1–11, 60 · 2026-06-29</figcaption>
+        </figure>
+      </li>
+
+      <li class="card">
+        <p class="label">05 · The artifact</p>
+        <h3 class="claim">The seed data plants traps on purpose: a strong real chain, a significant-but-weak coincidence, a clean-but-young pattern, a single drink.</h3>
+        <p class="body">The demo runs them all through the gate. It commits the chain, abstains on the coincidence, holds the young pattern, and refuses the drink — each with its reasoning stated in a sentence, because a verdict without a reason is just a score.</p>
+        <figure class="exhibit">
+          <blockquote>wake→coffee→phone: committed. wake→meditate (16% follow-rate): abstained. skip-lunch→snack (5 of 7 days): held as hypothesis. one drink: refused.</blockquote>
+          <figcaption class="plate">Runnable · src/seed.js + demo.js + index.html demo page · node demo.js · 2026-06-29</figcaption>
+        </figure>
+      </li>
+
+      <li class="card">
+        <p class="label">06 · The outcome ledger</p>
+        <h3 class="claim">The guarantees hold under test. Reproducible with one command.</h3>
+        <p class="caveat">Register honestly: these are design guarantees verified by canonical tests — not shipped-product adoption metrics. M1's job was to prove the reasoning gate before any interface earns the right to exist.</p>
+
+        <ul class="ledger">
+          <li>
+            <button class="pull-btn" aria-expanded="false" aria-controls="chain-refused" id="pull-refused">
+              <span class="verdict refused">Refused</span>
+              <p class="body">One-drink escalation. Dies at the entry floor, held near the 0.02 base rate — and the spec proves even maximum possible one-event evidence could only reach 0.53, far below the 0.85 commit bar.</p>
+              <span class="pull-verb plate">Pull the claim <span class="chev">⌄</span></span>
+            </button>
+            <div class="chain" id="chain-refused" hidden role="region" aria-labelledby="pull-refused">
+              <ol>
+                <li class="link">
+                  <p class="label">1 · The test that asserts it</p>
+                  <pre>test("one-drink escalation is REFUSED at the entry floor", () => {
+  const r = gate({ kind: EDGE.ESCALATION, from: "drink",
+                   to: "dep", n: 1, k: 1, q: 0.02, valenceTo: "bad" });
+  assert.equal(r.tier, TIER.ABSTAIN);
+  assert.match(r.reason, /entry floor/);
+  assert.ok(r.pExist <= 0.05, "stays near the tiny base rate");
+});</pre>
+                  <span class="plate">test/gate.test.js · lines 6–11 · 5/5 passing · 2026-06-29</span>
+                </li>
+                <li class="link">
+                  <p class="label">2 · The code that decides it</p>
+                  <pre>// GUARD 1 — entry floor. Too little data to even reason
+// about. (one-drink dies here)
+if (n < entryFloor) {
+  return { ...base, tier: TIER.ABSTAIN,
+    reason: `support n=${n} < entry floor ${entryFloor}:
+    isolated/sparse evidence, held near base rate.` };
+}</pre>
+                  <span class="plate">src/gate.js · lines 32–39 · 2026-06-29</span>
+                </li>
+                <li class="link">
+                  <p class="label">3 · The insight that justifies it</p>
+                  <pre>prior_odds(link) = 0.10 / 0.90 = 0.111
+max BF (1 success) = 1.0 / 0.10 = 10
+posterior_odds = 0.111 × 10 = 1.11 → p_edge_exists = 0.53
+0.53 ≪ 0.85 commit threshold.</pre>
+                  <p class="body" style="font-size:15px">"The edge is mathematically incapable of committing from one event."</p>
+                  <span class="plate">Spec §3.3 · worked arithmetic, verbatim · 2026-06-27</span>
+                </li>
+                <li class="link">
+                  <p class="label">4 · The raw record beneath</p>
+                  <blockquote>"The canonical red line: one-time drinking must never link to alcoholism." — and red-team finding #20: an early draft claimed BF≈17 for this case, an impossible number (max is 10). Caught, corrected in place, preserved.</blockquote>
+                  <span class="plate">Spec line 14 + §11 red-team ledger, finding #20 · 2026-06-27</span>
+                </li>
+              </ol>
+            </div>
+          </li>
+          <li>
+            <div class="entry-line">
+              <span class="verdict">Committed</span>
+              <p class="body">A 29-of-30 chain commits at confidence ≥ 0.85 — strong, frequent, mature.</p>
+            </div>
+          </li>
+          <li>
+            <div class="entry-line">
+              <span class="verdict">Abstained</span>
+              <p class="body">A statistically significant 16% follow-rate is refused as a chain: "too weak to be a real link." Significance without effect is not a connection.</p>
+            </div>
+          </li>
+          <li>
+            <div class="entry-line">
+              <span class="verdict">Hypothesis</span>
+              <p class="body">A clean 5-of-7-day pattern is held, not committed — maturity shrinkage keeps seven days of data honest, and the verdict states exactly which test it still needs.</p>
+            </div>
+          </li>
+        </ul>
+      </li>
+
+      <li class="card">
+        <p class="label">07 · What I got wrong</p>
+        <h3 class="claim">My first ledger conflated the two probabilities my own insight said to separate. Case e_0427 exposed it: reported 0.82; the stated update actually gives ≈0.58.</h3>
+        <p class="body">The 0.82 was the existence posterior wearing the conditional-rate posterior's name. The fix: two fields under true names — p_edge_exists and p_b_given_a — never interchanged, and every worked example regenerated with the arithmetic shown. The erratum is preserved in place, beside a second one, because a spec that hides its errors can't be trusted about anything else.</p>
+        <figure class="exhibit">
+          <blockquote>"Bug fixed (ledger e_0427). The old ledger reported posterior_mean 0.82 while the stated Beta update on (s=23, f=0) gives ≈0.58… The ledger now carries both fields under their true names."</blockquote>
+          <figcaption class="plate">Spec §3.1 erratum · line 195 · preserved in place · 2026-06-27</figcaption>
+        </figure>
+      </li>
+
+      <li class="card">
+        <p class="label">08 · The residue</p>
+        <h3 class="claim">M1 proves the gate. It does not yet condition on confounders, test causal direction, or notice when what you say contradicts what you log.</h3>
+        <p class="body">Those are specified, unbuilt, and listed — four milestones remain. A system that cannot say "not yet" shouldn't be trusted to say "no."</p>
+        <figure class="exhibit">
+          <blockquote>What this is NOT yet: latent-factor discovery, the confounder battery (G4), the causal-direction gate (G5), the contradiction detector, the item bank, the visualization.</blockquote>
+          <figcaption class="plate">habit-engine/README.md "What this is NOT yet" + spec roadmap §9 · 2026-06-29</figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+</article>
+</main>
+
+<footer class="colophon">
+  <div class="col colophon-inner">
+    <p class="label">Cut from this version, deliberately</p>
+    <ul>
+      <li class="body">The Deep Section — spatial cross-section navigation. Enters only over this working document.</li>
+      <li class="body">Case files № 02–03 — StudiGo research and career-ops. Held until their raw evidence clears the same bar as № 01.</li>
+      <li class="body">Sound, dark mode, self-hosted font subsets — each enters the budget or replaces something.</li>
+    </ul>
+    <div class="contactline">
+      <a class="plate" href="mailto:anshurai5432@gmail.com">anshurai5432@gmail.com</a>
+      <a class="plate" href="https://github.com/PriyanshuRaiUXD">github/PriyanshuRaiUXD</a>
+      <span class="plate">Siegen, Germany · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('pull-refused');
+    var chain = document.getElementById('chain-refused');
+    if(!btn || !chain) return;
+    function setOpen(open){
+      btn.setAttribute('aria-expanded', String(open));
+      if(open){ chain.removeAttribute('hidden'); }
+      else { chain.setAttribute('hidden',''); }
+      var verb = btn.querySelector('.pull-verb');
+      if(verb){ verb.childNodes[0].nodeValue = open ? 'Close the chain ' : 'Pull the claim '; }
+    }
+    btn.addEventListener('click', function(){
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true'){
+        setOpen(false); btn.focus();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
