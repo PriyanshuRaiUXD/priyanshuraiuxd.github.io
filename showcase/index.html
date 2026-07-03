@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priyanshu Rai — UX Designer</title>
+<meta name="description" content="Priyanshu Rai — UX designer crafting user-centric products from concept to launch. Selected work: Nexus PM, WellNexus, Shoppio, StudiGo Research, Invisible UX & AI Trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141210'/%3E%3Crect x='7' y='8' width='18' height='2' fill='%23F3EFE6'/%3E%3Crect x='7' y='14' width='18' height='2' fill='%23F3EFE6'/%3E%3Crect x='7' y='20' width='11' height='2' fill='%23D24E33'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --night:#141210; --night-2:#1C1915; --paper:#F3EFE6; --mute:#A29A87;
+    --thread:#D24E33; --hairline:#332E27;
+    --serif:"Besley",Georgia,serif; --mono:"Spline Sans Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--night);color:var(--paper);font-family:var(--serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{text-wrap:balance}
+  p{text-wrap:pretty}
+  a{color:var(--paper);text-decoration:none}
+  ::selection{background:var(--thread);color:var(--night)}
+  :focus-visible{outline:2px solid var(--thread);outline-offset:3px}
+  img,video{display:block;max-width:100%}
+
+  .label{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
+  .label.red{color:var(--thread)}
+  .display{font-weight:800;line-height:.96;letter-spacing:-.01em}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.1rem clamp(20px,4vw,48px);transition:background .3s ease,backdrop-filter .3s ease}
+  nav.scrolled{background:rgba(20,18,16,.82);backdrop-filter:blur(12px)}
+  nav .wordmark{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+  @media(max-width:700px){nav ul li{display:none}nav ul li:last-child{display:block}}
+  nav .wordmark b{color:var(--thread);font-weight:500}
+  nav ul{display:flex;gap:2rem;list-style:none}
+  nav ul a{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);padding:.6rem 0;transition:color .15s ease}
+  nav ul a:hover{color:var(--paper)}
+
+  /* ---------- media layers ---------- */
+  .media{position:absolute;inset:-12% 0;z-index:0;overflow:hidden;pointer-events:none}
+  .media video,.media .poster{width:100%;height:100%;object-fit:cover;will-change:transform}
+  .media .poster{background:
+    radial-gradient(120% 90% at 70% 10%, #2A211A 0%, transparent 60%),
+    radial-gradient(100% 80% at 20% 90%, #24160F 0%, transparent 55%),
+    var(--night)}
+  .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom, rgba(20,18,16,.55), rgba(20,18,16,.25) 40%, rgba(20,18,16,.78) 92%)}
+
+  /* ---------- hero ---------- */
+  header.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:0 clamp(20px,4vw,48px) clamp(48px,8vh,96px)}
+  .hero-inner{position:relative;z-index:2;max-width:1200px}
+  .hero .label{margin-bottom:1.2rem}
+  .hero h1{font-size:clamp(58px,11vw,152px)}
+  .hero h1 .line{display:block;overflow:hidden}
+  .hero h1 .line>span{display:block}
+  .hero .tag{margin-top:1.6rem;max-width:34em;font-size:clamp(17px,2.2vw,21px);color:var(--paper)}
+  .hero .scrollcue{position:absolute;right:clamp(20px,4vw,48px);bottom:clamp(48px,8vh,96px);z-index:2;display:none}
+  @media(min-width:1200px){.hero .scrollcue{display:block}}
+
+  /* ---------- statement ---------- */
+  section.statement{position:relative;min-height:88svh;display:grid;place-items:center;padding:18vh clamp(20px,4vw,48px)}
+  .statement blockquote{position:relative;z-index:2;max-width:22em;font-size:clamp(28px,4.6vw,54px);font-weight:550;line-height:1.18;text-align:center}
+  .statement blockquote em{font-style:italic;color:var(--thread)}
+
+  /* ---------- work ---------- */
+  section.work{position:relative;padding:16vh clamp(20px,4vw,48px) 6vh;background:var(--night)}
+  .work-head{max-width:1200px;margin:0 auto 10vh}
+  .work-head h2{font-size:clamp(40px,7vw,88px)}
+  .project{max-width:1200px;margin:0 auto;padding:9vh 0;display:grid;gap:2.5rem;border-top:1px solid var(--hairline);align-items:center}
+  @media(min-width:900px){
+    .project{grid-template-columns:1fr 1fr;gap:5rem}
+    .project:nth-child(even) .p-media{order:2}
+  }
+  .p-media{position:relative;overflow:hidden;background:var(--night-2);aspect-ratio:4/3}
+  .p-media img{width:100%;height:110%;object-fit:cover;object-position:top;will-change:transform}
+  .p-media.on-paper{background:#EDE8DD;display:grid;place-items:center;padding:1.5rem}
+  .p-media.on-paper img{height:auto;max-height:100%;object-fit:contain}
+  .p-media.typographic{display:grid;place-items:center;aspect-ratio:4/3}
+  .p-media.typographic span{font-family:var(--mono);font-size:clamp(60px,8vw,110px);font-weight:500;color:var(--accent,var(--thread));opacity:.9}
+  .p-body .label{margin-bottom:1rem}
+  .p-body h3{font-size:clamp(30px,4.5vw,52px);font-weight:800;line-height:1.02;margin-bottom:1rem}
+  .p-body p{color:var(--mute);max-width:32em;margin-bottom:1.4rem}
+  .p-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+  .p-tags span{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);border:1px solid var(--hairline);padding:.3rem .6rem}
+  .p-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--thread);display:inline-block;padding:.5rem 0;border-bottom:1px solid var(--thread);transition:color .15s ease,border-color .15s ease}
+  .p-link:hover{color:var(--paper);border-color:var(--paper)}
+
+  /* ---------- process ---------- */
+  section.process{position:relative;background:var(--night-2);padding:14vh 0}
+  .process-head{padding:0 clamp(20px,4vw,48px);max-width:1200px;margin:0 auto 6vh}
+  .process-head h2{font-size:clamp(36px,6vw,72px)}
+  .track-wrap{overflow:hidden}
+  .track{display:flex;gap:2rem;padding:0 clamp(20px,4vw,48px);will-change:transform}
+  .step{flex:0 0 min(78vw,460px);border:1px solid var(--hairline);padding:2.2rem;background:var(--night)}
+  .step .num{font-family:var(--mono);font-size:13px;color:var(--thread);margin-bottom:1.6rem;display:block}
+  .step h3{font-size:clamp(24px,3vw,32px);font-weight:800;margin-bottom:1rem}
+  .step p{color:var(--mute);font-size:15.5px;margin-bottom:1.4rem}
+  .step .tools{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);line-height:2}
+  @media(max-width:899px){.track{flex-direction:column;gap:1.2rem}.step{flex-basis:auto}}
+
+  /* ---------- about ---------- */
+  section.about{position:relative;padding:16vh clamp(20px,4vw,48px)}
+  .about-grid{max-width:1200px;margin:0 auto;display:grid;gap:3rem;align-items:center}
+  @media(min-width:900px){.about-grid{grid-template-columns:2fr 3fr;gap:6rem}}
+  .about .portrait{overflow:hidden;aspect-ratio:3/4;background:var(--night-2)}
+  .about .portrait img{width:100%;height:112%;object-fit:cover;will-change:transform}
+  .about h2{font-size:clamp(34px,5.5vw,64px);margin-bottom:1.4rem}
+  .about p{color:var(--mute);max-width:36em;margin-bottom:1.2rem}
+  .about .roles{margin-top:1.8rem;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);line-height:2.2}
+
+  /* ---------- contact ---------- */
+  footer.contact{position:relative;min-height:92svh;display:flex;align-items:center;padding:14vh clamp(20px,4vw,48px)}
+  .contact-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%}
+  .contact h2{font-size:clamp(40px,8vw,104px);max-width:9.5em;margin-bottom:2rem}
+  .contact .email{font-size:clamp(20px,3vw,32px);font-weight:550;color:var(--paper);border-bottom:2px solid var(--thread);transition:color .15s ease}
+  .contact .email:hover{color:var(--thread)}
+  .contact .meta{margin-top:4rem;display:flex;flex-wrap:wrap;gap:1rem 2.4rem}
+  .contact .meta a,.contact .meta span{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);padding:.5rem 0}
+  .contact .meta a:hover{color:var(--paper)}
+
+  .reveal{opacity:0;transform:translateY(28px)}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1!important;transform:none!important}
+    .hero h1 .line>span{transform:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav" aria-label="Main">
+  <a class="wordmark" href="#top">Priyanshu Rai <b>/ UX</b></a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="media" data-speed="0.85"><div class="poster"></div><video data-key="hero" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+  <div class="scrim"></div>
+  <div class="hero-inner">
+    <p class="label red">UX designer — Siegen, Germany</p>
+    <h1 class="display">
+      <span class="line"><span>Priyanshu</span></span>
+      <span class="line"><span>Rai</span></span>
+    </h1>
+    <p class="tag">Crafting user-centric products from concept to launch — turning complex problems into warm, human moments.</p>
+  </div>
+  <p class="scrollcue label" aria-hidden="true">Scroll ↓</p>
+</header>
+
+<section class="statement" aria-label="Statement">
+  <div class="media" data-speed="0.9"><div class="poster"></div><video data-key="statement" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+  <div class="scrim"></div>
+  <blockquote class="reveal">On a mission to transform tech from frustrating to <em>freeing</em> — from cold interfaces to warm, human moments.</blockquote>
+</section>
+
+<section class="work" id="work" aria-label="Selected work">
+  <div class="work-head">
+    <p class="label red reveal">Selected work — 2023–2026</p>
+    <h2 class="display reveal">Five problems,<br>untangled.</h2>
+  </div>
+
+  <article class="project">
+    <div class="p-media"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/priyanshuraiuxd.github.io/main/dashbaord%20li.png" alt="Nexus PM dashboard design" loading="lazy" data-parallax></div>
+    <div class="p-body">
+      <p class="label reveal">01 · AI / SaaS</p>
+      <h3 class="reveal">Nexus PM</h3>
+      <p class="reveal">An AI-powered project management command center designed to predict risks, optimize team capacity, and provide a clear, unified view of project health.</p>
+      <div class="p-tags reveal"><span>AI/ML</span><span>SaaS</span><span>Dashboard</span><span>Product design</span></div>
+      <a class="p-link reveal" href="https://www.priyanshuux.com/Nexus_PM/">Live prototype ↗</a>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="p-media on-paper"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/Untitled%20design%20(1).png" alt="WellNexus healthcare app mockups" loading="lazy"></div>
+    <div class="p-body">
+      <p class="label reveal">02 · Healthcare</p>
+      <h3 class="reveal">WellNexus</h3>
+      <p class="reveal">A human-centered healthcare platform that unifies appointments, records, and prescriptions into one intuitive, secure hub.</p>
+      <div class="p-tags reveal"><span>Healthcare</span><span>Mobile app</span><span>UX/UI</span></div>
+      <a class="p-link reveal" href="https://embed.figma.com/proto/uiGEz3DPUlyoIYhZjYWH0x/WellNexus?page-id=0%3A1&node-id=1-4431&viewport=234%2C410%2C0.05&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A4470&embed-host=share">Interactive prototype ↗</a>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="p-media on-paper"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD/main/exported-frames_page-0001-removebg-preview.png" alt="Shoppio furniture e-commerce app screens" loading="lazy"></div>
+    <div class="p-body">
+      <p class="label reveal">03 · E-commerce</p>
+      <h3 class="reveal">Shoppio</h3>
+      <p class="reveal">A curated furniture e-commerce app that replaces endless catalogs with confident, streamlined discovery of stylish, affordable pieces.</p>
+      <div class="p-tags reveal"><span>E-commerce</span><span>Mobile app</span><span>UI design</span></div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="p-media typographic" style="--accent:#B600A8"><span>n=50</span></div>
+    <div class="p-body">
+      <p class="label reveal">04 · Research / HCI</p>
+      <h3 class="reveal">StudiGo Research</h3>
+      <p class="reveal">An HCI research sprint investigating the friction international students face navigating German digital bureaucracy — translated into evidence-based design principles.</p>
+      <div class="p-tags reveal"><span>Research</span><span>HCI</span><span>Public services</span></div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="p-media typographic" style="--accent:#8A63FF"><span>trust</span></div>
+    <div class="p-body">
+      <p class="label reveal">05 · Research / AI ethics</p>
+      <h3 class="reveal">Invisible UX &amp; AI Trust</h3>
+      <p class="reveal">A comprehensive research blueprint on building user trust for AI-driven personal assistants through transparent, ethical, multimodal design.</p>
+      <div class="p-tags reveal"><span>UX research</span><span>AI ethics</span><span>Ambient computing</span></div>
+    </div>
+  </article>
+</section>
+
+<section class="process" id="process" aria-label="Design process">
+  <div class="process-head">
+    <p class="label red reveal">My flow</p>
+    <h2 class="display reveal">A loop, not a line.</h2>
+  </div>
+  <div class="track-wrap">
+    <div class="track" id="track">
+      <div class="step"><span class="num">01</span><h3>Empathize &amp; define</h3><p>Deep empathy first: user interviews and market research in Miro, with AI synthesis to surface pain points and define clear problem statements.</p><p class="tools">User interviews · Miro · Gemini synthesis</p></div>
+      <div class="step"><span class="num">02</span><h3>Ideate</h3><p>Brainstorming workshops and concept sketching in Figma, using AI collaborators to challenge assumptions and expand creative directions.</p><p class="tools">Workshops · Figma wireframing · Claude</p></div>
+      <div class="step"><span class="num">03</span><h3>Prototype</h3><p>Ideas become tangible: high-fidelity, interactive prototypes in Figma with micro-interactions, accelerated by AI-generated code snippets.</p><p class="tools">Hi-fi prototyping · Micro-interactions · ChatGPT</p></div>
+      <div class="step"><span class="num">04</span><h3>Test</h3><p>Real users, real feedback — usability testing with Maze, session recordings, and AI-assisted transcript analysis for faster insight.</p><p class="tools">Maze · Loom · AI transcript analysis</p></div>
+      <div class="step"><span class="num">05</span><h3>Iterate</h3><p>Insights documented in Notion drive refinement in Figma — the product constantly evolves to meet user needs.</p><p class="tools">Figma revisions · Notion · AI brainstorming</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about" aria-label="About">
+  <div class="about-grid">
+    <div class="portrait reveal"><img src="https://raw.githubusercontent.com/PriyanshuRaiUXD/PriyanshuUXD_Portfolio/main/IMG20240511182803.jpg" alt="Portrait of Priyanshu Rai" loading="lazy" data-parallax></div>
+    <div>
+      <p class="label red reveal">A story of two worlds</p>
+      <h2 class="display reveal">From Maharashtra to Siegen.</h2>
+      <p class="reveal">Hey there, I'm Priyanshu — a curious mind on a mission to transform tech from frustrating to freeing, from cold interfaces to warm, human moments.</p>
+      <p class="reveal">MSc Human-Computer Interaction at Universität Siegen. Previously: UX at Carl Zeiss AG, Ozibook, and freelance — bridging perspectives between India and Germany in everything I design.</p>
+      <p class="roles reveal">Seeking — UX Designer · UX Researcher · Interaction Designer<br>Open to opportunities in Germany and India</p>
+    </div>
+  </div>
+</section>
+
+<footer class="contact" id="contact">
+  <div class="media" data-speed="0.9"><div class="poster"></div><video data-key="contact" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+  <div class="scrim"></div>
+  <div class="contact-inner">
+    <p class="label red reveal">Got a complex idea?</p>
+    <h2 class="display reveal">Let's build it, beautifully.</h2>
+    <a class="email reveal" href="mailto:hello@priyanshuux.com">hello@priyanshuux.com</a>
+    <div class="meta reveal">
+      <a href="https://www.linkedin.com/in/priyanshu-rai-4531001a0/">LinkedIn</a>
+      <a href="https://www.behance.net/priyanshu_rai">Behance</a>
+      <a href="https://github.com/PriyanshuRaiUXD">GitHub</a>
+      <a href="https://drive.google.com/file/d/1lrx5RU-GefX0RiRiRhkf1H0qt3trruUa/view?usp=sharing">Résumé</a>
+      <span>Siegen · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  // Verified stock footage (free licence). Empty string = poster gradient only.
+  // hero: Pexels 6069113 (Engin Akyurt) — Pexels License, free commercial.
+  // statement: Mixkit 46768 — Mixkit Free License, free commercial.
+  // contact: Mixkit 3465 — Mixkit License, free commercial.
+  const VIDEOS = {
+    hero: "https://videos.pexels.com/video-files/6069113/6069113-hd_1920_1080_30fps.mp4",
+    statement: "https://assets.mixkit.co/videos/46768/46768-720.mp4",
+    contact: "https://assets.mixkit.co/videos/3465/3465-720.mp4"
+  };
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Wire videos: lazy-load below-fold, fall back to poster on error.
+  document.querySelectorAll('video[data-key]').forEach(v => {
+    const src = VIDEOS[v.dataset.key];
+    if (!src || reduced) { v.remove(); return; }
+    const load = () => { if (!v.src) { v.src = src; v.play().catch(()=>{}); } };
+    v.addEventListener('error', () => v.remove(), { once: true });
+    if (v.dataset.key === 'hero') load();
+    else new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { load(); o.disconnect(); } }), { rootMargin: '400px' }).observe(v);
+  });
+
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), { passive: true });
+
+  if (!reduced && window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero: lines rise once, video breathes.
+    gsap.from('.hero h1 .line > span', { yPercent: 110, duration: 1, ease: 'power4.out', stagger: .09, delay: .15 });
+    gsap.from('.hero .tag, .hero .label, .scrollcue', { opacity: 0, y: 18, duration: .8, ease: 'power2.out', stagger: .08, delay: .5 });
+    gsap.fromTo('.hero .media', { scale: 1.12 }, { scale: 1, duration: 1.6, ease: 'power2.out' });
+
+    // Parallax media layers (videos + posters).
+    document.querySelectorAll('.media').forEach(m => {
+      gsap.fromTo(m, { yPercent: -8 }, { yPercent: 8, ease: 'none',
+        scrollTrigger: { trigger: m.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+    // Parallax images inside masks.
+    document.querySelectorAll('[data-parallax]').forEach(img => {
+      gsap.fromTo(img, { yPercent: -8 }, { yPercent: 2, ease: 'none',
+        scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+    // Reveals.
+    document.querySelectorAll('.reveal').forEach(el => {
+      gsap.to(el, { opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+    // Horizontal process scrub (desktop).
+    if (matchMedia('(min-width: 900px)').matches) {
+      const track = document.getElementById('track');
+      const dist = () => track.scrollWidth - innerWidth;
+      gsap.to(track, { x: () => -dist(), ease: 'none',
+        scrollTrigger: { trigger: '.process', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
+    }
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+  }
+</script>
+</body>
+</html>
