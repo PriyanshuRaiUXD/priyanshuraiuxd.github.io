@@ -1,3 +1,11 @@
+# Everything here is meant to be found. The only thing worth keeping out of
+# an index is the prototype shell, which is a fragment of a case study and
+# makes no sense as a search result on its own.
+
 User-agent: *
 Allow: /
+Disallow: /ent-prototype.html
+Disallow: /ent-prototype-tabbed.html
+Disallow: /proto-early.html
+
 Sitemap: https://www.priyanshuux.com/sitemap.xml
