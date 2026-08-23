@@ -442,6 +442,40 @@
   .backout{display:inline-flex;align-items:center;gap:7px}
   .backout .ar{flex:none;transition:transform 130ms cubic-bezier(.22,1,.36,1)}
   .backout:hover .ar{transform:rotate(180deg) translateX(-2px)}
+
+  /* ══ THE WAY BACK ════════════════════════════════════════════════════════
+     Two things were wrong with this control.
+
+     The arrow was 216 x 34 instead of 15 x 10. There is a blanket
+     `svg { width:100%; height:100% }` further up this sheet — right for the
+     chart panes, which are the reason it exists, and catastrophic for a
+     15px icon that arrives later. An icon has to opt out of it explicitly.
+
+     And it sat in the rail with an inline position:static, so it scrolled
+     away with the controls. A viewer that fills the screen with no chrome
+     is a trap on a phone: no visible way out, and the page you came from is
+     a tab you have to hunt for.
+
+     Sticky rather than fixed. Fixed would float it over the panes and cover
+     the top-left corner of whatever is behind it; sticky keeps its own row
+     in the rail, so it is always reachable and never on top of anything. */
+  .rail > .backout,
+  .backout{
+    position:sticky; top:0; z-index:6;
+    margin:0 0 10px; align-self:stretch;
+    /* opaque, so the rail's controls do not show through it while stuck */
+    background:var(--panel);
+    border:1px solid var(--line);
+    backdrop-filter:none;
+  }
+  .backout svg,
+  .backout .ar{
+    /* opt out of the blanket svg sizing above */
+    width:15px; height:10px; flex:none;
+    transform:rotate(180deg);
+    transition:transform 130ms cubic-bezier(.22,1,.36,1);
+  }
+  .backout:hover .ar{ transform:rotate(180deg) translateX(-2px); }
 </style>
 <!-- The outline starts here. On screen the viewer names itself
      in the rail; a screen reader needs a real level-one heading,
@@ -453,7 +487,7 @@
 
   <!-- ============ CONTROLS ============ -->
   <aside class="rail">
-    <a class="backout" id="backout" href="../v3-react/dist/index.html" style="position:static;margin:0 0 4px"><svg class="ar" width="15" height="10" viewBox="0 0 18 12" fill="none" aria-hidden="true" style="transform:rotate(180deg)"><path d="M1.2 6h14.6M11.5 1.6 16.2 6l-4.7 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Back to the case study</a>
+    <a class="backout" id="backout" href="../v3-react/dist/index.html"><svg class="ar" width="15" height="10" viewBox="0 0 18 12" fill="none" aria-hidden="true" style="transform:rotate(180deg)"><path d="M1.2 6h14.6M11.5 1.6 16.2 6l-4.7 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Back to the case study</a>
     <div class="brand"><span class="dot"></span>
       <span class="bname"><b>ENT Record Viewer</b><em>MK IV</em></span></div>
     <div class="prov">
