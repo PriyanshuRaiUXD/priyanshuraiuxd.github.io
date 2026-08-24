@@ -476,6 +476,12 @@
     transition:transform 130ms cubic-bezier(.22,1,.36,1);
   }
   .backout:hover .ar{ transform:rotate(180deg) translateX(-2px); }
+
+/* Shown only while the sweep is stopped. A paused viewer looks identical to
+   a working one, so the thing that is now missing has to say so itself. */
+.stillnote{margin:8px 0 0;max-width:34ch;font:11.5px/1.5 ui-monospace,monospace;
+  color:#E8833A}
+.stillnote[hidden]{display:none}
 </style>
 <!-- The outline starts here. On screen the viewer names itself
      in the rail; a screen reader needs a real level-one heading,
@@ -528,7 +534,9 @@
       <div class="lbl">Stimulus frequency</div>
       <div class="val"><b id="fVal">1000 Hz</b><i id="fIdx">slice 160 / 320</i></div>
       <input type="range" id="freq" min="0" max="319" value="159">
-      <button class="play" id="sweep">▶  PLAY SWEEP</button>
+      <button class="play" id="sweep" aria-pressed="true">❚❚  PAUSE</button>
+      <p class="stillnote" id="stillnote" hidden>Stopped. A single frame cannot
+        tell air from fluid &mdash; that difference is in the movement.</p>
     </div>
 
     <div class="grp">
@@ -1350,12 +1358,43 @@ document.getElementById('earL').addEventListener('click',()=>{ear='L';
   earL.classList.add('on');earR.classList.remove('on');render();});
 document.getElementById('earR').addEventListener('click',()=>{ear='R';
   earR.classList.add('on');earL.classList.remove('on');render();});
-document.getElementById('sweep').addEventListener('click',function(){
-  playing=!playing; this.textContent = playing ? '❚❚  PAUSE' : '▶  PLAY SWEEP';
-  const step=()=>{ if(!playing)return; idx=(idx+2)%N;
-    document.getElementById('freq').value=idx; render(); raf=requestAnimationFrame(step); };
-  if(playing) step(); else cancelAnimationFrame(raf);
-});
+/* ---------------- THE SWEEP, RUNNING ----------------
+   This viewer used to open paused, behind a button reading PLAY SWEEP.
+   That is the exact failure the case study is about: the first rule of the
+   redesign is that motion plays by default, because evidence should not
+   need a click, and the prototype demonstrating that rule was asking for
+   the click. A still frame cannot separate an air-filled middle ear from
+   one with fluid behind the drum - both are a bright band over a dark
+   space. What separates them is that one of them MOVES under pressure and
+   the other barely does. Freeze it and the finding is not on screen.
+
+   So it runs on arrival. The button is still there, because a clinician
+   who wants to hold a frame must be able to, and pausing is a decision
+   the reader gets to make - but it is a decision to STOP, not a toll to
+   start. Reduced motion is the one case where it does not run: someone
+   who has asked the operating system not to animate things has already
+   answered this question, and overriding that to make a point about
+   defaults would be a worse failure than the one being fixed. */
+const sweepBtn = document.getElementById('sweep');
+const stillMsg = document.getElementById('stillnote');
+const stepSweep = () => {
+  if (!playing) return;
+  idx = (idx + 2) % N;
+  document.getElementById('freq').value = idx;
+  render();
+  raf = requestAnimationFrame(stepSweep);
+};
+function setSweep(on){
+  playing = on;
+  sweepBtn.textContent = on ? '❚❚  PAUSE' : '▶  PLAY SWEEP';
+  sweepBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  if (stillMsg) stillMsg.hidden = on;
+  if (on) stepSweep(); else cancelAnimationFrame(raf);
+}
+sweepBtn.addEventListener('click', () => setSweep(!playing));
+
+const stillPreferred = matchMedia('(prefers-reduced-motion: reduce)').matches;
+setSweep(!stillPreferred);
 /* ---------------- REAL IMAGERY ----------------
    Three ways to load a real scan:
    1. EDIT THESE PATHS  → baked in, survives export/screenshot
