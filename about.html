@@ -1,32 +1,67 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>About — Priyanshu Rai</title>
-<!-- This page moved when the site was rebuilt. The URL is kept because it
-     has been shared and linked to; leaving a stale copy of the old design
-     here would mean two versions of the same case study live at once, and
-     whoever followed the old link would read the wrong one.
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-     canonical tells a search engine which one counts. The meta refresh and
-     the script both move a person along; the link is there for anyone who
-     has scripts off and a browser that ignores the refresh. -->
-<link rel="canonical" href="https://www.priyanshuux.com/about">
-<meta name="robots" content="noindex, follow">
-<meta http-equiv="refresh" content="0; url=/about">
-<script>location.replace('/about' + location.hash);</script>
-<style>
-  body { margin:0; min-height:100vh; display:grid; place-items:center;
-         background:#F1F3F5; color:#20262C;
-         font:16px/1.6 ui-sans-serif, system-ui, -apple-system, sans-serif; }
-  main { max-width:34rem; padding:2rem; text-align:center; }
-  a { color:#8A2A0B; }
-</style>
-</head>
-<body>
-<main>
-  <p>This page has moved.</p>
-  <p><a href="/about">About</a></p>
-</main>
-</body>
+    <title>About — Priyanshu Rai</title>
+    <meta name="description" content="Pune to Siegen in 2023, what has been measured since, and what I still cannot do." />
+    <meta name="author" content="Priyanshu Rai" />
+    <meta name="theme-color" content="#F1F3F5" />
+
+    <!-- Content Security Policy.
+
+         This page injects authored SVG through dangerouslySetInnerHTML and
+         embeds a third-party prototype frame. Both are safe because of what
+         we put in them today; a CSP is what keeps them safe when someone
+         later changes what goes in.
+
+         style-src needs 'unsafe-inline' because the scenes write transform
+         and opacity to element.style every frame. script-src does not, and
+         that is the one that matters. -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data:;
+      font-src 'self';
+      frame-src 'self' https://embed.figma.com https://www.figma.com;
+      connect-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    " />
+    <!-- frame-ancestors is deliberately absent: it is ignored in a meta tag
+         and only warns. It belongs in a real response header, which is a
+         host setting rather than a build artefact. See DEPLOY.md. -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- the two faces above the fold, fetched before first paint so the
+         page does not flash a fallback and reflow -->
+    <link rel="preload" href="/fonts/instrument-sans-latin.woff2" as="font"
+          type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font"
+          type="font/woff2" crossorigin />
+
+    <!-- Shared links preview as a blank card without these, and this is a
+         site whose whole job is to be sent to someone. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="About — Priyanshu Rai" />
+    <meta property="og:description" content="Pune to Siegen in 2023, what has been measured since, and what I still cannot do." />
+    <meta property="og:image" content="/images/real-oct-otitis-media.png" />
+    <meta property="og:image:alt" content="An optical coherence tomography cross-section of a middle ear, the kind of scan the ENT viewer was built to read." />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About — Priyanshu Rai" />
+    <meta name="twitter:description" content="Pune to Siegen in 2023, what has been measured since, and what I still cannot do." />
+    <meta name="twitter:image" content="/images/real-oct-otitis-media.png" />
+    <script type="module" crossorigin src="/assets/index-B_2xfKv6.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-OclIRoeJ.css">
+    <link rel="canonical" href="https://www.priyanshuux.com/about">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
